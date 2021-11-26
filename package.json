@@ -1,10 +1,12 @@
 {
   "name": "js-amenities-express",
   "version": "1.0.0",
-  "description": "Project for learning ecmasccript6",
-  "main": "app.js",
+  "description": "project to learn js",
+  "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src/js"
+
   },
   "repository": {
     "type": "git",
@@ -12,8 +14,6 @@
   },
   "keywords": [
     "closure",
-    "js",
-    "prototype",
     "collections"
   ],
   "author": "Berta VR",
@@ -22,12 +22,10 @@
     "url": "https://github.com/BertaVR/js-amenities-express/issues"
   },
   "homepage": "https://github.com/BertaVR/js-amenities-express#readme",
+  "devDependencies": {
+    "eslint": "^8.3.0"
+  },
   "dependencies": {
     "express": "^4.17.1"
-  },
-  "devDependencies": {
-    "eslint": "^8.3.0",
-    "fix": "0.0.6",
-    "force": "0.0.3"
   }
 }
