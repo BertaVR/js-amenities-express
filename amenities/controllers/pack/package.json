@@ -1,0 +1,21 @@
+{
+  "name": "pack",
+  "version": "1.0.0",
+  "description": "packs module",
+  "main": "pack.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "arrays",
+    "prototype"
+  ],
+  "author": "Berta",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
+}
