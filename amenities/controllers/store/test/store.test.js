@@ -9,11 +9,21 @@ test("Box name should be Tienda de Berta", () => {
 
 test("Stock should be empty when creating a store", () => {
   let emptyStore = factory.singletonStore.getStore();
-  expect(emptyStore.inventory).toHaveLength(0);
+  //sets
+  expect(emptyStore.inventory.size).toEqual(0);
 });
 
 test("Factory returns always the same store: singleton", () => {
   let firstStore = factory.singletonStore.getStore();
   let secondStore = factory.singletonStore.getStore();
   expect(firstStore).toEqual(secondStore);
+});
+
+test("Sellable can be added to inventory only once", () => {
+  let store = factory.singletonStore.getStore();
+  store.add("test");
+  expect(store.inventory.size).toEqual(1);
+  store.add("test");
+  expect(store.inventory.size).toEqual(1);
+
 });
