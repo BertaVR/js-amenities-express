@@ -1,0 +1,30 @@
+{
+  "name": "store",
+  "version": "1.0.0",
+  "description": "STore with singleton pattern",
+  "main": "store.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BertaVR/js-amenities-express.git"
+  },
+  "keywords": [
+    "closure",
+    "singleton",
+    "prototypr"
+  ],
+  "author": "Berta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BertaVR/js-amenities-express/issues"
+  },
+  "homepage": "https://github.com/BertaVR/js-amenities-express#readme",
+  "devDependencies": {
+    "jest": "^27.3.1"
+  }
+}
