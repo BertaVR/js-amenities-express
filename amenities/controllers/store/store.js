@@ -16,6 +16,9 @@ var factory = (function singleStore() {
   };
 })();
 
+Store.prototype.getName = function () {
+  return this.name;
+};
 
 Store.prototype.getInventory = function () {
   return this.inventory;

@@ -17,6 +17,30 @@ var factory = (() => {
   };
 })();
 
+Pack.prototype.getStock = function () {
+  return this.stock
+}
+
+
+Pack.prototype.getItems = function () {
+  return this.items
+}
+
+
+
+Pack.prototype.getName = function () {
+  return this.name
+}
+
+Pack.prototype.getPrice = function () {
+  return this.price
+}
+
+
+Pack.prototype.isAvailable = function () {
+  return this.stock >= 1;
+};
+/*
 Pack.prototype.addPackToStore = function (store) {
   if (this.isAvailable()) {
     //usig this
@@ -32,12 +56,9 @@ Pack.prototype.addPackToBertaStore = function () {
   return myStore.singletonStore.getStore();
 };
 
-Pack.prototype.isAvailable = function () {
-  return this.stock >= 1;
-};
 
 Pack.prototype.isAddableToStore = function (store) {
   return (this.isAvailable & store.singletonstore.getStore().findByName())}
 
-
-module.exports.singletonPack = factory;
+*/
+module.exports.pack = factory;
