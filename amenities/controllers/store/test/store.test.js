@@ -34,12 +34,7 @@ test("Adding packs", () => {
   let newStore = factory.singletonStore.getStore();
 
   let packs = [
-    {
-      name: "Pack1",
-      stock: 7,
-      items: [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-      price: 50,
-    },
+pac,
     {
       name: "Pack2",
       stock: 70,

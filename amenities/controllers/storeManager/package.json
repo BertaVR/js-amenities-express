@@ -1,0 +1,17 @@
+{
+  "name": "storemanager",
+  "version": "1.0.0",
+  "description": "mediator class between pack and store",
+  "main": "storeManager.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^27.3.1"
+  }
+}

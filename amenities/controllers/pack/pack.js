@@ -1,4 +1,3 @@
-var myStore = require("../store/store");
 
 function Pack(name, items, stock, price) {
   this.name = name;
@@ -61,4 +60,4 @@ Pack.prototype.isAddableToStore = function (store) {
   return (this.isAvailable & store.singletonstore.getStore().findByName())}
 
 */
-module.exports.pack = factory;
+module.exports.makePack = factory;
