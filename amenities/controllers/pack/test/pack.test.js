@@ -1,6 +1,5 @@
-const { expect, beforeEach, describe, beforeAll } = require("@jest/globals");
+const { expect } = require("@jest/globals");
 const factory = require("../pack");
-const store = require("../../store/store");
 
 test("Pack properties if  no values given", () => {
   let pack = factory.pack.createPack();
@@ -8,7 +7,6 @@ test("Pack properties if  no values given", () => {
   expect(pack.getItems()).toHaveLength(0);
   expect(pack.getStock()).toBe(0);
   expect(pack.getPrice()).toBe(null);
-
 });
 
 test("Stock optional parameter works as expected", () => {
@@ -23,4 +21,3 @@ test("Is available returns true when theres is stock and false when there is not
   expect(empty.isAvailable()).toEqual(false);
   expect(hasStock.isAvailable()).toEqual(true);
 });
-
