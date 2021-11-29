@@ -19,39 +19,3 @@ test("Factory returns always the same store: singleton", () => {
   expect(firstStore).toEqual(secondStore);
 });
 
-/* test("Sellable can be added to inventory only once", () => {
-  let store = factory.singletonStore.getStore();
-  store.add("test");
-  expect(store.inventory.size).toEqual(1);
-  store.add("test");
-  expect(store.inventory.size).toEqual(1);
-
-});*/
- 
-
-/*
-test("Adding packs", () => {
-  let newStore = factory.singletonStore.getStore();
-
-  let packs = [
-pac,
-    {
-      name: "Pack2",
-      stock: 70,
-      items: [{ name: "item7" }, { name: "item2" }, { name: "item3" }],
-      price: 50,
-    },
-    {
-      name: "Pack1",
-      stock: 0,
-      items: [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-      price: 50,
-    },
-  ];
-
-  newStore.addPacks(packs);
-  con
-
-  expect(newStore.getInventory().size).toEqual(2);
-});
-*/
