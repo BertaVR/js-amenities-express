@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest",
-    "cov": "coverage storeManager.js"
+    "cov": "coverage ."
   },
   "author": "",
   "license": "ISC",

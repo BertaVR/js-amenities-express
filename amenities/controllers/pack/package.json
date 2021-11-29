@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "cov": "coverage ."
+
   },
   "keywords": [
     "arrays",
@@ -16,6 +18,7 @@
   "author": "Berta",
   "license": "ISC",
   "devDependencies": {
+    "coverage": "^0.4.1",
     "jest": "^27.3.1"
   }
 }
