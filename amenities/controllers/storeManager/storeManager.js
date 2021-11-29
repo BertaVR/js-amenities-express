@@ -16,24 +16,27 @@ StoreManager.prototype.addPack = function (pack) {
 };
 
 StoreManager.prototype.addPacks = function (packs) {
-  //packs to be array
-  for (let pack of packs) {
+  //packs should be an array
+  packs.forEach((pack) => {
     this.addPack(pack);
-  } //using for of because it's an array
+  });
 };
 
 StoreManager.prototype.isAddableToStore = function (pack) {
-  return pack.isAvailable() & (this.findByName(pack.getName()).length > 0);
+  return pack.isAvailable() & !this.isRepeated(pack);
+};
+
+StoreManager.prototype.isRepeated = function (pack) {
+  /*playing withjavascript polimorfism: 
+if length is 0 boolean will be false, if length is 1 it will be true*/
+  return this.findByName(pack.getName()).length;
 };
 
 StoreManager.prototype.findByName = function (searchWord) {
-  console.log(
-    Array.from(this.getStore().getInventory()).filter(
-      (name) => name === searchWord
-    )
-  );
+  //console.log(Array.from(this.getStore().getInventory()).filter(p => p.name === searchWord));
+
   return Array.from(this.getStore().getInventory()).filter(
-    (pack) => pack.name === searchWord
+    (p) => p.name === searchWord
   );
 };
 
@@ -53,3 +56,4 @@ var factory = (function singleStoreManager() {
 })();
 
 module.exports.StoreManager = factory;
+const packMaker = require("../pack");
