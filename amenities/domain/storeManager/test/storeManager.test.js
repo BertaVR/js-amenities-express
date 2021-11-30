@@ -35,7 +35,7 @@ describe("Testing just adding one pack", () => {
   });
 
   test("Add pack works", () => {
-    expect(inventory).toHaveLength(1);
+    expect(inventory.size).toEqual(1);
   });
 
   test("Clear inventory", () => {
@@ -119,7 +119,7 @@ describe("Testing using addPacks: packs with name repeated", () => {
 
   test("Add Packs should add all packs that are addable", () => {
     //     myStoreManager.addPacks(testPacksNameRepeated) -> in beforeEach
-    expect(myStore.getInventory()).toHaveLength(4);
+    expect(myStore.getInventory().size).toEqual(4);
   });
 
   const testPacksNameRepeated = [
