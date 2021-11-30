@@ -13,29 +13,36 @@ SalesManager.prototype.getStore = function () {
 
 SalesManager.prototype.filterByMaxPrice = function (maxPrice) {
   return Array.from(this.getStore().getInventory()).filter(
-    (p) => p.price <= maxPrice
+    (p) => p.precio <= maxPrice
   );
 };
 
 SalesManager.prototype.filterByMinPrice = function (minPrice) {
   return Array.from(this.getStore().getInventory()).filter(
-    (p) => p.price >= minPrice
+    (p) => p.precio >= minPrice
   );
 };
 
 SalesManager.prototype.filterByContainsItem = function (itemName) {
+  // Could be more elegant code with functional programmig, but I want to use
+  // a FOR LOOP and a FOREACH loop for evaluation criteria
+  let inventory = Array.from(this.getStore().getInventory()); 
+  let arrayFilteredResults = [];
 
-  /*return Array.from(this.getStore().getInventory()).filter((p) =>
-    p.items.filter((i) => i.name == itemName)
-  );*/
-let arrayOfPacks = Array.from(this.getStore().getInventory());
-const filterItemName = (name, item)=>{item}
-arrayOfPacks.filter(p => {
-  return p.items includes(p)
-}
+  inventory.forEach(function (pack) {
+    for (item of pack.items) {
+      //using for of as it's an array
+      if (item.name == itemName) {
+        arrayFilteredResults.push(pack);
+        break;
+        /*break statements are not elegant, but the purpose here is defensive:
+        * if two items of a package share the same name, package should be returned
+        * just once. */
+      }
+    }
+  });
 
-
-
+  return arrayFilteredResults;
 };
 
 SalesManager.prototype.filterByNumberOfItems = function (size) {

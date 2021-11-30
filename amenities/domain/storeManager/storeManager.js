@@ -27,7 +27,7 @@ StoreManager.prototype.isAddableToStore = function (pack) {
 };
 
 StoreManager.prototype.isRepeated = function (pack) {
-  /*playing withjavascript polimorfism: 
+  /*playing withjavascript POLIMORFISM: 
 if length is 0 boolean will be false, if length is 1 it will be true*/
   return this.findByName(pack.getNombre()).length;
 };
