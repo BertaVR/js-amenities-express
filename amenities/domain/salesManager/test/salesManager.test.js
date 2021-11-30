@@ -1,5 +1,6 @@
 const { expect, beforeAll, afterAll } = require("@jest/globals");
 const packMaker = require("../../pack");
+const Pack = packMaker.class;
 const storeMan = require("../../storeManager");
 const salesMan = require("../salesManager");
 const myStoreManager = storeMan.StoreManager.getManager();
@@ -40,19 +41,35 @@ test("Filter by min price", () => {
   );
 });
 
-
 test("Filter by contains item negative test", () => {
-    expect(mySalesManager.filterByContainsItem("Rana").length).toEqual(0);
-})
-
+  expect(mySalesManager.filterByContainsItem("Rana").length).toEqual(0);
+});
 
 test("Filter by contains item positive tests", () => {
-    expect(mySalesManager.filterByContainsItem("uno").length).toEqual(1);
-    expect(mySalesManager.filterByContainsItem("dos").length).toEqual(2);
-    expect(mySalesManager.filterByContainsItem("tres").length).toEqual(3);
+  expect(mySalesManager.filterByContainsItem("uno").length).toEqual(1);
+  expect(mySalesManager.filterByContainsItem("dos").length).toEqual(2);
+  expect(mySalesManager.filterByContainsItem("tres").length).toEqual(3);
+  expect(mySalesManager.filterByContainsItem("uno")[0]).toBeInstanceOf(Pack);
 
-})
 
+  // I want to make sure that filter returns packs in its array, not items:
+  expect(mySalesManager.filterByContainsItem("uno")).toEqual([
+    {
+      items: [{ name: "uno" }, { name: "item2" }, { name: "tres" }],
+      nombre: "Pack2",
+      precio: 70,
+      stock: 7,
+    },
+  ]);
+});
+
+test("Filter by number of items", () => {
+  expect(mySalesManager.filterByNumberOfItems(3).length).toEqual(8);
+  expect(mySalesManager.filterByNumberOfItems(2).length).toEqual(0);
+  expect(mySalesManager.filterByNumberOfItems(6).length).toEqual(1);
+  expect(mySalesManager.filterByNumberOfItems(4).length).toEqual(1);
+
+});
 const testPacks = [
   packMaker.makePack.createPack(
     7,
@@ -106,13 +123,13 @@ const testPacks = [
   packMaker.makePack.createPack(
     7,
     "Pack9",
-    [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
+    [{ name: "item1" }, { name: "item2" }, { name: "item3" }, {}, {}, {}],
     140
   ),
   packMaker.makePack.createPack(
     7,
     "Pack10",
-    [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
+    [{ name: "item1" }, { name: "item2" }, { name: "item3" }, {}],
     150
   ),
 ];

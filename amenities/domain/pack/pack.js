@@ -41,3 +41,4 @@ Pack.prototype.isAvailable = function () {
 };
 
 module.exports.makePack = factory;
+module.exports.class = Pack;

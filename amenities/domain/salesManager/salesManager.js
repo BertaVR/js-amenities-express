@@ -3,7 +3,7 @@ var store = require("../store/store");
 const myStore = store.singletonStore.getStore();
 
 function SalesManager() {
-  //THIS CLASS IS ENTIRELY FOR MANAGING ARRAYS AS MY PROFESSOR WANTS US TO PRACTISE DATA COLLECTIONS!!!
+  //THIS CLASS IS ENTIRELY FOR MANAGING ARRAYS AS MY PROFESSOR WANTS US TO PRACTISE DATA STRUCTURES!!!
   this.store = myStore;
 }
 
@@ -29,11 +29,11 @@ SalesManager.prototype.filterByContainsItem = function (itemName) {
   let inventory = Array.from(this.getStore().getInventory()); 
   let arrayFilteredResults = [];
 
-  inventory.forEach(function (pack) {
-    for (item of pack.items) {
+  inventory.forEach(function (pack) { //FOREACH --> Iterating in a set
+    for (item of pack.items) { // FOR OF 
       //using for of as it's an array
-      if (item.name == itemName) {
-        arrayFilteredResults.push(pack);
+      if (item.name == itemName) { //CONDITIONAL
+        arrayFilteredResults.push(pack); //MANAGING ARRAYS
         break;
         /*break statements are not elegant, but the purpose here is defensive:
         * if two items of a package share the same name, package should be returned
@@ -45,9 +45,9 @@ SalesManager.prototype.filterByContainsItem = function (itemName) {
   return arrayFilteredResults;
 };
 
-SalesManager.prototype.filterByNumberOfItems = function (size) {
+SalesManager.prototype.filterByNumberOfItems = function (n) {
   return Array.from(this.getStore().getInventory()).filter(
-    (p) => p.items.size() == size
+    (p) => p.items.length == n
   );
 };
 
