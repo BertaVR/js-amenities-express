@@ -1,0 +1,18 @@
+{
+  "name": "salesmanager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "salesManager.js",
+  "directories": {
+    "test": "/test"
+  },
+  "scripts": {
+    "test": "jest"
+
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.4.2"
+  }
+}

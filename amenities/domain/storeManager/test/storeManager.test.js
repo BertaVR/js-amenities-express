@@ -1,4 +1,4 @@
-const { expect, beforeAll, beforeEach } = require("@jest/globals");
+const { expect, beforeEach } = require("@jest/globals");
 
 const packMaker = require("../../pack");
 
@@ -6,6 +6,19 @@ const man = require("../storeManager");
 
 const myStoreManager = man.StoreManager.getManager();
 const myStore = myStoreManager.getStore();
+
+describe("Testing prototype", () => {
+  test("Factory returns always the same storeManager: singleton", () => {
+    let firstStoreManager = man.StoreManager.getManager();
+    let secondStoreManager = man.StoreManager.getManager();
+    expect(firstStoreManager).toEqual(secondStoreManager);
+  });
+
+  test("Factory returns always the same store", () => {
+    let testStoreManager = man.StoreManager.getManager().getStore();
+    expect(testStoreManager).toEqual(myStore);
+  });
+});
 
 describe("Testing just adding one pack", () => {
   const testPack = packMaker.makePack.createPack(
@@ -37,14 +50,14 @@ describe("Testing using addPacks: packs with name repeated", () => {
     myStoreManager.addPacks(testPacksNameRepeated);
   });
   test("Negative test for findByName", () => {
-    expect(myStoreManager.findByName("Not_exists").length).toEqual(0);
+    expect(myStoreManager.findByName("Not_exists")).toHaveLength(0);
   });
   test("Positive test for findByName: Just one pack.", () => {
-    expect(myStoreManager.findByName("Pack2").length).toEqual(1);
+    expect(myStoreManager.findByName("Pack2")).toHaveLength(1);
   });
 
   test("Positive test for findByName: Packs repeated", () => {
-    expect(myStoreManager.findByName("Pack1").length).toEqual(1);
+    expect(myStoreManager.findByName("Pack1")).toHaveLength(1);
   });
 
   test("Is repeated: positive tests", () => {
