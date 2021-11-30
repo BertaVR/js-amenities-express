@@ -1,74 +1,101 @@
 const { expect, beforeAll, afterAll } = require("@jest/globals");
+
 const packMaker = require("../../pack");
-const Pack = packMaker.class;
 const storeMan = require("../../storeManager");
 const salesMan = require("../salesManager");
+
+const Pack = packMaker.class;
+
 const myStoreManager = storeMan.StoreManager.getManager();
 const mySalesManager = salesMan.SalesManager.getManager();
+const myStore = mySalesManager.getStore();
+describe("Nothing breaks up if filters are applied to empty inventory", () => {
 
-beforeAll(() => {
-  myStoreManager.addPacks(testPacks);
-});
-afterAll(() => {
+test("Nothing breaks up if filters are applied to empty inventory", () => {
   myStoreManager.clearInventory();
+  expect(mySalesManager.filterByNumberOfItems(3)).toEqual([]);
+  expect(mySalesManager.filterByContainsItem("uno")).toEqual([]);
+
+});
+});
+describe("Testing prototype", () => {
+  test("Factory returns always the same storeManager: singleton", () => {
+    let firstSalesManager = salesMan.SalesManager.getManager();
+    let secondSalesManager = salesMan.SalesManager.getManager();
+    expect(firstSalesManager).toEqual(secondSalesManager);
+  });
+
+  test("Factory returns always the same store", () => {
+    let testSalesManager = salesMan.SalesManager.getManager().getStore();
+    expect(testSalesManager).toEqual(myStore);
+  });
 });
 
-test("Filter by max price", () => {
-  expect(mySalesManager.filterByMaxPrice(1).length).toEqual(0);
-  expect(mySalesManager.filterByMaxPrice(100).length).toEqual(7);
-  expect(mySalesManager.filterByMaxPrice(81).length).toEqual(4);
-  expect(mySalesManager.filterByMaxPrice(80).length).toEqual(3);
-  expect(mySalesManager.filterByMaxPrice(79).length).toEqual(2);
-  expect(mySalesManager.filterByMaxPrice(150).length).toEqual(10);
-  expect(mySalesManager.filterByMaxPrice(50).length).toEqual(1);
-  expect(
-    mySalesManager.filterByMaxPrice(9999999999 * 9999999999).length
-  ).toEqual(myStoreManager.getStore().getInventory().size);
-});
 
-test("Filter by min price", () => {
-  expect(mySalesManager.filterByMinPrice(0).length).toEqual(
-    myStoreManager.getStore().getInventory().size
-  );
-  expect(mySalesManager.filterByMinPrice(100).length).toEqual(6);
-  expect(mySalesManager.filterByMinPrice(81).length).toEqual(7);
-  expect(mySalesManager.filterByMinPrice(80).length).toEqual(8);
-  expect(mySalesManager.filterByMinPrice(79).length).toEqual(8);
-  expect(mySalesManager.filterByMinPrice(150).length).toEqual(1);
-  expect(mySalesManager.filterByMinPrice(50).length).toEqual(10);
-  expect(mySalesManager.filterByMinPrice(9999999999 * 9999999).length).toEqual(
-    0
-  );
-});
+describe("Testing filters", () => {
+  beforeAll(() => {
+    myStoreManager.addPacks(testPacks);
+  });
+  afterAll(() => {
+    myStoreManager.clearInventory();
+  });
 
-test("Filter by contains item negative test", () => {
-  expect(mySalesManager.filterByContainsItem("Rana").length).toEqual(0);
-});
+  test("Filter by max price", () => {
+    expect(mySalesManager.filterByMaxPrice(1)).toHaveLength(0);
+    expect(mySalesManager.filterByMaxPrice(100)).toHaveLength(7);
+    expect(mySalesManager.filterByMaxPrice(81)).toHaveLength(4);
+    expect(mySalesManager.filterByMaxPrice(80)).toHaveLength(3);
+    expect(mySalesManager.filterByMaxPrice(79)).toHaveLength(2);
+    expect(mySalesManager.filterByMaxPrice(150)).toHaveLength(10);
+    expect(mySalesManager.filterByMaxPrice(50)).toHaveLength(1);
+    expect(
+      mySalesManager.filterByMaxPrice(9999999999 * 9999999999).length
+    ).toEqual(myStoreManager.getStore().getInventory().size);
+  });
 
-test("Filter by contains item positive tests", () => {
-  expect(mySalesManager.filterByContainsItem("uno").length).toEqual(1);
-  expect(mySalesManager.filterByContainsItem("dos").length).toEqual(2);
-  expect(mySalesManager.filterByContainsItem("tres").length).toEqual(3);
-  expect(mySalesManager.filterByContainsItem("uno")[0]).toBeInstanceOf(Pack);
+  test("Filter by min price", () => {
+    expect(mySalesManager.filterByMinPrice(0)).toHaveLength(
+      myStoreManager.getStore().getInventory().size
+    );
+    expect(mySalesManager.filterByMinPrice(100)).toHaveLength(6);
+    expect(mySalesManager.filterByMinPrice(81)).toHaveLength(7);
+    expect(mySalesManager.filterByMinPrice(80)).toHaveLength(8);
+    expect(mySalesManager.filterByMinPrice(79)).toHaveLength(8);
+    expect(mySalesManager.filterByMinPrice(150)).toHaveLength(1);
+    expect(mySalesManager.filterByMinPrice(50)).toHaveLength(10);
+    expect(mySalesManager.filterByMinPrice(9999999999 * 9999999)).toHaveLength(
+      0
+    );
+  });
 
+  test("Filter by contains item negative test", () => {
+    expect(mySalesManager.filterByContainsItem("Rana")).toHaveLength(0);
+  });
 
-  // I want to make sure that filter returns packs in its array, not items:
-  expect(mySalesManager.filterByContainsItem("uno")).toEqual([
-    {
-      items: [{ name: "uno" }, { name: "item2" }, { name: "tres" }],
-      nombre: "Pack2",
-      precio: 70,
-      stock: 7,
-    },
-  ]);
-});
+  test("Filter by contains item positive tests", () => {
+    expect(mySalesManager.filterByContainsItem("uno")).toHaveLength(1);
+    expect(mySalesManager.filterByContainsItem("dos")).toHaveLength(2);
+    expect(mySalesManager.filterByContainsItem("tres")).toHaveLength(3);
 
-test("Filter by number of items", () => {
-  expect(mySalesManager.filterByNumberOfItems(3).length).toEqual(8);
-  expect(mySalesManager.filterByNumberOfItems(2).length).toEqual(0);
-  expect(mySalesManager.filterByNumberOfItems(6).length).toEqual(1);
-  expect(mySalesManager.filterByNumberOfItems(4).length).toEqual(1);
+    // I want to make sure that filter returns packs in its array, not items:
+    expect(mySalesManager.filterByContainsItem("uno")[0]).toBeInstanceOf(Pack);
+    expect(mySalesManager.filterByContainsItem("uno")).toEqual([
+      {
+        items: [{ name: "uno" }, { name: "item2" }, { name: "tres" }],
+        nombre: "Pack2",
+        precio: 70,
+        stock: 7,
+      },
+    ]);
+  });
 
+  test("Filter by number of items", () => {
+    expect(mySalesManager.filterByNumberOfItems(3)).toHaveLength(8);
+    expect(mySalesManager.filterByNumberOfItems(2)).toHaveLength(0);
+    expect(mySalesManager.filterByNumberOfItems(6)).toHaveLength(1);
+    expect(mySalesManager.filterByNumberOfItems(4)).toHaveLength(1);
+    expect(mySalesManager.filterByNumberOfItems(1000)).toHaveLength(0);
+  });
 });
 const testPacks = [
   packMaker.makePack.createPack(
