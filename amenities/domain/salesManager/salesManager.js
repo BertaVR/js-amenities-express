@@ -3,16 +3,12 @@ var store = require("../store/store");
 const myStore = store.singletonStore.getStore();
 
 function SalesManager() {
-  //THIS CLASS IS FOR MANAGING ARRAYS!!
+  //THIS CLASS IS ENTIRELY FOR MANAGING ARRAYS AS MY PROFESSOR WANTS US TO PRACTISE DATA COLLECTIONS!!!
   this.store = myStore;
 }
 
 SalesManager.prototype.getStore = function () {
   return this.store;
-};
-
-SalesManager.prototype.addPack = function (pack) {
-  if (this.isAddableToStore(pack)) this.getStore().getInventory().add(pack);
 };
 
 SalesManager.prototype.filterByMaxPrice = function (maxPrice) {
@@ -27,10 +23,19 @@ SalesManager.prototype.filterByMinPrice = function (minPrice) {
   );
 };
 
-SalesManager.prototype.filterByContainsItem = function (minPrice) {
-  return Array.from(this.getStore().getInventory()).filter((p) =>
-    p.items.includes(minPrice)
-  );
+SalesManager.prototype.filterByContainsItem = function (itemName) {
+
+  /*return Array.from(this.getStore().getInventory()).filter((p) =>
+    p.items.filter((i) => i.name == itemName)
+  );*/
+let arrayOfPacks = Array.from(this.getStore().getInventory());
+const filterItemName = (name, item)=>{item}
+arrayOfPacks.filter(p => {
+  return p.items includes(p)
+}
+
+
+
 };
 
 SalesManager.prototype.filterByNumberOfItems = function (size) {
@@ -47,6 +52,21 @@ SalesManager.prototype.filterTwoCriteria = function (filter1) {
   };
 };
 
+const getShortestArray = (multiDimensionalArray) => {
+  multiDimensionalArray.sort((a, b) => a.length - b.length);
+};
+
+SalesManager.prototype.filterAnyNumberCriteria = function (criteriaArray) {
+  criteriaArray.forEach((criteria) => {
+    arrayOfFilteredResults.push(criteria());
+  });
+  let arrayOfFilteredResults = new Array(); //HOISTING
+  let shortestArray = getShortestArray(arrayOfFilters);
+  return shortestArray.forEach((pack) => {
+    arrayOfFilteredResults.filter((p) => p.includes(pack));
+  });
+};
+
 var factory = (function singleSalesManager() {
   const prototype = new SalesManager();
 
@@ -57,5 +77,4 @@ var factory = (function singleSalesManager() {
   };
 })();
 
-module.exports.StoreManager = factory;
-const packMaker = require("../pack");
+module.exports.SalesManager = factory;

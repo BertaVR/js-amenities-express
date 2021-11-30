@@ -1,17 +1,17 @@
 
-function Pack(name, items, stock, price) {
-  this.name = name;
+function Pack(nombre, items, stock, precio) {
+  this.nombre = nombre;
   this.stock = stock;
   this.items = items; //array
-  this.price = price;
+  this.precio = precio;
 }
 
 // packs are also singleton
 
 var factory = (() => {
   return {
-    createPack: function (stock = 0, name = null, items = [], price = null) {
-      return new Pack(name, items, stock, price);
+    createPack: function (stock = 0, nombre = null, items = [], precio = null) {
+      return new Pack(nombre, items, stock, precio);
     },
   };
 })();
@@ -27,12 +27,12 @@ Pack.prototype.getItems = function () {
 
 
 
-Pack.prototype.getName = function () {
-  return this.name
+Pack.prototype.getNombre = function () {
+  return this.nombre
 }
 
-Pack.prototype.getPrice = function () {
-  return this.price
+Pack.prototype.getPrecio = function () {
+  return this.precio
 }
 
 
