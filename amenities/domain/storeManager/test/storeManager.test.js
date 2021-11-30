@@ -50,14 +50,14 @@ describe("Testing using addPacks: packs with name repeated", () => {
     myStoreManager.addPacks(testPacksNameRepeated);
   });
   test("Negative test for findByName", () => {
-    expect(myStoreManager.findByName("Not_exists").length).toEqual(0);
+    expect(myStoreManager.findByName("Not_exists")).toHaveLength(0);
   });
   test("Positive test for findByName: Just one pack.", () => {
-    expect(myStoreManager.findByName("Pack2").length).toEqual(1);
+    expect(myStoreManager.findByName("Pack2")).toHaveLength(1);
   });
 
   test("Positive test for findByName: Packs repeated", () => {
-    expect(myStoreManager.findByName("Pack1").length).toEqual(1);
+    expect(myStoreManager.findByName("Pack1")).toHaveLength(1);
   });
 
   test("Is repeated: positive tests", () => {
