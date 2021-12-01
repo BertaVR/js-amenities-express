@@ -25,6 +25,7 @@ Store.prototype.getInventory = function () {
 };
 
 Store.prototype.clearInventory = function () {
+  console.log("Borrado inventario.")
   this.getInventory().clear();
 };
 

@@ -13,7 +13,7 @@ StoreManager.prototype.getStore = function () {
 
 StoreManager.prototype.addPack = function (pack) {
   //DESTRUCTUTING!!
-  let { stock, nombre} = pack;
+  let { stock, nombre } = pack;
   //No tiene mucho sentido porque ya tengo getters para esto, pero había que meterlo en algún lado.
 
   if (this.isAddableToStore(pack)) {
@@ -30,6 +30,15 @@ StoreManager.prototype.addPacks = function (packs) {
 };
 
 StoreManager.prototype.isAddableToStore = function (pack) {
+  let { nombre } = pack;
+  // Si cumple ambas condiciones se pritan los nos mensajes de error.
+  if (!pack.isAvailable()) {
+    console.log(`Pack ${nombre} no tiene stock`);
+  }
+  if (this.isRepeated(pack)) {
+    console.log(`Pack con nombre ${nombre} ya existe en el inventario, cámbiele el nombre.`);
+  }
+
   return pack.isAvailable() & !this.isRepeated(pack);
 };
 
@@ -58,6 +67,7 @@ var factory = (function singleStoreManager() {
 
   return {
     getManager: function () {
+      console.log("Creado store manager");
       return prototype;
     },
   };
