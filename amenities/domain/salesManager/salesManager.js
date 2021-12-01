@@ -20,7 +20,7 @@ function getNames(arrayOfPacks) { //TODO: test
   }
   return arrayOfPacks.map((a) => a.nombre);
 }
-
+// usando array from porque es más restrictivo que array of
 SalesManager.prototype.filterByMaxPrice = function (maxPrice) {
   let results = Array.from(this.getStore().getInventory()).filter(
     (p) => p.precio <= maxPrice
