@@ -3,7 +3,7 @@ const pack = require("../pack/pack");
 
 const myStore = store.singletonStore.getStore();
 
-function StoreManager() {
+function StoreManager() { //SPRINT 4: PROTOTIPADO
   this.store = myStore;
 }
 
@@ -12,7 +12,7 @@ StoreManager.prototype.getStore = function () {
 };
 
 StoreManager.prototype.addPack = function (pack) {
-  //DESTRUCTUTING!!
+  //DESTRUCTUTING!! SPRINT 5
   let { stock, nombre } = pack;
   //No tiene mucho sentido porque ya tengo getters para esto, pero había que meterlo en algún lado.
 
@@ -23,7 +23,7 @@ StoreManager.prototype.addPack = function (pack) {
 };
 
 StoreManager.prototype.addPacks = function (packs) {
-  //packs should be an array
+  // SPRINT 5 ITERABLES
   packs.forEach((pack) => {
     this.addPack(pack);
   });
@@ -31,7 +31,7 @@ StoreManager.prototype.addPacks = function (packs) {
 
 StoreManager.prototype.isAddableToStore = function (pack) {
   let { nombre } = pack;
-  // Si cumple ambas condiciones se pritan los nos mensajes de error.
+  // SPRINT 5 DESTRUCTURING
   if (!pack.isAvailable()) {
     console.log(`Pack ${nombre} no tiene stock`);
   }
@@ -43,16 +43,15 @@ StoreManager.prototype.isAddableToStore = function (pack) {
 };
 
 StoreManager.prototype.isRepeated = function (pack) {
-  /*playing withjavascript POLIMORFISM: 
-if length is 0 boolean will be false, if length is 1 it will be true*/
+  /*jugando con el POLIMORFISMO de JS: 
+si length es 0 será false, si no, true true*/
 
   return this.findByName(pack.getNombre()).length;
 };
 
 StoreManager.prototype.findByName = function (searchWord) {
-  //console.log(Array.from(this.getStore().getInventory()).filter(p => p.name === searchWord));
 
-  return Array.from(this.getStore().getInventory()).filter(
+  return Array.from(this.getStore().getInventory()).filter( // SPRINT 5: ESTRUCTURAS DE DATOS
     (p) => p.getNombre() === searchWord
   );
 };
@@ -66,7 +65,7 @@ var factory = (function singleStoreManager() {
   const prototype = new StoreManager();
 
   return {
-    getManager: function () {
+    getManager: function () { // SPRINT 3: CLOSURE
       console.log("Creado store manager");
       return prototype;
     },

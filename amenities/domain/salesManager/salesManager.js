@@ -6,6 +6,7 @@ function SalesManager() {
   /* Esta clase no sé si tiene mucho sentido para una API rest, pero la he hecho porque
       era una manera de hacer lógica (que la verdad es que se me ocurre poca). Además es una clase
       enterita de manejar ESTRUCTURAS DE DATOS*/
+      // SPRINT 5 TODA LA CLASE
   this.store = myStore;
 }
 
@@ -72,7 +73,7 @@ SalesManager.prototype.filterByContainsItem = function (itemName) {
     //FOREACH --> Iterando en un SET
     for (item of pack.items) {
       // FOR OF
-      // Uso for OF porque itero en un arrat
+      // Uso for OF porque itero en un array
       if (item.name == itemName) {
         //CONDICIONAL
         arrayFilteredResults.push(pack); //MANAGING ARRAYS
