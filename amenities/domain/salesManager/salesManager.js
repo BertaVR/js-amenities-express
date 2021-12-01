@@ -13,24 +13,51 @@ SalesManager.prototype.getStore = function () {
   return this.store;
 };
 
+function getNames(arrayOfPacks) { //TODO: test
+  if (arrayOfPacks.length == 0) {
+    return "ninguno";
+  }
+  return arrayOfPacks.map((a) => a.nombre);
+}
+
 SalesManager.prototype.filterByMaxPrice = function (maxPrice) {
-  return Array.from(this.getStore().getInventory()).filter(
+  let results = Array.from(this.getStore().getInventory()).filter(
     (p) => p.precio <= maxPrice
   );
+
+  console.log(
+    `Los packs con precio menor a ${maxPrice} son ${results.length}: ${getNames(
+      results
+    )}`
+  );
+  return results;
 };
 
 SalesManager.prototype.filterByMinPrice = function (minPrice) {
-  return Array.from(this.getStore().getInventory()).filter(
+  let results = Array.from(this.getStore().getInventory()).filter(
     (p) => p.precio >= minPrice
   );
+
+  console.log(
+    `Los packs con precio mayor a ${minPrice} son ${results.length}: ${getNames(results)}`
+  );
+
+  return results;
 };
 
 SalesManager.prototype.findPackByNombre = function (packNombre) {
   let tmpArray = Array.from(this.getStore().getInventory()).filter(
     (p) => p.nombre === packNombre
   );
-  if (tmpArray.length === 1) { //We don't want undefined values
-    return tmpArray[0];
+  if (tmpArray.length === 1) {
+    //We don't want undefined values
+    let resultado = tmpArray[0];
+    let { stock, precio } = resultado;
+
+    console.log(
+      `El pack  ${packNombre} tiene ${stock} unidades en stock y cuesta ${precio}.`
+    );
+    return resultado;
   }
   return "not found";
 };
@@ -56,21 +83,28 @@ SalesManager.prototype.filterByContainsItem = function (itemName) {
       }
     }
   });
+  console.log(
+    `Los packs que tienen el item ${itemName} son ${
+      arrayFilteredResults.length
+    }: ${getNames(arrayFilteredResults)}.`
+  );
 
   return arrayFilteredResults;
 };
 
 SalesManager.prototype.filterByNumberOfItems = function (n) {
-  return Array.from(this.getStore().getInventory()).filter(
+  let results = Array.from(this.getStore().getInventory()).filter(
     (p) => p.items.length == n
   );
+  console.log(
+    `Los packs que tienen ${n} items son ${results.length}: ${getNames(
+      results
+    )}.`
+  );
+  return results;
 };
 
-SalesManager.prototype.changePackageItem = function (packageName, item) {
-  return Array.from(this.getStore().getInventory()).filter(
-    (p) => p.items.length == n
-  );
-};
+
 /*
 // CLOSURE
 SalesManager.prototype.filterTwoCriteria = function (filter1) {

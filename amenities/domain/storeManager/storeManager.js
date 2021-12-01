@@ -12,7 +12,14 @@ StoreManager.prototype.getStore = function () {
 };
 
 StoreManager.prototype.addPack = function (pack) {
-  if (this.isAddableToStore(pack)) this.getStore().getInventory().add(pack);
+  //DESTRUCTUTING!!
+  let { stock, nombre} = pack;
+  //No tiene mucho sentido porque ya tengo getters para esto, pero había que meterlo en algún lado.
+
+  if (this.isAddableToStore(pack)) {
+    console.log(`Pack ${nombre} añadido con éxito. Stock: ${stock}`);
+    this.getStore().getInventory().add(pack);
+  }
 };
 
 StoreManager.prototype.addPacks = function (packs) {
@@ -29,6 +36,7 @@ StoreManager.prototype.isAddableToStore = function (pack) {
 StoreManager.prototype.isRepeated = function (pack) {
   /*playing withjavascript POLIMORFISM: 
 if length is 0 boolean will be false, if length is 1 it will be true*/
+
   return this.findByName(pack.getNombre()).length;
 };
 
