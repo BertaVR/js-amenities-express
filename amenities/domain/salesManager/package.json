@@ -7,12 +7,14 @@
     "test": "/test"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "cov": "coverage ."
 
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "coverage": "^0.4.1",
     "jest": "^27.4.2"
   }
 }
