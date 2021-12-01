@@ -105,6 +105,12 @@ SalesManager.prototype.filterByNumberOfItems = function (n) {
   return results;
 };
 
+//a nivel de SRP molaría más hacer 2 funciones distintas (ascendiente y descendiente), pero quería poner lógica
+SalesManager.prototype.sortByPrice = function (order = "ASC"){
+ return Array.from(this.getStore().getInventory()).sort((a, b) =>  order=== "DESC" ? b.precio - a.precio : a.precio - b.precio);
+};
+
+SalesManager.prototype.sortByPrice
 
 /*
 // CLOSURE

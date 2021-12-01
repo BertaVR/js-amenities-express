@@ -94,6 +94,20 @@ describe("Testing filters", () => {
     expect(mySalesManager.filterByNumberOfItems(1000)).toHaveLength(0);
   });
 
+test("Sort By price", () => {
+  expect(mySalesManager.sortByPrice()).toStrictEqual(mySalesManager.sortByPrice("ASC"));
+  expect(mySalesManager.sortByPrice()[0].precio).toEqual(50);
+  expect(mySalesManager.sortByPrice()[1].precio).toEqual(70);
+  expect(mySalesManager.sortByPrice()[2].precio).toEqual(80);
+  expect(mySalesManager.sortByPrice("DESC")[0].precio).toEqual(150);
+  expect(mySalesManager.sortByPrice("DESC")[1].precio).toEqual(140);
+  expect(mySalesManager.sortByPrice("DESC")[9]).toEqual(mySalesManager.sortByPrice("ASC")[0]);
+
+
+
+});
+
+
   // MOCK
   test("Find by nombre", () => {
 
@@ -113,6 +127,7 @@ describe("Testing filters", () => {
       "not found"
     );
   });
+  
 
   const mockTmpArray = jest.fn((packNombre) =>
   Array.from(mySalesManager.getStore().getInventory()).filter(
