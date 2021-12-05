@@ -10,7 +10,7 @@ function SalesManager() {
   this.store = myStore;
 }
 
-SalesManager.prototype.getStore = function () {
+SalesManager.prototype.getStore = function () { //función que solo se usa para prints por consola
   return this.store;
 };
 
@@ -147,3 +147,4 @@ var factory = (function singleSalesManager() {
 })();
 
 module.exports.SalesManager = factory;
+module.exports.getNames = getNames;
