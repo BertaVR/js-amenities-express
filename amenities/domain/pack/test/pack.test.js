@@ -3,10 +3,8 @@ const store = require("../../store/store");
 
 test("Pack properties if  no values given", () => {
   let pack = factory.makePack.createPack();
-  expect(pack.getNombre()).toBeNull();
   expect(pack.getItems()).toHaveLength(0);
   expect(pack.getStock()).toBe(0);
-  expect(pack.getPrecio()).toBe(null);
 });
 
 test("Stock optional parameter works as expected", () => {

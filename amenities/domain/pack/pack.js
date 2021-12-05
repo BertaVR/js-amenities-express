@@ -10,7 +10,7 @@ function Pack(nombre, items, stock, precio) {
 
 var factory = (() => {
   return {
-    createPack: function (stock = 0, nombre = null, items = [], precio = null) {
+    createPack: function (stock = 0, nombre, items = [], precio) {
       return new Pack(nombre, items, stock, precio);
     },
   };
