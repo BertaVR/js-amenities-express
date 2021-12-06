@@ -1,5 +1,6 @@
 var store = require("../store/store");
 const pack = require("../pack/pack");
+const packFuncions= pack.functions;
 
 const myStore = store.singletonStore.getStore();
 
@@ -32,7 +33,7 @@ StoreManager.prototype.addPacks = function (packs) {
 StoreManager.prototype.isAddableToStore = function (pack) {
   let { nombre } = pack;
   // SPRINT 5 DESTRUCTURING
-  if (!pack.isAvailable()) {
+  if (!packFuncions.isAvailable(pack)) {
     console.log(`Pack ${nombre} no tiene stock`);
   }
   if (this.isRepeated(pack)) {
@@ -41,7 +42,7 @@ StoreManager.prototype.isAddableToStore = function (pack) {
     );
   }
 
-  return pack.isAvailable() & !this.isRepeated(pack);
+  return packFuncions.isAvailable(pack) & !this.isRepeated(pack);
 };
 
 StoreManager.prototype.isRepeated = function (pack) {

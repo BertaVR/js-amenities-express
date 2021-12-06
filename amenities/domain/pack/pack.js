@@ -32,9 +32,10 @@ Pack.prototype.getPrecio = function () {
   return this.precio;
 };
 
-Pack.prototype.isAvailable = function () {
-  return this.stock >= 1;
+isAvailable = function (pack) {
+  return pack.stock >= 1;
 };
 
 module.exports.makePack = factory;
 module.exports.class = Pack;
+module.exports.functions = {isAvailable}

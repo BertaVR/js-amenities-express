@@ -1,4 +1,5 @@
 const factory = require("../pack");
+const functions = factory.functions;
 const store = require("../../store/store");
 
 /*test("Pack properties if  no values given", () => {
@@ -14,8 +15,7 @@ test("Stock optional parameter works as expected", () => {
 
 test("Is available returns true when theres is stock and false when there is not. (this.stock works as expected)", () => {
   // optional parameters
-  let empty = factory.makePack.createPack("hola", new Set ([ {nombre : "jiib", stock: 0, precio: 40}]));
-  let hasStock = factory.makePack.createPack("hola", new Set ([ {nombre : "jiib", stock: 1, precio: 40}]));
-  expect(empty.isAvailable()).toEqual(false);
-  expect(hasStock.isAvailable()).toEqual(true);
+
+  expect(functions.isAvailable({stock:0})).toEqual(false);
+  expect(functions.isAvailable({stock:1})).toEqual(true);
 });
