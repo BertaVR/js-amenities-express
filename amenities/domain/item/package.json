@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "description": "items, injection dependency, prototype, factory",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "test": "jest"
   },
   "author": "Berta",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^27.4.3"
+  }
 }
