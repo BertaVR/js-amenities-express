@@ -65,17 +65,17 @@ describe("Testing using addPacks: packs with name repeated", () => {
     repeatedPack = packMaker.makePack.createPack(
       "Pack1",
       new Set([
-        { name: "item1", stock: 66, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 66, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     );
     repeatedPack2 = packMaker.makePack.createPack(
       "Pack2",
       new Set([
-        { name: "item1", stock: 66, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 66, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     );
 
@@ -91,17 +91,17 @@ describe("Testing using addPacks: packs with name repeated", () => {
     let unrepeatedPack = packMaker.makePack.createPack(
       "Name not repeated",
       new Set([
-        { name: "item1", stock: 0, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 0, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     );
     let unrepeatedPack2 = packMaker.makePack.createPack(
       "Name not repeated 2",
       new Set([
-        { name: "item1", stock: 5, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 5, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     );
 
@@ -117,9 +117,9 @@ describe("Testing using addPacks: packs with name repeated", () => {
     let repeatedPack = packMaker.makePack.createPack(
       "Pack1",
       new Set([
-        { name: "item1", stock: 5, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 5, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     );
     expect(myStoreManager.isAddableToStore(repeatedPack)).toBeFalsy();
@@ -128,9 +128,9 @@ describe("Testing using addPacks: packs with name repeated", () => {
   test("Negative test for isAddableToStore: Unrepeated pack without stock", () => {
     let noStock = packMaker.makePack.createPack(      "New name",
       new Set([
-        { name: "item1", stock: 0, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 0, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ]),
 
     );
@@ -139,9 +139,9 @@ describe("Testing using addPacks: packs with name repeated", () => {
   test("Negative test for isAddableToStore: Repeated pack without stock", () => {
     let noStock = packMaker.makePack.createPack(    "Pack1",
       new Set([
-        { name: "item1", stock: 5, precio: 80 },
-        { name: "item2", stock: 0, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 5, precio: 80 },
+        { nombre: "item2", stock: 0, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ]),
   
     );
@@ -163,9 +163,9 @@ describe("Testing using addPacks: packs with name repeated", () => {
     let packsAvailable = packMaker.makePack.createPack(
       "New name",
       new Set([
-        { name: "item1", stock: 5, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 5, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     );
     expect(myStoreManager.isAddableToStore(packsAvailable)).toBeTruthy();
@@ -183,18 +183,18 @@ describe("Testing using addPacks: packs with name repeated", () => {
       //SE AÑADE
       "Pack1",
       new Set([
-        { name: "item1", stock: 5, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 5, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     ),
     packMaker.makePack.createPack(
       //NO SE AÑADE: NOMBRE REPE
       "Pack1",
       new Set([
-        { name: "item1", stock: 5, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 5, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     ),
     ,
@@ -202,45 +202,45 @@ describe("Testing using addPacks: packs with name repeated", () => {
       //NO SE AÑADE: NOMBRE REPE
       "Pack1",
       new Set([
-        { name: "item1", stock: 5, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 5, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     ),
     packMaker.makePack.createPack(
       //SE AÑADE
       "Pack2",
       new Set([
-        { name: "item1", stock: 5, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 5, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     ),
     packMaker.makePack.createPack(
       //SE AÑADE
       "Pack3",
       new Set([
-        { name: "item1", stock: 5, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 5, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     ),
     packMaker.makePack.createPack(
       //SE AÑADE
       "Pack4",
       new Set([
-        { name: "item1", stock: 5, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 5, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     ),
     packMaker.makePack.createPack(
       //NO SE AÑADE: stock 0
       "Pack5",
       new Set([
-        { name: "item1", stock: 0, precio: 80 },
-        { name: "item2", stock: 89, precio: 34 },
-        { name: "item3", stock: 7, precio: 47 },
+        { nombre: "item1", stock: 0, precio: 80 },
+        { nombre: "item2", stock: 89, precio: 34 },
+        { nombre: "item3", stock: 7, precio: 47 },
       ])
     ),
   ];
