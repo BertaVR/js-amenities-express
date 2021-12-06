@@ -1,5 +1,5 @@
 const packManager = require("../packManager");
-const myManager = packManager.packManager.getManager();
+const myManager = packManager.packManager;
 
 function Pack(nombre, items) {
   this.nombre = nombre;

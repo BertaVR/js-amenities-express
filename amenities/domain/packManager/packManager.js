@@ -54,5 +54,5 @@ var factory = (function singlePackManager() {
   };
 })();
 
-module.exports.packManager = factory;
+module.exports.packManager = factory.getManager();
 module.exports.functions = { aplicarDescuento, sumItemsPrecio, round };
