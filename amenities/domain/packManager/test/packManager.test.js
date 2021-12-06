@@ -2,7 +2,6 @@ const packManager = require("../packManager");
 const myManager = packManager.packManager;
 const functions = packManager.functions;
 
-
 test("Los precios se suman adecuadamente", () => {
   expect(
     functions.sumItemsPrecio([{ precio: 50 }, { precio: 30 }, { precio: 20 }])
@@ -32,7 +31,6 @@ test("Round redondea a 2 decimales solo si es necesario", () => {
 });
 
 test("El precio se calcula bien", () => {
-
   expect(
     myManager.createPrecio(
       new Set([{ precio: 2.5 }, { precio: 50.77 }, { precio: 78.99 }])
@@ -56,13 +54,27 @@ test("El precio se calcula bien", () => {
 });
 
 test("EL stock de un paquete es el menor de los stocks de sus items", () => {
-    expect(myManager.createStock(   new Set([{ stock: 20 }, { stock: 33}, { stock: 155 }]))).toEqual(20);
-    expect(myManager.createStock(   new Set([{ stock: 0 }, { stock: 33}, { stock: 155 }]))).toEqual(0);
-    expect(myManager.createStock(   new Set([{ stock: 5 }, { stock: 33}, { stock: 155 }]))).toEqual(5);
-    expect(myManager.createStock(   new Set([{ stock: 20 }, { stock: 33}, { stock: 8 }]))).toEqual(8);
-    expect(myManager.createStock(   new Set([{ stock: 3 }, { stock: 33}, { stock: 155 }]))).toEqual(3);
-
-
-
-
-  });
+  expect(
+    myManager.createStock(
+      new Set([{ stock: 20 }, { stock: 33 }, { stock: 155 }])
+    )
+  ).toEqual(20);
+  expect(
+    myManager.createStock(
+      new Set([{ stock: 0 }, { stock: 33 }, { stock: 155 }])
+    )
+  ).toEqual(0);
+  expect(
+    myManager.createStock(
+      new Set([{ stock: 5 }, { stock: 33 }, { stock: 155 }])
+    )
+  ).toEqual(5);
+  expect(
+    myManager.createStock(new Set([{ stock: 20 }, { stock: 33 }, { stock: 8 }]))
+  ).toEqual(8);
+  expect(
+    myManager.createStock(
+      new Set([{ stock: 3 }, { stock: 33 }, { stock: 155 }])
+    )
+  ).toEqual(3);
+});
