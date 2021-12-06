@@ -78,3 +78,20 @@ test("EL stock de un paquete es el menor de los stocks de sus items", () => {
     )
   ).toEqual(3);
 });
+
+test("Switch de calidad funciona bien", () => {
+  expect(myManager.createCalidad(new Set([{}, {}, {}]))).toBe("standard"); //3
+  expect(myManager.createCalidad(new Set([{}, {}]))).toBe("basic"); //2
+  expect(myManager.createCalidad(new Set([{}]))).toBe("basic"); //1
+  expect(myManager.createCalidad(new Set([{}, {}, {}, {}]))).toBe("premium"); //4
+  expect(
+    myManager.createCalidad(
+      new Set([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}])
+    )
+  ).toBe("premium");
+  expect(myManager.createCalidad(new Set([]))).toBe("no definida");
+  expect(myManager.createCalidad(undefined)).toBe("no hay items");
+  expect(myManager.createCalidad(null)).toBe("no hay items");
+
+
+});

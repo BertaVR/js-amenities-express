@@ -6,6 +6,8 @@ function Pack(nombre, items) {
   this.stock = myManager.createStock(items);
   this.items = items; //array
   this.precio = myManager.createPrecio(items);
+  this.calidad = myManager.createCalidad(items);
+
 }
 
 var factory = (() => {

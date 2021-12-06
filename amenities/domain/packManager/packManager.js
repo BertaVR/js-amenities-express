@@ -26,6 +26,28 @@ PackManager.prototype.createPrecio = function (items) {
   return round(aplicarDescuento(sumItemsPrecio(items)));
 };
 
+PackManager.prototype.createCalidad = function (items) {
+  if (items == undefined || items == null) {
+    return "no hay items";
+  }
+  let calidad = "no definida";
+  switch (true) {
+    case items.size == 0:
+      //  calidad = "no definida";
+      break;
+    case items.size < 3:
+      calidad = "basic";
+      break;
+    case items.size < 4:
+      calidad = "standard";
+      break;
+    case items.size >= 4:
+      calidad = "premium";
+      break;
+  }
+  return calidad;
+};
+
 function sumItemsPrecio(items) {
   const sum = Array.from(items)
     .map((item) => item.precio)
