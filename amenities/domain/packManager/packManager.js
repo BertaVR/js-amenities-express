@@ -1,4 +1,3 @@
-const packMaker = require("../pack");
 
 function PackManager() {
   this.name = "My pack manager";
