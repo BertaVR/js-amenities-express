@@ -95,8 +95,9 @@ SalesManager.prototype.filterByContainsItem = function (itemName) {
 
 SalesManager.prototype.filterByNumberOfItems = function (n) {
   let results = Array.from(this.getStore().getInventory()).filter(
-    (p) => p.items.length == n
+    (p) => p.items.size == n
   );
+
   console.log(
     `Los packs que tienen ${n} items son ${results.length}: ${getNames(
       results

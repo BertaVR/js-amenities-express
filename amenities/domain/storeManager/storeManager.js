@@ -3,7 +3,8 @@ const pack = require("../pack/pack");
 
 const myStore = store.singletonStore.getStore();
 
-function StoreManager() { //SPRINT 4: PROTOTIPADO
+function StoreManager() {
+  //SPRINT 4: PROTOTIPADO
   this.store = myStore;
 }
 
@@ -15,7 +16,6 @@ StoreManager.prototype.addPack = function (pack) {
   //DESTRUCTUTING!! SPRINT 5
   let { stock, nombre } = pack;
   //No tiene mucho sentido porque ya tengo getters para esto, pero había que meterlo en algún lado.
-
   if (this.isAddableToStore(pack)) {
     console.log(`Pack ${nombre} añadido con éxito. Stock: ${stock}`);
     this.getStore().getInventory().add(pack);
@@ -36,7 +36,9 @@ StoreManager.prototype.isAddableToStore = function (pack) {
     console.log(`Pack ${nombre} no tiene stock`);
   }
   if (this.isRepeated(pack)) {
-    console.log(`Pack con nombre ${nombre} ya existe en el inventario, cámbiele el nombre.`);
+    console.log(
+      `Pack con nombre ${nombre} ya existe en el inventario, cámbiele el nombre.`
+    );
   }
 
   return pack.isAvailable() & !this.isRepeated(pack);
@@ -50,8 +52,8 @@ si length es 0 será false, si no, true true*/
 };
 
 StoreManager.prototype.findByName = function (searchWord) {
-
-  return Array.from(this.getStore().getInventory()).filter( // SPRINT 5: ESTRUCTURAS DE DATOS
+  return Array.from(this.getStore().getInventory()).filter(
+    // SPRINT 5: ESTRUCTURAS DE DATOS
     (p) => p.getNombre() === searchWord
   );
 };
@@ -65,7 +67,8 @@ var factory = (function singleStoreManager() {
   const prototype = new StoreManager();
 
   return {
-    getManager: function () { // SPRINT 3: CLOSURE
+    getManager: function () {
+      // SPRINT 3: CLOSURE
       console.log("Creado store manager");
       return prototype;
     },

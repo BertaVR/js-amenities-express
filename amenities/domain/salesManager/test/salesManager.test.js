@@ -3,7 +3,6 @@ const { expect, beforeAll, afterAll } = require("@jest/globals");
 const packMaker = require("../../pack");
 const storeMan = require("../../storeManager");
 const salesMan = require("../salesManager");
-
 const Pack = packMaker.class;
 
 const myStoreManager = storeMan.StoreManager.getManager();
@@ -39,12 +38,16 @@ describe("Testing filters", () => {
 
   test("Filter by max price", () => {
     expect(mySalesManager.filterByMaxPrice(1)).toHaveLength(0);
-    expect(mySalesManager.filterByMaxPrice(100)).toHaveLength(7);
-    expect(mySalesManager.filterByMaxPrice(81)).toHaveLength(4);
-    expect(mySalesManager.filterByMaxPrice(80)).toHaveLength(3);
-    expect(mySalesManager.filterByMaxPrice(79)).toHaveLength(2);
-    expect(mySalesManager.filterByMaxPrice(150)).toHaveLength(10);
+    expect(mySalesManager.filterByMaxPrice(100)).toHaveLength(2);
+    expect(mySalesManager.filterByMaxPrice(81)).toHaveLength(1);
+    expect(mySalesManager.filterByMaxPrice(150)).toHaveLength(2);
     expect(mySalesManager.filterByMaxPrice(50)).toHaveLength(1);
+    expect(mySalesManager.filterByMaxPrice(85000)).toHaveLength(5);
+    expect(mySalesManager.filterByMaxPrice(84999)).toHaveLength(4);
+    expect(mySalesManager.filterByMaxPrice(8500)).toHaveLength(4);
+    expect(mySalesManager.filterByMaxPrice(8000)).toHaveLength(3);
+
+
     expect(
       mySalesManager.filterByMaxPrice(9999999999 * 9999999999).length
     ).toEqual(myStoreManager.getStore().getInventory().size);
@@ -54,12 +57,16 @@ describe("Testing filters", () => {
     expect(mySalesManager.filterByMinPrice(0)).toHaveLength(
       myStoreManager.getStore().getInventory().size
     );
-    expect(mySalesManager.filterByMinPrice(100)).toHaveLength(6);
-    expect(mySalesManager.filterByMinPrice(81)).toHaveLength(7);
-    expect(mySalesManager.filterByMinPrice(80)).toHaveLength(8);
-    expect(mySalesManager.filterByMinPrice(79)).toHaveLength(8);
-    expect(mySalesManager.filterByMinPrice(150)).toHaveLength(1);
-    expect(mySalesManager.filterByMinPrice(50)).toHaveLength(10);
+    expect(mySalesManager.filterByMinPrice(100)).toHaveLength(3);
+    expect(mySalesManager.filterByMinPrice(81)).toHaveLength(4);
+    expect(mySalesManager.filterByMinPrice(80)).toHaveLength(4);
+    expect(mySalesManager.filterByMinPrice(79)).toHaveLength(4);
+    expect(mySalesManager.filterByMinPrice(150)).toHaveLength(3);
+    expect(mySalesManager.filterByMinPrice(50)).toHaveLength(4);
+    expect(mySalesManager.filterByMinPrice(8499)).toHaveLength(2);
+    expect(mySalesManager.filterByMinPrice(8500)).toHaveLength(2);
+    expect(mySalesManager.filterByMinPrice(85000)).toHaveLength(1);
+    expect(mySalesManager.filterByMinPrice(85001)).toHaveLength(0);
     expect(mySalesManager.filterByMinPrice(9999999999 * 9999999)).toHaveLength(
       0
     );
@@ -76,20 +83,13 @@ describe("Testing filters", () => {
 
     // I want to make sure that filter returns packs in its array, not items:
     expect(mySalesManager.filterByContainsItem("uno")[0]).toBeInstanceOf(Pack);
-    expect(mySalesManager.filterByContainsItem("uno")).toEqual([
-      {
-        items: [{ name: "uno" }, { name: "item2" }, { name: "tres" }],
-        nombre: "Pack2",
-        precio: 70,
-        stock: 7,
-      },
-    ]);
+
   });
 
   test("Filter by number of items", () => {
-    expect(mySalesManager.filterByNumberOfItems(3)).toHaveLength(8);
+    expect(mySalesManager.filterByNumberOfItems(3)).toHaveLength(3);
     expect(mySalesManager.filterByNumberOfItems(2)).toHaveLength(0);
-    expect(mySalesManager.filterByNumberOfItems(6)).toHaveLength(1);
+    expect(mySalesManager.filterByNumberOfItems(5)).toHaveLength(1);
     expect(mySalesManager.filterByNumberOfItems(4)).toHaveLength(1);
     expect(mySalesManager.filterByNumberOfItems(1000)).toHaveLength(0);
   });
@@ -98,12 +98,12 @@ describe("Testing filters", () => {
     expect(mySalesManager.sortByPrice()).toStrictEqual(
       mySalesManager.sortByPrice("ASC")
     );
-    expect(mySalesManager.sortByPrice()[0].precio).toEqual(50);
-    expect(mySalesManager.sortByPrice()[1].precio).toEqual(70);
-    expect(mySalesManager.sortByPrice()[2].precio).toEqual(80);
-    expect(mySalesManager.sortByPrice("DESC")[0].precio).toEqual(150);
-    expect(mySalesManager.sortByPrice("DESC")[1].precio).toEqual(140);
-    expect(mySalesManager.sortByPrice("DESC")[9]).toEqual(
+    expect(mySalesManager.sortByPrice()[0].precio).toEqual(8.5);
+    expect(mySalesManager.sortByPrice()[1].precio).toEqual(85);
+    expect(mySalesManager.sortByPrice()[2].precio).toEqual(850);
+    expect(mySalesManager.sortByPrice("DESC")[0].precio).toEqual(85000);
+    expect(mySalesManager.sortByPrice("DESC")[1].precio).toEqual(8500);
+    expect(mySalesManager.sortByPrice("DESC")[testPacks.size -1 ]).toEqual(
       mySalesManager.sortByPrice("ASC")[0]
     );
   });
@@ -117,7 +117,7 @@ describe("Testing filters", () => {
     // if more than one packs are found return not found
     expect(mockMoreThanOne()).toBe("not found");
 
-    expect(mySalesManager.findPackByNombre("Pack1").precio).toBe(50); //There's only one pack with price 50
+    expect(mySalesManager.findPackByNombre("Pack1").precio).toBe(8.5); //There's only one pack with price 50
     expect(mySalesManager.findPackByNombre("Pack1")).toBeInstanceOf(Pack);
     expect(mySalesManager.findPackByNombre("UnexistentPack")).toBeDefined();
     expect(mySalesManager.findPackByNombre("UnexistentPack")).toEqual(
@@ -159,66 +159,54 @@ describe("Testing filters", () => {
   });
 });
 
-const testPacks = [
-  packMaker.makePack.createPack(
-    7,
-    "Pack1",
-    [{ name: "item1" }, { name: "tres" }, { name: "item3" }],
-    50
-  ),
-  packMaker.makePack.createPack(
-    7,
-    "Pack2",
-    [{ name: "uno" }, { name: "item2" }, { name: "tres" }],
-    70
-  ),
-  ,
-  packMaker.makePack.createPack(
-    7,
-    "Pack3",
-    [{ name: "dos" }, { name: "item2" }, { name: "item3" }],
-    80
-  ),
-  packMaker.makePack.createPack(
-    7,
-    "Pack4",
-    [{ name: "dos" }, { name: "tres" }, { name: "tres" }],
-    81
-  ),
-  packMaker.makePack.createPack(
-    7,
-    "Pack5",
-    [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-    100
-  ),
-  packMaker.makePack.createPack(
-    7,
-    "Pack6",
-    [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-    100
-  ),
-  packMaker.makePack.createPack(
-    7,
-    "Pack7",
-    [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-    100
-  ),
-  packMaker.makePack.createPack(
-    7,
-    "Pack8",
-    [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-    130
-  ),
-  packMaker.makePack.createPack(
-    7,
-    "Pack9",
-    [{ name: "item1" }, { name: "item2" }, { name: "item3" }, {}, {}, {}],
-    140
-  ),
-  packMaker.makePack.createPack(
-    7,
-    "Pack10",
-    [{ name: "item1" }, { name: "item2" }, { name: "item3" }, {}],
-    150
-  ),
-];
+const testPacks = 
+new Set([packMaker.makePack.createPack(
+  "Pack1",
+  new Set([
+    { name: "uno", stock: 5, precio: 2 },
+    { name: "dos", stock: 89, precio: 2 },
+    { name: "tres", stock: 7, precio: 6 },
+  ])
+),
+packMaker.makePack.createPack(
+  "Pack2",
+  new Set([
+    { name: "dos", stock: 5, precio: 20 },
+    { name: "tres", stock: 89, precio: 20 },
+    { name: "tres", stock: 7, precio: 60 },
+  ])
+),
+packMaker.makePack.createPack(
+
+  "Pack3",
+  new Set([
+    { name: "tres", stock: 5, precio: 200 },
+    { name: "item2", stock: 89, precio: 200 },
+    { name: "item3", stock: 7, precio: 600 },
+    { name: "item2", stock: 89, precio: 0 },
+    { name: "item3", stock: 7, precio: 0 },
+  ])
+),
+packMaker.makePack.createPack(
+
+  "Pack4",
+  new Set([
+    { name: "item1", stock: 5, precio: 2000 },
+    { name: "item2", stock: 89, precio: 2000 },
+    { name: "item3", stock: 7, precio: 6000 },
+  ])
+),
+packMaker.makePack.createPack(
+
+  "Pack5",
+  new Set([
+    { name: "item1", stock: 3, precio: 20000 },
+    { name: "item2", stock: 89, precio: 20000 },
+    { name: "item3", stock: 7, precio: 60000},
+    { name: "item3", stock: 7, precio: 0},
+  ])
+),
+]);
+
+
+

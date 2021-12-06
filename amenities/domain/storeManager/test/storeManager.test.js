@@ -1,7 +1,6 @@
 const { expect, beforeEach } = require("@jest/globals");
 
 const packMaker = require("../../pack");
-
 const man = require("../storeManager");
 
 const myStoreManager = man.StoreManager.getManager();
@@ -22,10 +21,12 @@ describe("Testing prototype", () => {
 
 describe("Testing just adding one pack", () => {
   const testPack = packMaker.makePack.createPack(
-    7,
     "Pack1",
-    [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-    50
+    new Set([
+      { nombre: "item1", stock: 3, precio: 7 },
+      { nombre: "item2", stock: 4, precio: 8 },
+      { nombre: "item3", stock: 7, precio: 600 },
+    ])
   );
   const inventory = myStore.getInventory();
 
@@ -61,8 +62,22 @@ describe("Testing using addPacks: packs with name repeated", () => {
   });
 
   test("Is repeated: positive tests", () => {
-    repeatedPack = packMaker.makePack.createPack(7, "Pack1");
-    repeatedPack2 = packMaker.makePack.createPack(7, "Pack2");
+    repeatedPack = packMaker.makePack.createPack(
+      "Pack1",
+      new Set([
+        { name: "item1", stock: 66, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
+    );
+    repeatedPack2 = packMaker.makePack.createPack(
+      "Pack2",
+      new Set([
+        { name: "item1", stock: 66, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
+    );
 
     expect(myStoreManager.isRepeated(repeatedPack)).toEqual(1);
     expect(myStoreManager.isRepeated(repeatedPack2)).toEqual(1);
@@ -73,10 +88,21 @@ describe("Testing using addPacks: packs with name repeated", () => {
   });
 
   test("Is repeated: negative tests", () => {
-    let unrepeatedPack = packMaker.makePack.createPack(7, "Name not repeated");
+    let unrepeatedPack = packMaker.makePack.createPack(
+      "Name not repeated",
+      new Set([
+        { name: "item1", stock: 0, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
+    );
     let unrepeatedPack2 = packMaker.makePack.createPack(
-      7,
-      "Name not repeated 2"
+      "Name not repeated 2",
+      new Set([
+        { name: "item1", stock: 5, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
     );
 
     expect(myStoreManager.isRepeated(unrepeatedPack)).toEqual(0);
@@ -88,33 +114,61 @@ describe("Testing using addPacks: packs with name repeated", () => {
   });
 
   test("Negative test for isAddableToStore: Repeated pack with stock", () => {
-    let repeatedPack = packMaker.makePack.createPack(7, "Pack1");
+    let repeatedPack = packMaker.makePack.createPack(
+      "Pack1",
+      new Set([
+        { name: "item1", stock: 5, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
+    );
     expect(myStoreManager.isAddableToStore(repeatedPack)).toBeFalsy();
   });
 
   test("Negative test for isAddableToStore: Unrepeated pack without stock", () => {
-    let noStock = packMaker.makePack.createPack(0, "New name");
+    let noStock = packMaker.makePack.createPack(      "New name",
+      new Set([
+        { name: "item1", stock: 0, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ]),
+
+    );
     expect(myStoreManager.isAddableToStore(noStock)).toBeFalsy();
   });
   test("Negative test for isAddableToStore: Repeated pack without stock", () => {
-    let noStock = packMaker.makePack.createPack(0, "Pack1");
+    let noStock = packMaker.makePack.createPack(    "Pack1",
+      new Set([
+        { name: "item1", stock: 5, precio: 80 },
+        { name: "item2", stock: 0, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ]),
+  
+    );
 
     expect(myStoreManager.isAddableToStore(noStock)).toBeFalsy();
   });
 
   test("Negative test for isAddableToStore: null stock", () => {
-    let nullStock = packMaker.makePack.createPack(null, "New name");
+    let nullStock = packMaker.makePack.createPack("New name", null);
     expect(myStoreManager.isAddableToStore(nullStock)).toBeFalsy();
   });
 
   test("Negative test for isAddableToStore: undefined stock", () => {
-    let undefinedStock = packMaker.makePack.createPack(undefined, "New name");
+    let undefinedStock = packMaker.makePack.createPack("New name", undefined);
     expect(myStoreManager.isAddableToStore(undefinedStock)).toBeFalsy();
   });
 
   test("Positive test for isAddableToStore: available stock and new name", () => {
-    let undefinedStock = packMaker.makePack.createPack(300, "New name");
-    expect(myStoreManager.isAddableToStore(undefinedStock)).toBeTruthy();
+    let packsAvailable = packMaker.makePack.createPack(
+      "New name",
+      new Set([
+        { name: "item1", stock: 5, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
+    );
+    expect(myStoreManager.isAddableToStore(packsAvailable)).toBeTruthy();
   });
 
   test("Add Packs should add all packs that are addable", () => {
@@ -122,49 +176,72 @@ describe("Testing using addPacks: packs with name repeated", () => {
     expect(myStore.getInventory().size).toEqual(4);
   });
 
+  //  Los tests están acoplados. TODO: Refactor
+
   const testPacksNameRepeated = [
     packMaker.makePack.createPack(
-      7,
-      "Pack2",
-      [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-      50
+      //SE AÑADE
+      "Pack1",
+      new Set([
+        { name: "item1", stock: 5, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
     ),
     packMaker.makePack.createPack(
-      7,
+      //NO SE AÑADE: NOMBRE REPE
       "Pack1",
-      [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-      50
+      new Set([
+        { name: "item1", stock: 5, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
     ),
     ,
     packMaker.makePack.createPack(
-      7,
+      //NO SE AÑADE: NOMBRE REPE
       "Pack1",
-      [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-      50
+      new Set([
+        { name: "item1", stock: 5, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
     ),
     packMaker.makePack.createPack(
-      7,
-      "Pack1",
-      [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-      50
+      //SE AÑADE
+      "Pack2",
+      new Set([
+        { name: "item1", stock: 5, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
     ),
     packMaker.makePack.createPack(
-      7,
+      //SE AÑADE
       "Pack3",
-      [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-      50
+      new Set([
+        { name: "item1", stock: 5, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
     ),
     packMaker.makePack.createPack(
-      7,
-      "Pack3",
-      [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-      50
-    ),
-    packMaker.makePack.createPack(
-      7,
+      //SE AÑADE
       "Pack4",
-      [{ name: "item1" }, { name: "item2" }, { name: "item3" }],
-      50
+      new Set([
+        { name: "item1", stock: 5, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
+    ),
+    packMaker.makePack.createPack(
+      //NO SE AÑADE: stock 0
+      "Pack5",
+      new Set([
+        { name: "item1", stock: 0, precio: 80 },
+        { name: "item2", stock: 89, precio: 34 },
+        { name: "item3", stock: 7, precio: 47 },
+      ])
     ),
   ];
 });
