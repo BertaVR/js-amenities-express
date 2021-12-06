@@ -130,7 +130,7 @@ FilterManager.prototype.sortByPrice = function (
 
 FilterManager.prototype.sortByPrice;
 
-var factory = (function singleSalesManager() {
+var factory = (function singleFilterManager() {
   const prototype = new FilterManager();
 
   return {

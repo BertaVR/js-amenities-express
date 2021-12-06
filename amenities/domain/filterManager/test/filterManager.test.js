@@ -9,15 +9,15 @@ describe("Nothing breaks up if filters are applied to empty inventory", () => {
   });
 });
 describe("Testing prototype", () => {
-  test("Factory returns always the same salesManager: singleton", () => {
-    let firstSalesManager = filterMan.FilterManager.getManager();
-    let secondSalesManager = filterMan.FilterManager.getManager();
-    expect(firstSalesManager).toEqual(secondSalesManager);
+  test("Factory returns always the same filterManager: singleton", () => {
+    let firstFilterManager = filterMan.FilterManager.getManager();
+    let secondFilterManager = filterMan.FilterManager.getManager();
+    expect(firstFilterManager).toEqual(secondFilterManager);
   });
 
   test("Factory returns always the same store", () => {
-    let testSalesManagerStore = filterMan.FilterManager.getManager().getStore();
-    expect(testSalesManagerStore).toEqual(myStore);
+    let testFilterManagerStore = filterMan.FilterManager.getManager().getStore();
+    expect(testFilterManagerStore).toEqual(myStore);
   });
 });
 
