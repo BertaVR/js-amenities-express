@@ -1,7 +1,6 @@
 var store = require("../store/store");
 const pack = require("../pack/pack");
 const packFuncions= pack.functions;
-
 const myStore = store.singletonStore.getStore();
 
 function StoreManager() {
@@ -15,10 +14,11 @@ StoreManager.prototype.getStore = function () {
 
 StoreManager.prototype.addPack = function (pack) {
   //DESTRUCTUTING!! SPRINT 5
-  let { stock, nombre } = pack;
+  let { stock, nombre, calidad, items } = pack;
+  let stringItems = Array.from(items).map(i => i.nombre).join(', '); //todo: test
   //No tiene mucho sentido porque ya tengo getters para esto, pero había que meterlo en algún lado.
   if (this.isAddableToStore(pack)) {
-    console.log(`Pack ${nombre} añadido con éxito. Stock: ${stock}`);
+    console.log(`Pack ${nombre} añadido con éxito. Stock: ${stock}. Calidad: ${calidad}. Items: ${stringItems}`); 
     this.getStore().getInventory().add(pack);
   }
 };
