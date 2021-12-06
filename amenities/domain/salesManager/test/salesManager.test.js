@@ -1,22 +1,15 @@
-const { expect, beforeAll, afterAll } = require("@jest/globals");
-
-const packMaker = require("../../pack");
-const storeMan = require("../../storeManager");
 const salesMan = require("../salesManager");
-const Pack = packMaker.class;
 
-const myStoreManager = storeMan.StoreManager.getManager();
 const mySalesManager = salesMan.SalesManager.getManager();
 const myStore = mySalesManager.getStore();
 describe("Nothing breaks up if filters are applied to empty inventory", () => {
   test("Nothing breaks up if filters are applied to empty inventory", () => {
-    myStoreManager.clearInventory();
     expect(mySalesManager.filterByNumberOfItems(3, new Set())).toEqual([]);
     expect(mySalesManager.filterByContainsItem("uno", new Set())).toEqual([]);
   });
 });
 describe("Testing prototype", () => {
-  test("Factory returns always the same storeManager: singleton", () => {
+  test("Factory returns always the same salesManager: singleton", () => {
     let firstSalesManager = salesMan.SalesManager.getManager();
     let secondSalesManager = salesMan.SalesManager.getManager();
     expect(firstSalesManager).toEqual(secondSalesManager);
@@ -29,10 +22,6 @@ describe("Testing prototype", () => {
 });
 
 describe("Testing filters", () => {
-  afterAll(() => {
-    myStoreManager.clearInventory();
-  });
-
   test("Filter by max price", () => {
     expect(mySalesManager.filterByMaxPrice(1, testPacks)).toHaveLength(0);
     expect(mySalesManager.filterByMaxPrice(100, testPacks)).toHaveLength(2);
@@ -109,7 +98,7 @@ describe("Testing filters", () => {
     expect(mySalesManager.sortByPrice(testPacks, "DESC")[0].precio).toEqual(
       85000
     );
-    expect(mySalesManager.sortByPrice(testPacks,"DESC")[1].precio).toEqual(
+    expect(mySalesManager.sortByPrice(testPacks, "DESC")[1].precio).toEqual(
       8500
     );
     expect(
@@ -126,17 +115,19 @@ describe("Testing filters", () => {
     // if more than one packs are found return not found
     expect(mockMoreThanOne()).toBe("not found");
 
-    expect(mySalesManager.findPackByNombre("Pack1", testPacks).precio).toBe(8.5); //There's only one pack with price 50
-    expect(mySalesManager.findPackByNombre("UnexistentPack", testPacks)).toBeDefined();
-    expect(mySalesManager.findPackByNombre("UnexistentPack", testPacks)).toEqual(
-      "not found"
-    );
+    expect(mySalesManager.findPackByNombre("Pack1", testPacks).precio).toBe(
+      8.5
+    ); //There's only one pack with price 50
+    expect(
+      mySalesManager.findPackByNombre("UnexistentPack", testPacks)
+    ).toBeDefined();
+    expect(
+      mySalesManager.findPackByNombre("UnexistentPack", testPacks)
+    ).toEqual("not found");
   });
 
   const mockTmpArray = jest.fn((packNombre) =>
-    Array.from(testPacks).filter(
-      (p) => p.nombre === packNombre
-    )
+    Array.from(testPacks).filter((p) => p.nombre === packNombre)
   );
   const mockMoreThanOne = jest.fn(() => {
     let duplicatedPacks = new Set([
