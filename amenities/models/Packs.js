@@ -6,7 +6,6 @@ var Schema = mongoose.Schema;
 
 const MATERIALES=  ['consumible', 'indestructible', 'normal'];
 var packSchema = new Schema({
- 
     nombre: String,
     stock: Number,
     items:  [{  nombre:{type: String, unique : true, required:true},
@@ -20,4 +19,6 @@ var packSchema = new Schema({
 
 });
 
+packSchema.pre('find', function() {    this.select('nombre');
+})
 module.exports = mongoose.model("Packs", packSchema);
