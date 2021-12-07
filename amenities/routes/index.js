@@ -8,6 +8,3 @@ router.get('/', function(req, res, next) {
 
 module.exports = router;
 //Import the mongoose module
-mongoose.connect(process.env.DB_CONNECTION, () => {
-  console.log("Connected to MongoDB!");
-})

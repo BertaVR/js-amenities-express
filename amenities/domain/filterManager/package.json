@@ -1,8 +1,8 @@
 {
-  "name": "salesmanager",
+  "name": "filtermanager",
   "version": "1.0.0",
   "description": "",
-  "main": "salesManager.js",
+  "main": "filterManager.js",
   "directories": {
     "test": "/test"
   },

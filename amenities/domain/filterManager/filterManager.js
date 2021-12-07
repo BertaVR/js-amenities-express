@@ -2,7 +2,7 @@ var store = require("../store/store");
 
 const myStore = store.singletonStore.getStore();
 
-function SalesManager() {
+function FilterManager() {
   /* Esta clase no sé si tiene mucho sentido para una API rest, pero la he hecho porque
       era una manera de hacer lógica (que la verdad es que se me ocurre poca). Además es una clase
       enterita de manejar ESTRUCTURAS DE DATOS*/
@@ -10,7 +10,7 @@ function SalesManager() {
   this.store = myStore;
 }
 
-SalesManager.prototype.getStore = function () {
+FilterManager.prototype.getStore = function () {
   //función que solo se usa para prints por consola
   return this.store;
 };
@@ -26,7 +26,7 @@ function getNames(arrayOfPacks) {
 
 // La razón por la cual he decidido pasar el inventario por parámetro default es desacoplar los tests
 // al añadir la clase pack manager me he dado cuenta de que todo era dependiente de la estructura de los packs
-SalesManager.prototype.filterByMaxPrice = function (
+FilterManager.prototype.filterByMaxPrice = function (
   maxPrice,
   inventory = this.getStore().getInventory()
 ) {
@@ -40,7 +40,7 @@ SalesManager.prototype.filterByMaxPrice = function (
   return results;
 };
 
-SalesManager.prototype.filterByMinPrice = function (
+FilterManager.prototype.filterByMinPrice = function (
   minPrice,
   inventory = this.getStore().getInventory()
 ) {
@@ -55,7 +55,7 @@ SalesManager.prototype.filterByMinPrice = function (
   return results;
 };
 
-SalesManager.prototype.findPackByNombre = function (
+FilterManager.prototype.findPackByNombre = function (
   packNombre, inventory =this.getStore().getInventory()) {
   let tmpArray = Array.from(inventory).filter((p) => p.nombre === packNombre);
   if (tmpArray.length === 1) {
@@ -71,7 +71,7 @@ SalesManager.prototype.findPackByNombre = function (
   return "not found";
 };
 
-SalesManager.prototype.filterByContainsItem = function (
+FilterManager.prototype.filterByContainsItem = function (
   itemName,
   inventory = this.getStore().getInventory()
 ) {
@@ -104,7 +104,7 @@ SalesManager.prototype.filterByContainsItem = function (
   return arrayFilteredResults;
 };
 
-SalesManager.prototype.filterByNumberOfItems = function (
+FilterManager.prototype.filterByNumberOfItems = function (
   n,
   inventory = this.getStore().getInventory()
 ) {
@@ -119,7 +119,7 @@ SalesManager.prototype.filterByNumberOfItems = function (
 };
 
 //a nivel de SRP molaría más hacer 2 funciones distintas (ascendiente y descendiente), pero quería poner lógica
-SalesManager.prototype.sortByPrice = function (
+FilterManager.prototype.sortByPrice = function (
   inventory = this.getStore().getInventory(),
   order = "ASC"
 ) {
@@ -128,10 +128,10 @@ SalesManager.prototype.sortByPrice = function (
   );
 };
 
-SalesManager.prototype.sortByPrice;
+FilterManager.prototype.sortByPrice;
 
-var factory = (function singleSalesManager() {
-  const prototype = new SalesManager();
+var factory = (function singleFilterManager() {
+  const prototype = new FilterManager();
 
   return {
     getManager: function () {
@@ -140,5 +140,5 @@ var factory = (function singleSalesManager() {
   };
 })();
 
-module.exports.SalesManager = factory;
+module.exports.FilterManager = factory;
 module.exports.getNames = getNames;
