@@ -1,8 +1,7 @@
-const importaStore = require('../domain/store');
-const importaPack = require('../domain/pack');
+const importaStore = require('../domain/store/store');
+const importaPack = require('../domain/pack/pack');
 
-const pack = require('../models/Packs');
-const Boxes = require('../models/boxes');
+const Packs = require('../models/Packs');
 
 
 var storeAPI = (function singleController() {
@@ -15,7 +14,7 @@ var storeAPI = (function singleController() {
     
     // get a meeseeks
     
-    const getInventory = function(req, res) {
+  /* const getInventory = function(req, res) {
         // res.send('NOT IMPLEMENTED: Create meeseeks');
         store.getInventory()
         console.log("Number of items= ", inventory.size);
@@ -42,45 +41,20 @@ var storeAPI = (function singleController() {
         });
 
         res.status(200).type('json').json(meeseeksInstance);
-    }
+    }*/
 
-    // get meeseeks por parametro
-
-    const getBox = ( (req, res) => {
-        Boxes.findOne({ 'name': `${req.params.owner}'s box` })
-            .exec(function (err, box) {
+    const getAllPacks = ( (req, res, next) => {
+        Packs.find()
+            .exec(function (err, packs) {
                 if (err) { return next(err); }
-                // Successful, so render.
-                res.status(200).type('json').json(box);
-        })
-    })
-
-    const deleteBox = async function(req, res) {
-        Boxes.findOneAndDelete({ 'name': `${req.params.owner}'s box` })
-            .exec(function (err, deletedBox) {
-                if (err) { return next(err); }
-                res.redirect('/reality/explode/' + deletedBox.mrMeeseeks._id.toString());
-            })
-    }
-
-    const getAllBoxes = ( (req, res) => {
-        Boxes.find()
-            .exec(function (err, boxes) {
-                if (err) { return next(err); }
-                // Successful, so render.
-                res.status(200).type('json').json(boxes);
+                res.status(200).type('json').json(Packs);
             })
     })
     
     // public API
     return {
-        factory,
-        createMeeseeks,
-        getBox,
-        deleteBox,
-        getAllBoxes
+        getAllPacks
     };
 })(); 
 
-
-exports.boxAPI = boxAPI;
+exports.storeAPI = storeAPI;
