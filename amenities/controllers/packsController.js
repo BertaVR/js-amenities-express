@@ -43,17 +43,29 @@ var storeAPI = (function singleController() {
         res.status(200).type('json').json(meeseeksInstance);
     }*/
 
-    const getAllPacks = ( (req, res, next) => {
-        Packs.find()
-            .exec(function (err, packs) {
+    const getPack = ( (req, res, next) => {
+        Packs.findOne({ 'nombre': `${req.params.nombre}` })
+            .exec(function (err, pack) {
                 if (err) { return next(err); }
-                res.status(200).type('json').json(Packs);
-            })
+                // Successful, so render.
+                res.status(200).type('json').json(pack);
+        })
+      })
+
+    const getAllPacks = ( (req, res, next) => {
+        const packs =  Packs.find().exec(function (error, packs) {
+            if (error) { return next(error); }
+            // Successful, so render.
+            res.status(200).type('json').json(packs);
+        });
+          console.log(Packs);
+          res.send(Packs);
     })
     
     // public API
     return {
-        getAllPacks
+        getAllPacks,
+        getPack
     };
 })(); 
 

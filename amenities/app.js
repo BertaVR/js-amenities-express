@@ -26,7 +26,7 @@ var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 var express = require("express");
-const Pack = require("./models/Packs");
+const Packs = require("./models/Packs");
 
 
 // view engine setup

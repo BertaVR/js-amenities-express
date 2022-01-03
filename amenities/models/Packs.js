@@ -8,17 +8,23 @@ const MATERIALES=  ['consumible', 'indestructible', 'normal'];
 var packSchema = new Schema({
     nombre: String,
     stock: Number,
-    items:  [{  nombre:{type: String, unique : true, required:true},
-        precio : Number,
-        calidad : { type: Number, min: 0, max: 50 },
-        material: { type: String, enum: MATERIALES},
-        stock : {type: Number, required:true}, 
-        demanda : { type: Number, min: 0, max: 100 }}],
-    precio:{type: Number, required:true},
-    calidad: { type: String, enum: ["basic", "standard", "premium"] },
+    items:  [{  nombre: String,
+        calidad :  Number,
+        material: String,
+        stock : Number, 
+        demanda : Number}],
+    precio:Number,
+    calidad: String,
 
 });
 
-packSchema.pre('find', function() {    this.select('nombre');
-})
+packSchema.pre(['find', 'findOne'], function() {
+    // this instanceof mongoose.Query
+    // this se refiere a la query, no al documento, en este caso.
+    // Sirvo box sin la propiedad _v o version de documento 
+    // que genera monggose
+    this.select('_id nombre');
+
+    // next() es opcional
+  });
 module.exports = mongoose.model("Packs", packSchema);

@@ -1,0 +1,175 @@
+[
+
+    {
+        "_id": {
+            "$oid": "61afa3c492e027e29efdd612"
+        },
+        "id": 22,
+        "nombre": "Pack para militares",
+        "calidad": "Premium",
+        "precio": 67,
+        "items": [
+            {
+                "nombre": "Armadura resistente a todo",
+                "precio": 7,
+                "calidad": 4,
+                "material": "normal",
+                "stock": 3,
+                "demanda": 34
+            },
+            {
+                "nombre": "Cañon de protones",
+                "precio": 10,
+                "calidad": 13,
+                "material": "indestructible",
+                "stock": 1,
+                "demanda": 1
+            },
+            {
+                "nombre": "BFG",
+                "precio": 20,
+                "calidad": 3,
+                "material": "normal",
+                "stock": 1,
+                "demanda": 10
+            },
+            {
+                "nombre": "Escopeta del Doomguy",
+                "precio": 30,
+                "calidad": 2,
+                "material": "normal",
+                "stock": 12,
+                "demanda": 10
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "61afa3c492e027e29efdd612"
+        },
+        "id": 22,
+        "nombre": "Pack para militares",
+        "calidad": "Premium",
+        "precio": 67,
+        "items": [
+            {
+                "nombre": "Armadura resistente a todo",
+                "precio": 7,
+                "calidad": 4,
+                "material": "normal",
+                "stock": 3,
+                "demanda": 34
+            },
+            {
+                "nombre": "Cañon de protones",
+                "precio": 10,
+                "calidad": 13,
+                "material": "indestructible",
+                "stock": 1,
+                "demanda": 1
+            },
+            {
+                "nombre": "BFG",
+                "precio": 20,
+                "calidad": 3,
+                "material": "normal",
+                "stock": 1,
+                "demanda": 10
+            },
+            {
+                "nombre": "Escopeta del Doomguy",
+                "precio": 30,
+                "calidad": 2,
+                "material": "normal",
+                "stock": 12,
+                "demanda": 10
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "61afa3c492e027e29efdd613"
+        },
+        "id": 23,
+        "nombre": "Pack para viajeros",
+        "calidad": "Premium",
+        "precio": 55,
+        "items": [
+            {
+                "nombre": "LLave mágica",
+                "precio": 10,
+                "calidad": 4,
+                "material": "normal",
+                "stock": 3,
+                "demanda": 68
+            },
+            {
+                "nombre": "Diccionario universal",
+                "precio": 12,
+                "calidad": 13,
+                "material": "indestructible",
+                "stock": 1,
+                "demanda": 12
+            },
+            {
+                "nombre": "Pistola de portales",
+                "precio": 18,
+                "calidad": 3,
+                "material": "normal",
+                "stock": 1,
+                "demanda": 10
+            },
+            {
+                "nombre": "Crucero espacial",
+                "precio": 15,
+                "calidad": 2,
+                "material": "normal",
+                "stock": 12,
+                "demanda": 10
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "61afa3c492e027e29efdd614"
+        },
+        "id": 24,
+        "nombre": "Pack diversión",
+        "calidad": "Premium",
+        "precio": 52,
+        "items": [
+            {
+                "nombre": "Pastillas de felicidad",
+                "precio": 3,
+                "calidad": 4,
+                "material": "normal",
+                "stock": 3,
+                "demanda": 23
+            },
+            {
+                "nombre": "Bolas de petanca",
+                "precio": 3,
+                "calidad": 13,
+                "material": "indestructible",
+                "stock": 1,
+                "demanda": 50
+            },
+            {
+                "nombre": "Fate/Domination",
+                "precio": 6,
+                "calidad": 3,
+                "material": "normal",
+                "stock": 1,
+                "demanda": 10
+            },
+            {
+                "nombre": "PS5",
+                "precio": 40,
+                "calidad": 2,
+                "material": "normal",
+                "stock": 12,
+                "demanda": 100
+            }
+        ]
+    }
+]
