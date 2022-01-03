@@ -10,9 +10,15 @@ var usersRouter = require("./routes/users");
 
 var app = express();
 
-var mongoDB = `mongodb+srv:/m001-student:m001-mongodb-basics@sandbox.rpuy3.mongodb.net/Store?retryWrites=true&w=majority`;
+var mongoDB = `mongodb+srv://m001-student:m001-mongodb-basics@sandbox.rpuy3.mongodb.net/Store?retryWrites=true&w=majority`;
 
-//mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(
+  mongoDB,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => {
+    console.log("Connected to MongoDB!");
+  }
+);
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
