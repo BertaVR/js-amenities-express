@@ -16,7 +16,7 @@ PackManager.prototype.createStock = function (items) {
   return minStock;
 };
 
-// El precio es la suma del precio de los items + un porcentaje (de momento el 15, pero se podría cambiar en unas rebajas ya que va por parámetro)
+// El precio es la suma del precio de los items - un porcentaje (de momento el 15, pero se podría cambiar en unas rebajas ya que va por parámetro)
 // La razón de que se reste un % es que cuando compras cosas por packs suele salir más barato
 PackManager.prototype.createPrecio = function (items) {
   if (items == null || items == undefined) {
