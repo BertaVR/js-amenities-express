@@ -70,18 +70,18 @@ describe("Packs Routes", () => {
       });
   });
 
-  test("Test deletePack /packs/delete/:nombre /", () => {
+  test("Test deletePack /packs/:nombre/delete /", () => {
     // sintaxis alternativa con supertest
     // Uso la de jest con codigo asincrono con promesas
-    let nombre = "Pack Animales";
+    let nombre = "Pack animales";
     return request(app)
-      .get(`/packs/delete/${nombre}`)
+      .get(`/packs/${nombre}/delete`)
       .then((res) => {
         console.log(res.body);
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
-        expect(res.body).toHaveProperty("_id", "nombre", "items");
-        expect(res.body._id).toBe("61d4253a54e15ddfdcb29064");
+        expect(res.body).toHaveProperty('_id', "61afc35457387547a0c0f6d1");
+        expect(res.body).toHaveProperty('nombre', nombre);
       });
   }, 10000);
 });
