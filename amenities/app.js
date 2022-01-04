@@ -8,18 +8,13 @@ var logger = require('morgan');
 //CONNECTION
 
 
+var mongoConfig = require('./db/mongoConfig');
+mongoConfig.connect();
 
-var mongoDB = `mongodb+srv://m001-student:m001-mongodb-basics@sandbox.rpuy3.mongodb.net/Store?retryWrites=true&w=majority`;
-
-mongoose.connect(
-  mongoDB,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  () => {
-    console.log('Stablished connection to MongoDB!');
-  }
-);
-var db = mongoose.connection;
+// connection es el constructor de la conexion
+var db = mongoConfig.mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
 
 var app = express();
 
