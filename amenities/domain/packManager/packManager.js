@@ -16,7 +16,7 @@ PackManager.prototype.createStock = function (items) {
   return minStock;
 };
 
-// El precio es la suma del precio de los items + un porcentaje (de momento el 15, pero se podría cambiar en unas rebajas ya que va por parámetro)
+// El precio es la suma del precio de los items - un porcentaje (de momento el 15, pero se podría cambiar en unas rebajas ya que va por parámetro)
 // La razón de que se reste un % es que cuando compras cosas por packs suele salir más barato
 PackManager.prototype.createPrecio = function (items) {
   if (items == null || items == undefined) {
@@ -30,17 +30,19 @@ PackManager.prototype.createCalidad = function (items) {
     return "no hay items";
   }
   let calidad = "no definida";
+  // este array from es necesario para no ytener que escribir cosas raras en la petición
+let objetos = Array.from(items)
   switch (true) {
-    case items.size == 0:
+    case objetos.length == 0:
       //  calidad = "no definida";
       break;
-    case items.size < 3:
+    case objetos.length < 3:
       calidad = "basic";
       break;
-    case items.size < 4:
+    case objetos.length < 4:
       calidad = "standard";
       break;
-    case items.size >= 4:
+    case objetos.length >= 4:
       calidad = "premium";
       break;
   }
