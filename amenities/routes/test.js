@@ -1,8 +1,7 @@
 
 var express = require('express');
 var router = express.Router();
-const Packs = require("../models/Packs");
-var mongoose = require("mongoose");
+const Packs = require("../models/packs");
 
 
 router.use(function (req, res, next) {
