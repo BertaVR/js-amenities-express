@@ -24,11 +24,8 @@ router.use(function (req, res, next) {
 
 router.get("/:nombre", packsController.storeAPI.getPack);
 router.get("/:nombre/delete", packsController.storeAPI.deletePack);
-router.post("/add", function (req, res) {
-  var nombre = req.body.nombre;
-    var items = req.body.items;
-  packsController.storeAPI.createPack(nombre, items);
-});
+router.post("/add",  packsController.storeAPI.createPack);
+
 
 router.get("/", packsController.storeAPI.getAllPacks);
 
