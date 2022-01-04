@@ -23,7 +23,7 @@ packSchema.pre(['find', 'findOne'], function() {
     // this se refiere a la query, no al documento, en este caso.
     // Sirvo box sin la propiedad _v o version de documento 
     // que genera monggose
-    this.select('_id nombre');
+    this.select('_id nombre, items');
 
     // next() es opcional
   });
