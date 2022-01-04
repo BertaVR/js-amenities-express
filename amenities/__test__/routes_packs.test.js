@@ -31,7 +31,6 @@ describe("Packs Routes", () => {
     return request(app)
       .get(`/packs/${nombre}`)
       .then((res) => {
-        console.log(res.body)
         // Received: "application/json; charset=utf-8"
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
@@ -43,4 +42,33 @@ describe("Packs Routes", () => {
         expect(res.body._id).toBe("61afbb1396fa4c8802fe4201");
       });
   });
+  test("Test getAllPacks /packs/ /", () => {
+    // sintaxis alternativa con supertest
+    // Uso la de jest con codigo asincrono con promesas
+    return request(app)
+      .get(`/packs/`)
+      .then((res) => {
+        console.log(res.body)
+        // Received: "application/json; charset=utf-8"
+        expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
+        expect(res.statusCode).toEqual(200);
+        expect(res.body[0]).toHaveProperty("_id", "name", "items");
+        expect(res.body).toHaveLength(24);
+        expect(res.body[0]._id).not.toBeFalsy();
+      });
+  });
+
+  test("Test deletePack /packs/delete/:nombre /", () => {
+    // sintaxis alternativa con supertest
+    // Uso la de jest con codigo asincrono con promesas
+    let nombre = cosa2;
+    return request(app)
+    .get(`/box/delete/${nombre}`)
+    .then(res => {
+        expect(res.get('Content-Type')).toEqual(expect.stringMatching('/json'));
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty('_id', 'nombre', 'items');
+        expect(res.body._id).toBe('61d4253a54e15ddfdcb29064');
+    });
+}, 10000); 
 });
