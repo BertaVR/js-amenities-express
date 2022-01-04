@@ -26,6 +26,8 @@ router.use(function (req, res, next) {
 
 
 router.get('/:nombre', packsController.storeAPI.getPack);
+router.get('/delete/:nombre', packsController.storeAPI.deletePack);
+
 
 router.get('/', packsController.storeAPI.getAllPacks);
 
