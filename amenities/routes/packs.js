@@ -25,7 +25,7 @@ router.use(function (req, res, next) {
 });*/
 
 
-router.get('/pack', packsController.storeAPI.getPack);
+router.get('/:nombre', packsController.storeAPI.getPack);
 
 router.get('/', packsController.storeAPI.getAllPacks);
 
