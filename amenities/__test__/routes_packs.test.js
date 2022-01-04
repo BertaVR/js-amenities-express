@@ -18,13 +18,11 @@ const db = require("../db/mongoConfig");
 
 describe("Packs Routes", () => {
   afterAll(async () => {
-
     db.disconnect();
   });
 
   // testing de codigo asincrono con promesas
   test("Test getPack /packs/:nombre /", () => {
-
     let nombre = "Pack1";
     return request(app)
       .get(`/packs/${nombre}`)
@@ -42,19 +40,16 @@ describe("Packs Routes", () => {
   });
 
   test("Negative test getPack /packs/:nombre /", () => {
-
     let nombre = "Este pack no existe";
     return request(app)
       .get(`/packs/${nombre}`)
       .then((res) => {
         // Received: "application/json; charset=utf-8"
-        expect(res.statusCode).toEqual(404); 
-
+        expect(res.statusCode).toEqual(404);
       });
   });
 
   test("Test getAllPacks /packs/ /", () => {
-
     return request(app)
       .get(`/packs/`)
       .then((res) => {
@@ -69,7 +64,6 @@ describe("Packs Routes", () => {
   });
 
   test("Test deletePack /packs/:nombre/delete /", () => {
-
     let nombre = "Pack animales";
     return request(app)
       .get(`/packs/${nombre}/delete`)
@@ -77,21 +71,89 @@ describe("Packs Routes", () => {
         console.log(res.body);
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
-        expect(res.body).toHaveProperty('_id', "61afc35457387547a0c0f6d1");
-        expect(res.body).toHaveProperty('nombre', nombre);
+        expect(res.body).toHaveProperty("_id", "61afc35457387547a0c0f6d1");
+        expect(res.body).toHaveProperty("nombre", nombre);
       });
   }, 10000);
 
   test("Negative test deletePack /packs/:nombre/delete /", () => {
-
     let nombre = "Pack que no existe";
     return request(app)
       .get(`/packs/${nombre}/delete`)
       .then((res) => {
         expect(res.statusCode).toEqual(404);
-  
       });
   });
+
+  test("test POST addPack /packs /", () => {
+    return request(app)
+      .post("/packs/add")
+      .send(testData.positivePost)
+      .then((res) => {
+        expect(res.statusCode).toEqual(201);
+      }); //suggestion by @acincognito
+  });
+
+  test("negative test POST addPack: request without items - /packs /", () => {
+    return request(app)
+      .post("/packs/add")
+      .send(testData.noItemsPost)
+      .then((res) => {
+        expect(res.statusCode).toEqual(400);
+      }); //suggestion by @acincognito
+  });
+
+
+test("negative test POST 2 addPack: request without name -  /packs /", () => {
+  return request(app)
+    .post("/packs/add")
+    .send(testData.noNombrePost)
+    .then((res) => {
+      expect(res.statusCode).toEqual(400);
+    }); //suggestion by @acincognito
+});
 });
 
 
+var testData = {
+  positivePost: {
+    nombre: "Hello",
+    items: [
+      {
+        nombre: "LLave mágica",
+        precio: 10,
+        calidad: 4,
+        material: "normal",
+        stock: 3,
+        demanda: 68,
+      },
+      {
+        nombre: "Diccionario universal",
+        precio: 12,
+        calidad: 13,
+        material: "indestructible",
+        stock: 1,
+        demanda: 12,
+      },
+      {
+        nombre: "Pistola de portales",
+        precio: 18,
+        calidad: 3,
+        material: "normal",
+        stock: 1,
+        demanda: 10,
+      },
+      {
+        nombre: "Crucero espacial",
+        precio: 15,
+        calidad: 2,
+        material: "normal",
+        stock: 12,
+        demanda: 10,
+      },
+    ],
+  },
+  noItemsPost: { nombre: "Hello" },
+  noNombrePost: { items: ["a", "b"] },
+
+};
