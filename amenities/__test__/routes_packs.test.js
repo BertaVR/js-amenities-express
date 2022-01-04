@@ -6,6 +6,7 @@
 
 const { expect } = require("@jest/globals");
 const request = require("supertest");
+
 const app = require("../app");
 
 const db = require("../db/mongoConfig");
@@ -86,12 +87,21 @@ describe("Packs Routes", () => {
   });
 
   test("test POST addPack /packs /", () => {
+    let testPack = testData.positivePost;
     return request(app)
       .post("/packs/add")
-      .send(testData.positivePost)
+      .send(testPack)
       .then((res) => {
         expect(res.statusCode).toEqual(201);
-      }); //suggestion by @acincognito
+        expect(res.body).toHaveProperty("_id");
+        expect(res.body).toHaveProperty("nombre", "Hello");
+        expect(res.body).toHaveProperty("items");
+        expect(res.body.items).toHaveLength(4);
+        //no les pido exactos por si la lógica cambia, eso lo dejo en tests unitarios
+        expect(res.body.stock).toBeGreaterThanOrEqual(0);
+        expect(res.body.precio).toBeGreaterThanOrEqual(0);
+        expect(res.body.calidad).toBeTruthy();
+      }); 
   });
 
   test("negative test POST addPack: request without items - /packs /", () => {
@@ -100,20 +110,18 @@ describe("Packs Routes", () => {
       .send(testData.noItemsPost)
       .then((res) => {
         expect(res.statusCode).toEqual(400);
-      }); //suggestion by @acincognito
+      }); 
   });
 
-
-test("negative test POST 2 addPack: request without name -  /packs /", () => {
-  return request(app)
-    .post("/packs/add")
-    .send(testData.noNombrePost)
-    .then((res) => {
-      expect(res.statusCode).toEqual(400);
-    }); //suggestion by @acincognito
+  test("negative test POST 2 addPack: request without name -  /packs /", () => {
+    return request(app)
+      .post("/packs/add")
+      .send(testData.noNombrePost)
+      .then((res) => {
+        expect(res.statusCode).toEqual(400);
+      }); //suggestion by @acincognito
+  });
 });
-});
-
 
 var testData = {
   positivePost: {
@@ -155,5 +163,4 @@ var testData = {
   },
   noItemsPost: { nombre: "Hello" },
   noNombrePost: { items: ["a", "b"] },
-
 };
