@@ -15,10 +15,13 @@ var storeAPI = (function singleController() {
       pack
     ) {
       if (err) {
+        console.log("error pasa x if")
         return next(err);
       }
       // Successful, so render.
-
+      if (!pack) {
+        res.sendStatus(404);
+      }
       res.status(200).type("json").json(pack);
     });
   };
@@ -47,7 +50,6 @@ var storeAPI = (function singleController() {
         return next(err);
       }
       // Successful, so render.
-
       res.status(200).type("json").json(pack);
     });
   };
@@ -96,6 +98,10 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     //create pack
     var nombre = req.body.nombre;
     var items = req.body.items;
+    console.log(nombre);
+    if (nombre !== undefined || items !== undefined) {
+      res.sendStatus(400);
+    }
     let pack = importaPack.makePack.createPack(nombre, items);
 
     //create pack with model for db
@@ -107,16 +113,15 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     guardaPack.calidad = pack.calidad;
     console.log(guardaPack);
 
-    guardaPack
-      .save(function (err) {
-        if (err) {
-          console.log("error pasa x el if");
-          return next(err);
-        }
+    guardaPack.save(function (err) {
+      if (err) {
+        console.log("error pasa x el if");
+        return next(err);
+      }
 
-        // Successful, so render.
-      })
-        res.status(201).type("json").json(guardaPack);
+      // Successful, so render.
+    });
+    res.status(201).type("json").json(guardaPack);
   };
 
   // public API
