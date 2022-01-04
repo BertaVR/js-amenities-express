@@ -4,6 +4,7 @@
 ```shell script
 cd amenities
 ```
+A partir de ese directorio: 
 - Para pasar TODOS los casos test:
 ```shell script
 npm run test
