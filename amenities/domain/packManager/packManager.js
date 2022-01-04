@@ -30,6 +30,7 @@ PackManager.prototype.createCalidad = function (items) {
     return "no hay items";
   }
   let calidad = "no definida";
+  // este array from es necesario para no ytener que escribir cosas raras en la petición
 let objetos = Array.from(items)
   switch (true) {
     case objetos.length == 0:
