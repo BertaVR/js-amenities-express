@@ -20,7 +20,7 @@ var storeAPI = (function singleController() {
       }
       // Successful, so render.
       if (!pack) {
-        res.sendStatus(404);
+        return res.sendStatus(404);
       }
       res.status(200).type("json").json(pack);
     });
@@ -99,8 +99,8 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     var nombre = req.body.nombre;
     var items = req.body.items;
     console.log(nombre);
-    if (nombre !== undefined || items !== undefined) {
-      res.sendStatus(400);
+    if (nombre === undefined || items === undefined) {
+      return res.sendStatus(400);
     }
     let pack = importaPack.makePack.createPack(nombre, items);
 
