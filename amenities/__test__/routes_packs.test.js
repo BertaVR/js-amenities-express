@@ -69,8 +69,7 @@ describe("Packs Routes", () => {
   });
 
   test("Test deletePack /packs/:nombre/delete /", () => {
-    // sintaxis alternativa con supertest
-    // Uso la de jest con codigo asincrono con promesas
+
     let nombre = "Pack animales";
     return request(app)
       .get(`/packs/${nombre}/delete`)
@@ -82,4 +81,17 @@ describe("Packs Routes", () => {
         expect(res.body).toHaveProperty('nombre', nombre);
       });
   }, 10000);
+
+  test("Negative test deletePack /packs/:nombre/delete /", () => {
+
+    let nombre = "Pack que no existe";
+    return request(app)
+      .get(`/packs/${nombre}/delete`)
+      .then((res) => {
+        expect(res.statusCode).toEqual(404);
+  
+      });
+  });
 });
+
+
