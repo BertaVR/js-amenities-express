@@ -50,6 +50,10 @@ var storeAPI = (function singleController() {
         return next(err);
       }
       // Successful, so render.
+
+      if (!pack) {
+        return res.sendStatus(404);
+      }
       res.status(200).type("json").json(pack);
     });
   };
