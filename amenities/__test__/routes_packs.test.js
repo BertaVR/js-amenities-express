@@ -48,10 +48,8 @@ describe("Packs Routes", () => {
       .get(`/packs/${nombre}`)
       .then((res) => {
         // Received: "application/json; charset=utf-8"
-        expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
-        expect(res.statusCode).toEqual(200); //debería ser 404 pero no lo sé poner
-        //por eso lo que compruebo es que sea nulo
-        expect(res.body).toBeNull();
+        expect(res.statusCode).toEqual(404); 
+
       });
   });
 
