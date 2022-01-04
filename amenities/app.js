@@ -45,7 +45,6 @@ const testRouter = require('./routes/test');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/packs', packsRouter);
-app.use('/test', testRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -62,8 +61,5 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-var wiki = require('./routes/wiki.js');
-// ...
-app.use('/wiki', wiki);
 
 module.exports = app;

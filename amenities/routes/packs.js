@@ -24,16 +24,10 @@ router.use(function (req, res, next) {
   
 });*/
 
-router.get('/hola', function (req, res) {
-  res.send('hola');
-})
+
 router.get('/pack', packsController.storeAPI.getPack);
 
 router.get('/', packsController.storeAPI.getAllPacks);
-
-router.get('/test', function routeHandler(req, res) {
-  res.send('ok');
-});
 
 module.exports = router;
 
