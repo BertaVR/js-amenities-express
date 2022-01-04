@@ -37,7 +37,7 @@ var storeAPI = (function singleController() {
       err,
       pack
     ) {
-      if (error) {
+      if (err) {
         return next(err);
       }
       // Successful, so render.
@@ -46,11 +46,35 @@ var storeAPI = (function singleController() {
     });
   };
 
+  const createPack = (nombre, items, req, res, next) => {
+    let pack = importaPack.makePack.createPack(nombre, items);
+    guardaPack = new Packs();
+    guardaPack.nombre = pack.nombre,
+    guardaPack.items = pack.items,
+    guardaPack.stock = pack.stock,
+    guardaPack.precio = pack.precio
+    guardaPack.calidad= pack.calidad
+    console.log(guardaPack);
+
+    guardaPack.save(function (
+        err, pack
+      ) {
+        if (err) {
+          console.log(err)
+          return next(err);
+        }
+        // Successful, so render.
+  
+        res.status(200).type("json").json(pack);
+      });
+  };
+
   // public API
   return {
     getAllPacks,
     getPack,
     deletePack,
+    createPack,
   };
 })();
 

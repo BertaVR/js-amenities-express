@@ -1,15 +1,13 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var packsController = require('../controllers/packsController');
-
+var packsController = require("../controllers/packsController");
 
 router.use(function (req, res, next) {
   console.log(req.url);
   console.log(req.params);
 
   next();
-})
-
+});
 
 /*router.get('', async function(req, res, next) {
   const packs = await Packs.find().exec(function (error, Packs) {
@@ -24,12 +22,14 @@ router.use(function (req, res, next) {
   
 });*/
 
+router.get("/:nombre", packsController.storeAPI.getPack);
+router.get("/:nombre/delete", packsController.storeAPI.deletePack);
+router.post("/add", function (req, res) {
+  var nombre = req.body.nombre;
+    var items = req.body.items;
+  packsController.storeAPI.createPack(nombre, items);
+});
 
-router.get('/:nombre', packsController.storeAPI.getPack);
-router.get('/delete/:nombre', packsController.storeAPI.deletePack);
-
-
-router.get('/', packsController.storeAPI.getAllPacks);
+router.get("/", packsController.storeAPI.getAllPacks);
 
 module.exports = router;
-
