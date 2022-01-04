@@ -30,17 +30,18 @@ PackManager.prototype.createCalidad = function (items) {
     return "no hay items";
   }
   let calidad = "no definida";
+let objetos = Array.from(items)
   switch (true) {
-    case items.size == 0:
+    case objetos.length == 0:
       //  calidad = "no definida";
       break;
-    case items.size < 3:
+    case objetos.length < 3:
       calidad = "basic";
       break;
-    case items.size < 4:
+    case objetos.length < 4:
       calidad = "standard";
       break;
-    case items.size >= 4:
+    case objetos.length >= 4:
       calidad = "premium";
       break;
   }
