@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var Items = require('./items');
 
 //Definir el schema
 
@@ -8,12 +9,8 @@ const MATERIALES=  ['consumible', 'indestructible', 'normal'];
 var packSchema = new Schema({
     nombre: String,
     stock: Number,
-    items:  [{  nombre :{type: String, unique : true, required:true},
-        precio : {type: Number, required:true},
-        calidad : { type: Number, min: 0, max: 50 },
-        material : { type: String, enum: MATERIALES },
-        stock : {type: Number, required:true}, 
-        demanda : { type: Number, min: 0, max: 100 }}],
+    items:  [{type: Schema.Types.ObjectId, ref: Items}      
+    ],
     precio: {type: Number, required:true}, 
     calidad: { type: String, enum: ["basic", "standard", "premium"] },
 });
