@@ -1,8 +1,4 @@
-/**
- * Ejecutar los test desde terminal
- * de Linux, por aquello de las
- * variables de entorno
- */
+
 
 const { expect } = require("@jest/globals");
 const request = require("supertest");
@@ -22,13 +18,11 @@ describe("Packs Routes", () => {
     db.disconnect();
   });
 
-  // testing de codigo asincrono con promesas
-  test("Test getPack /packs/:nombre /", () => {
+  test("Positive test getPack /packs/:nombre /", () => {
     let nombre = "Pack1";
     return request(app)
       .get(`/packs/${nombre}`)
       .then((res) => {
-        // Received: "application/json; charset=utf-8"
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty("_id", "name", "items");
@@ -45,12 +39,11 @@ describe("Packs Routes", () => {
     return request(app)
       .get(`/packs/${nombre}`)
       .then((res) => {
-        // Received: "application/json; charset=utf-8"
         expect(res.statusCode).toEqual(404);
       });
   });
 
-  test("Test getAllPacks /packs/ /", () => {
+  test("Positive test getAllPacks /packs/ /", () => {
     return request(app)
       .get(`/packs/`)
       .then((res) => {
@@ -58,13 +51,20 @@ describe("Packs Routes", () => {
         // Received: "application/json; charset=utf-8"
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
-        expect(res.body[0]).toHaveProperty("_id", "name", "items");
+        expect(res.body[0]).toHaveProperty(
+          "_id",
+          "name",
+          "items",
+          "stock",
+          "calidad",
+          "precio"
+        );
         expect(res.body).toHaveLength(24);
         expect(res.body[0]._id).not.toBeFalsy();
       });
   });
 
-  test("Test deletePack /packs/:nombre/delete /", () => {
+  test("Positive test deletePack /packs/:nombre/delete /", () => {
     let nombre = "Pack animales";
     return request(app)
       .get(`/packs/${nombre}/delete`)
@@ -86,25 +86,16 @@ describe("Packs Routes", () => {
       });
   });
 
-  test("test POST addPack /packs /", () => {
-    let testPack = testData.positivePost;
+  test("Positive test POST addPack /packs /", () => {
     return request(app)
       .post("/packs/add")
       .send(testPack)
       .then((res) => {
         expect(res.statusCode).toEqual(201);
-        expect(res.body).toHaveProperty("_id");
-        expect(res.body).toHaveProperty("nombre", "Hello");
-        expect(res.body).toHaveProperty("items");
-        expect(res.body.items).toHaveLength(4);
-        //no les pido exactos por si la lógica cambia, eso lo dejo en tests unitarios
-        expect(res.body.stock).toBeGreaterThanOrEqual(0);
-        expect(res.body.precio).toBeGreaterThanOrEqual(0);
-        expect(res.body.calidad).toBeTruthy();
       }); 
   });
 
-  test("negative test POST addPack: request without items - /packs /", () => {
+  test("Negative test POST addPack: request without items - /packs /", () => {
     return request(app)
       .post("/packs/add")
       .send(testData.noItemsPost)
@@ -113,13 +104,36 @@ describe("Packs Routes", () => {
       }); 
   });
 
-  test("negative test POST 2 addPack: request without name -  /packs /", () => {
+  test("Negative test POST 2 addPack: request without name -  /packs /", () => {
     return request(app)
       .post("/packs/add")
       .send(testData.noNombrePost)
       .then((res) => {
         expect(res.statusCode).toEqual(400);
-      }); //suggestion by @acincognito
+      }); 
+  });
+
+  test("Negative test updateNombre  404 -  /packs/:nombre/cambiarNombre/:nuevoNombre /", () => {
+    let nombre = "Pack que no existe";
+    let nuevoNombre = "Nuevo nombre";
+    return request(app)
+      .get(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
+      .then((res) => {
+        expect(res.statusCode).toEqual(404);
+      });
+  });
+
+  test("Positive test updateNombre  -  /packs/:nombre/cambiarNombre/:nuevoNombre /", () => {
+    let nombre = "Pack para Payasos";
+    let nuevoNombre = "Pack guay";
+    return request(app)
+      .get(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
+      .then((res) => {
+        expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty("_id", "61d2ec8dd75d3770be7e818b");
+        expect(res.body).toHaveProperty("nombre", nuevoNombre);
+      });
   });
 });
 

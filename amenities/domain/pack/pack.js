@@ -7,7 +7,6 @@ function Pack(nombre, items) {
   this.items = items; //array
   this.precio = myManager.createPrecio(items);
   this.calidad = myManager.createCalidad(items);
-
 }
 
 var factory = (() => {
@@ -17,6 +16,28 @@ var factory = (() => {
     },
   };
 })();
+
+Pack.prototype.updateItems = function (items) {
+  this.items = items;
+  this.stock = myManager.createStock(items);
+  this.precio = myManager.createPrecio(items);
+  this.calidad = myManager.createCalidad(items);
+};
+
+Pack.prototype.updatePack = function (arrayOfChanges /*[{field: value}]*/) {
+  arrayOfChanges.forEach((key_value_pair) => {
+    for (const [key, value] of Object.entries(key_value_pair)) {
+      switch (true) {
+        case key === "items":
+          this.updateItems(value);
+          break;
+        case key === "nombre":
+          this.nombre = value;
+          break;
+      }
+    }
+  });
+};
 
 Pack.prototype.getStock = function () {
   return this.stock;
@@ -40,4 +61,4 @@ isAvailable = function (pack) {
 
 module.exports.makePack = factory;
 module.exports.class = Pack;
-module.exports.functions = {isAvailable}
+module.exports.functions = { isAvailable };
