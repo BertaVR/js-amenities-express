@@ -1,7 +1,8 @@
 const importaStore = require("../domain/store/store");
 const importaPack = require("../domain/pack/pack");
-
+const mongoose = require('mongoose')
 const Packs = require("../models/packs");
+const Items = require("../models/items");
 
 var storeAPI = (function singleController() {
   let store = importaStore.singletonStore.getStore();
@@ -10,32 +11,33 @@ var storeAPI = (function singleController() {
   //curl 'http://localhost:3000/packs/Pack1
 
   const getPack = (req, res, next) => {
-    Packs.findOne({ nombre: `${req.params.nombre}` }).exec(function (
-      err,
-      pack
-    ) {
-      if (err) {
-        return next(err);
-      }
-      // Successful, so render.
-      if (!pack) {
-        return res.sendStatus(404);
-      }
-      res.status(200).type("json").json(pack);
-    });
+    Packs.findOne({ nombre: `${req.params.nombre}` })
+      .populate("items")
+      .exec(function (err, pack) {
+        if (err) {
+          return next(err);
+        }
+        // Successful, so render.
+        if (!pack) {
+          return res.sendStatus(404);
+        }
+        res.status(200).type("json").json(pack);
+      });
   };
 
   //curl 'http://localhost:3000/packs/
 
   const getAllPacks = (req, res, next) => {
-    Packs.find({}).exec(function (error, packs) {
-      if (error) {
-        return next(error);
-      }
-      // Successful, so render.
+    Packs.find({})
+      .populate("items")
+      .exec(function (error, packs) {
+        if (error) {
+          return next(error);
+        }
+        // Successful, so render.
 
-      res.status(200).type("json").json(packs);
-    });
+        res.status(200).type("json").json(packs);
+      });
   };
 
   //curl 'http://localhost:3000/packs/Pack%20diversión/delete'
@@ -99,12 +101,35 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 
   const createPack = (req, res, next) => {
     //create pack
+  /*  let items = req.body.items;
     let nombre = req.body.nombre;
-    let items = req.body.items;
-    if (nombre === undefined || items === undefined) {
-      return res.sendStatus(400);
-    }
-    let pack = importaPack.makePack.createPack(nombre, items);
+    let arrayOfIds = []
+    items.forEach((item)=> {arrayOfIds.push(mongoose.Types.ObjectId(item))})
+    console.log(`itemsResults: ${itemsResults}`);
+
+    var creaItems = [];
+
+    Items.find({'_id':{ $in: [arrayOfIds] }}) .populate("items")
+    .then((itemsResults) => {
+      console.log(`itemsResults: ${itemsResults}`);
+
+      itemsResults.forEach((itemsResult) => {
+
+        creaItems.push({
+          nombre: itemsResult.nombre,
+          precio: itemsResult.precio,
+          calidad: itemsResult.calidad,
+          material: itemsResult.material,
+          stock: itemsResult.stock,
+          demanda: itemsResult.demanda,
+        });
+        console.log(creaItems)
+      });
+    });
+    console.log(`creaItems: ${creaItems}`);
+
+    let pack = importaPack.makePack.createPack(nombre, creaItems);
+    console.log(pack);
 
     //create pack with model for db
     guardaPack = new Packs();
@@ -119,11 +144,9 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
       if (err) {
         return next(err);
       }
-
-      // Successful, so render.
-    });
-    res.status(201).type("json").json(guardaPack);
+    });*/
   };
+  // Successful, so render.
 
   /*
   ** curl --location --request GET 'http://localhost:3000/packs/pack Animales/cambiarNombre/pack Animalitous' \
