@@ -89,7 +89,7 @@ describe("Packs Routes", () => {
   test("Positive test POST addPack /packs /", () => {
     return request(app)
       .post("/packs/add")
-      .send(testPack)
+      .send(testData.positivePost)
       .then((res) => {
         expect(res.statusCode).toEqual(201);
       }); 
