@@ -15,7 +15,6 @@ var storeAPI = (function singleController() {
       pack
     ) {
       if (err) {
-        console.log("error pasa x if")
         return next(err);
       }
       // Successful, so render.
@@ -100,9 +99,8 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 
   const createPack = (req, res, next) => {
     //create pack
-    var nombre = req.body.nombre;
-    var items = req.body.items;
-    console.log(nombre);
+    let nombre = req.body.nombre;
+    let items = req.body.items;
     if (nombre === undefined || items === undefined) {
       return res.sendStatus(400);
     }
@@ -119,7 +117,6 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 
     guardaPack.save(function (err) {
       if (err) {
-        console.log("error pasa x el if");
         return next(err);
       }
 
@@ -128,12 +125,37 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     res.status(201).type("json").json(guardaPack);
   };
 
+  /*
+  ** curl --location --request GET 'http://localhost:3000/packs/pack Animales/cambiarNombre/pack Animalitous' \
+--data-raw '' */
+
+  const updateNombre = (req, res, next) => {
+    Packs.findOne({
+      nombre: req.params.nombre,
+    }).then((pack) => {
+      if (!pack) {
+        return res.sendStatus(404);
+      }
+      pack.nombre = req.params.nuevoNombre;
+      pack.save(function (err) {
+        if (err) {
+          return next(err);
+        }
+
+        // Successful, so render.
+
+        res.status(200).type("json").json(pack); // enviamos la boleta de vuelta
+      });
+    });
+  };
+
   // public API
   return {
     getAllPacks,
     getPack,
     deletePack,
     createPack,
+    updateNombre,
   };
 })();
 
