@@ -11,7 +11,7 @@ var packSchema = new Schema({
     items:  [{  nombre :{type: String, unique : true, required:true},
         precio : {type: Number, required:true},
         calidad : { type: Number, min: 0, max: 50 },
-        material : { type: String, enum: ["consumible", "indestructible", "normal"] },
+        material : { type: String, enum: MATERIALES },
         stock : {type: Number, required:true}, 
         demanda : { type: Number, min: 0, max: 100 }}],
     precio: {type: Number, required:true}, 
@@ -20,7 +20,7 @@ var packSchema = new Schema({
 
 packSchema.pre(['find', 'findOne'], function() {
 
-    this.select('_id nombre items');
+    this.select('_id nombre items stock calidad precio');
 
   });
 
