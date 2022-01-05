@@ -24,16 +24,19 @@ Pack.prototype.updateItems = function (items) {
   this.calidad = myManager.createCalidad(items);
 };
 
-Pack.prototype.updatePack = function (field, value) {
-  switch (true) {
-    case field === "items":
-      this.updateItems(value);
-      break;
-    case field === "nombre":
-      this.nombre = value;
-      break;
-
-  }
+Pack.prototype.updatePack = function (arrayOfChanges /*[{field: value}]*/) {
+  arrayOfChanges.forEach((key_value_pair) => {
+    for (const [key, value] of Object.entries(key_value_pair)) {
+      switch (true) {
+        case key === "items":
+          this.updateItems(value);
+          break;
+        case key === "nombre":
+          this.nombre = value;
+          break;
+      }
+    }
+  });
 };
 
 Pack.prototype.getStock = function () {
