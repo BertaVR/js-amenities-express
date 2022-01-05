@@ -141,11 +141,11 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
         if (err) {
           return next(err);
         }
-
-        // Successful, so render.
-
-        res.status(200).type("json").json(pack); // enviamos la boleta de vuelta
       });
+
+      // Successful, so render.
+
+      res.status(200).type("json").json(pack); // enviamos la boleta de vuelta
     });
   };
 
