@@ -1,8 +1,4 @@
-/**
- * Ejecutar los test desde terminal
- * de Linux, por aquello de las
- * variables de entorno
- */
+
 
 const { expect } = require("@jest/globals");
 const request = require("supertest");
@@ -21,13 +17,11 @@ describe("Packs Routes", () => {
     db.disconnect();
   });
 
-  // testing de codigo asincrono con promesas
   test("Positive test getPack /packs/:nombre /", () => {
     let nombre = "Pack1";
     return request(app)
       .get(`/packs/${nombre}`)
       .then((res) => {
-        // Received: "application/json; charset=utf-8"
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty("_id", "name", "items");
@@ -44,7 +38,6 @@ describe("Packs Routes", () => {
     return request(app)
       .get(`/packs/${nombre}`)
       .then((res) => {
-        // Received: "application/json; charset=utf-8"
         expect(res.statusCode).toEqual(404);
       });
   });
@@ -98,7 +91,7 @@ describe("Packs Routes", () => {
       .send(testData.positivePost)
       .then((res) => {
         expect(res.statusCode).toEqual(201);
-      }); //suggestion by @acincognito
+      }); 
   });
 
   test("Negative test POST addPack: request without items - /packs /", () => {
@@ -107,7 +100,7 @@ describe("Packs Routes", () => {
       .send(testData.noItemsPost)
       .then((res) => {
         expect(res.statusCode).toEqual(400);
-      }); //suggestion by @acincognito
+      }); 
   });
 
   test("Negative test POST 2 addPack: request without name -  /packs /", () => {
@@ -116,7 +109,7 @@ describe("Packs Routes", () => {
       .send(testData.noNombrePost)
       .then((res) => {
         expect(res.statusCode).toEqual(400);
-      }); //suggestion by @acincognito
+      }); 
   });
 
   test("Negative test updateNombre  404 -  /packs/:nombre/cambiarNombre/:nuevoNombre /", () => {
