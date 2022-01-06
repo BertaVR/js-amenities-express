@@ -1,4 +1,3 @@
-
 function Store() {
   this.name = "Tienda de Berta";
   this.inventory = new Set();
@@ -25,7 +24,7 @@ Store.prototype.getInventory = function () {
 };
 
 Store.prototype.clearInventory = function () {
-  console.log("Borrado inventario.")
+  console.log("Borrado inventario.");
   this.getInventory().clear();
 };
 

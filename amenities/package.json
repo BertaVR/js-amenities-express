@@ -2,8 +2,12 @@
   "name": "amenities",
   "version": "0.0.0",
   "private": true,
-
+  "main": "app.js",
+  "directories": {
+    "test": "__test__"
+  },
   "scripts": {
+    "cov": "coverage .",
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "serverstart": "cross-env NODE_ENV=development npm run devstart",
@@ -14,6 +18,7 @@
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+    "coverage": "^0.4.1",
     "cross-env": "^7.0.3",
     "debug": "~2.6.9",
     "express": "~4.16.1",

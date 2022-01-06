@@ -56,7 +56,9 @@ FilterManager.prototype.filterByMinPrice = function (
 };
 
 FilterManager.prototype.findPackByNombre = function (
-  packNombre, inventory =this.getStore().getInventory()) {
+  packNombre,
+  inventory = this.getStore().getInventory()
+) {
   let tmpArray = Array.from(inventory).filter((p) => p.nombre === packNombre);
   if (tmpArray.length === 1) {
     //We don't want undefined values

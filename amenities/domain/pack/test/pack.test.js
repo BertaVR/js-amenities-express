@@ -2,11 +2,10 @@ const importaPack = require("../pack");
 const { expect, beforeEach } = require("@jest/globals");
 
 const functions = importaPack.functions;
-const store = require("../../store/store");
 beforeEach(() => {
   //Tengo que declarar estas variables globales y usarlas en los tests
   // el objetivo es que el objeto del test sea el mismo, no cambie de un tests a otro
-   testData = {
+  testData = {
     nombre: "Hello",
     items: [
       {
@@ -70,10 +69,7 @@ beforeEach(() => {
     ],
   };
 
-  testPack = importaPack.makePack.createPack(
-    testData.nombre,
-    testData.items
-  );
+  testPack = importaPack.makePack.createPack(testData.nombre, testData.items);
 });
 test("Is available returns true when theres is stock and false when there is not. (this.stock works as expected)", () => {
   // optional parameters
@@ -81,7 +77,12 @@ test("Is available returns true when theres is stock and false when there is not
   expect(functions.isAvailable({ stock: 0 })).toEqual(false);
   expect(functions.isAvailable({ stock: 1 })).toEqual(true);
 });
-
+test("Create pack variables creation works as expected", () => {
+  expect(testPack.precio).toEqual(46.75);
+  expect(testPack.stock).toEqual(1);
+  expect(testPack.items[0].nombre).toBe("LLave mágica");
+  expect(testPack.calidad).toEqual("premium");
+});
 test("Update name works as expected", () => {
   expect(testPack.nombre).toEqual("Hello");
   testPack.updatePack([{ nombre: "Nuevo Nombre" }]);
@@ -89,11 +90,6 @@ test("Update name works as expected", () => {
 });
 
 test("Update pack update items works as expected", () => {
-  expect(testPack.precio).toEqual(46.75);
-  expect(testPack.stock).toEqual(1);
-  expect(testPack.items[0].nombre).toBe("LLave mágica");
-  expect(testPack.calidad).toEqual("premium");
-
   testPack.updatePack([{ items: testData.updatedItems }]);
 
   expect(testPack.precio).toEqual(164.05);
@@ -103,14 +99,11 @@ test("Update pack update items works as expected", () => {
   expect(testPack.calidad).toEqual("standard");
 });
 
-test("Update pack update items andd nombre at the same timeworks as expected", () => {
-  expect(testPack.nombre).toEqual("Hello");
-  expect(testPack.precio).toEqual(46.75);
-  expect(testPack.stock).toEqual(1);
-  expect(testPack.items[0].nombre).toBe("LLave mágica");
-  expect(testPack.calidad).toEqual("premium");
-
-  testPack.updatePack([{ items: testData.updatedItems }, {nombre: "Este nombre es nuevo"}]);
+test("Update pack update items andd nombre at the same time works as expected", () => {
+  testPack.updatePack([
+    { items: testData.updatedItems },
+    { nombre: "Este nombre es nuevo" },
+  ]);
 
   expect(testPack.nombre).toEqual("Este nombre es nuevo");
   expect(testPack.precio).toEqual(164.05);

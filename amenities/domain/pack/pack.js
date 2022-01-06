@@ -9,6 +9,7 @@ function Pack(nombre, items) {
   this.calidad = myManager.createCalidad(items);
 }
 
+
 var factory = (() => {
   return {
     createPack: function (nombre, items) {
@@ -34,6 +35,8 @@ Pack.prototype.updatePack = function (arrayOfChanges /*[{field: value}]*/) {
         case key === "nombre":
           this.nombre = value;
           break;
+        default:
+          throw error;
       }
     }
   });

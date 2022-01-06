@@ -9,7 +9,6 @@
   "scripts": {
     "test": "jest",
     "cov": "coverage ."
-
   },
   "keywords": [
     "arrays",

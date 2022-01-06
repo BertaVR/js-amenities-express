@@ -1,13 +1,10 @@
-const importaStore = require("../domain/store/store");
 const importaPack = require("../domain/pack/pack");
-const mongoose = require("mongoose");
 const Packs = require("../models/packs");
 const Items = require("../models/items");
 
-var storeAPI = (function singleController() {
-  let store = importaStore.singletonStore.getStore();
-  let { inventory } = store;
+var packAPI = (function singleController() {
 
+  
   //curl 'http://localhost:3000/packs/Pack1
 
   const getPack = (req, res, next) => {
@@ -33,6 +30,9 @@ var storeAPI = (function singleController() {
       .exec(function (error, packs) {
         if (error) {
           return next(error);
+        }
+        if (!packs) {
+          return res.sendStatus(404);
         }
         // Successful, so render.
 
@@ -84,7 +84,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     //create pack
     let items = req.body.items;
     let nombre = req.body.nombre;
-    if (nombre === undefined || items === undefined) {
+    if (!nombre || !items) {
       return res.sendStatus(400);
     }
     //console.log(items);
@@ -95,7 +95,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 
       if (result.length < items.length) {
         //si intentas crear un pack con items que no ecisten: bad request
-        return res.sendStatus(400);
+        return res.sendStatus(404);
       }
       // console.log(result);
 
@@ -105,7 +105,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
       guardaPack = new Packs();
       for (const [key, value] of Object.entries(pack)) {
         guardaPack[key] = value;
-      }  
+      }
       guardaPack.save(function (err) {
         if (err) {
           return next(err);
@@ -117,7 +117,6 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
       res.status(201).type("json").json(pack); // enviamos la boleta de vuelta
     });
   };
-  // Successful, so render.
 
   /*
   ** curl --location --request GET 'http://localhost:3000/packs/pack Animales/cambiarNombre/pack Animalitous' \
@@ -153,4 +152,4 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
   };
 })();
 
-exports.storeAPI = storeAPI;
+exports.packAPI = packAPI;

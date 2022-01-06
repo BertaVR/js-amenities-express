@@ -7,6 +7,7 @@ function Item(_id, nombre, precio, calidad, material, stock, demanda) {
   this.stock = stock;
   this.demanda = demanda;
 }
+// IFEE
 const numeroMaximoPropiedades = (() => {
   return {
     calidad: 50,
@@ -25,10 +26,26 @@ var factory = (() => {
       stock,
       demanda
     ) {
-      return new Item(_id, nombre, precio, calidad, material, stock, demanda);
+      var item = new Item(
+        _id,
+        nombre,
+        precio,
+        calidad,
+        material,
+        stock,
+        demanda
+      );
+      // PROPIEDADES DE LOS OBJETOS: pongo el id de solo lectura
+
+      Object.defineProperty(item, "_id", {
+       // value: _id,
+        writable: false, // not writable!
+      });
+      return item;
     },
   };
 })();
+
 // Es una lógica un poco tonta pero quería ponerte CLOSURES!!
 // CLOSURE
 
@@ -44,7 +61,7 @@ const increasePrecio = (incremento) => {
 const increaseStock = (incremento) => {
   return function realizarIncremento(item) {
     return item.stock + incremento < 0
-      ? "El stock tiene que ser mayor que 0"
+      ? "El stock tiene que ser mayor o igual que 0"
       : (item.stock += incremento);
   };
 };

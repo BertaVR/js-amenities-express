@@ -22,13 +22,14 @@ router.use(function (req, res, next) {
   
 });*/
 
-router.get("/:nombre", packsController.storeAPI.getPack);
-router.get("/:nombre/delete", packsController.storeAPI.deletePack);
-router.post("/add",  packsController.storeAPI.createPack);
-router.get("/:nombre/cambiarNombre/:nuevoNombre", packsController.storeAPI.updateNombre);
+router.get("/:nombre", packsController.packAPI.getPack);
+router.get("/:nombre/delete", packsController.packAPI.deletePack);
+router.post("/add", packsController.packAPI.createPack);
+router.get(
+  "/:nombre/cambiarNombre/:nuevoNombre",
+  packsController.packAPI.updateNombre
+);
 
-
-
-router.get("/", packsController.storeAPI.getAllPacks);
+router.get("/", packsController.packAPI.getAllPacks);
 
 module.exports = router;
