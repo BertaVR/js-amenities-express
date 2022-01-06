@@ -8,6 +8,7 @@ router.use(function (req, res, next) {
 
   next();
 });
+router.get("/", itemsController.itemAPI.getAllItems);
 
 router.get("/:nombre", itemsController.itemAPI.getItemsByName);
 

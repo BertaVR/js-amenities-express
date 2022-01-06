@@ -17,8 +17,28 @@ var itemAPI = (function singleController() {
       res.status(200).type("json").json(item);
     });
   };
+
+  const getAllItems = (req, res, next) => {
+    Items.find({})
+      .exec(function (error, items) {
+        if (error) {
+          return next(error);
+        }
+        if (!items){
+          return res.sendStatus(404);
+        }
+        // Successful, so render.
+
+        res.status(200).type("json").json(items);
+      });
+  };
+
+
+
+
   return {
     getItemsByName,
+    getAllItems
   };
 })();
 
