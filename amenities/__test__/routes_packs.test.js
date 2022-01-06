@@ -85,7 +85,7 @@ describe("Packs Routes", () => {
       });
   });
 
- /* test("Positive test POST addPack /packs /", () => {
+ test("Positive test POST addPack /packs /", () => {
     return request(app)
       .post("/packs/add")
       .send(testData.positivePost)
@@ -111,7 +111,25 @@ describe("Packs Routes", () => {
         expect(res.statusCode).toEqual(400);
       }); 
   });
-*/
+
+  test("Negative test POST 2 addPack: one of the items does not exist in db -  /packs /", () => {
+    return request(app)
+      .post("/packs/add")
+      .send(testData.unItemNoExiste)
+      .then((res) => {
+        expect(res.statusCode).toEqual(400);
+      }); 
+  });
+
+  test("Destructive test POST addPack: request without name -  /packs /", () => {
+    return request(app)
+      .post("/packs/add")
+      .send(testData.itemsNoSonId)
+      .then((res) => {
+        expect(res.statusCode).toEqual(500);
+      }); 
+  });
+
   test("Negative test updateNombre  404 -  /packs/:nombre/cambiarNombre/:nuevoNombre /", () => {
     let nombre = "Pack que no existe";
     let nuevoNombre = "Nuevo nombre";
@@ -140,40 +158,20 @@ var testData = {
   positivePost: {
     nombre: "Hello",
     items: [
-      {
-        nombre: "LLave mágica",
-        precio: 10,
-        calidad: 4,
-        material: "normal",
-        stock: 3,
-        demanda: 68,
-      },
-      {
-        nombre: "Diccionario universal",
-        precio: 12,
-        calidad: 13,
-        material: "indestructible",
-        stock: 1,
-        demanda: 12,
-      },
-      {
-        nombre: "Pistola de portales",
-        precio: 18,
-        calidad: 3,
-        material: "normal",
-        stock: 1,
-        demanda: 10,
-      },
-      {
-        nombre: "Crucero espacial",
-        precio: 15,
-        calidad: 2,
-        material: "normal",
-        stock: 12,
-        demanda: 10,
-      },
+      "61d58aecd75d3770be584aed",
+      "61d58b99d75d3770be596747",
+      "61d5905cd75d3770be621b46"
+    ],
+  },
+  unItemNoExiste:  {
+    nombre: "Hello",
+    items: [
+      "61d58aecd75d3770be584aed",
+      "61d58b99d75d3770be596746",
+      "61d5905cd75d3770be621b46"
     ],
   },
   noItemsPost: { nombre: "Hello" },
   noNombrePost: { items: ["a", "b"] },
+  itemsNoSonId: { nombre: "Hello" , items: ["a", "b"] }
 };
