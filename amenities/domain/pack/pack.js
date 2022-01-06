@@ -34,6 +34,8 @@ Pack.prototype.updatePack = function (arrayOfChanges /*[{field: value}]*/) {
         case key === "nombre":
           this.nombre = value;
           break;
+          default:
+            throw error;
       }
     }
   });
