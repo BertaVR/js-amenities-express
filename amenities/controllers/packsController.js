@@ -1,6 +1,6 @@
 const importaStore = require("../domain/store/store");
 const importaPack = require("../domain/pack/pack");
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 const Packs = require("../models/packs");
 const Items = require("../models/items");
 
@@ -62,89 +62,61 @@ var storeAPI = (function singleController() {
   /**
 curl --location --request POST 'http://localhost:3000/packs/add' \
 --header 'Content-Type: application/json' \
---data-raw '       { "nombre": "Pack para viajeros",
-        "items": [
-            {
-                "nombre": "LLave mágica",
-                "precio": 10,
-                "calidad": 4,
-                "material": "normal",
-                "stock": 3,
-                "demanda": 68
-            },
-            {
-                "nombre": "Diccionario universal",
-                "precio": 12,
-                "calidad": 13,
-                "material": "indestructible",
-                "stock": 1,
-                "demanda": 12
-            },
-            {
-                "nombre": "Pistola de portales",
-                "precio": 18,
-                "calidad": 3,
-                "material": "normal",
-                "stock": 1,
-                "demanda": 10
-            },
-            {
-                "nombre": "Crucero espacial",
-                "precio": 15,
-                "calidad": 2,
-                "material": "normal",
-                "stock": 12,
-                "demanda": 10
-            }
-        ]}'
+--data-raw '{
+    "nombre": "pack sds",
+    "items": [
+        "61d58aa1d75d3770be579cb8",
+        "61d58b14d75d3770be588aba",
+        "61d58b35d75d3770be58bfc1",
+        "61d58b99d75d3770be596747"
+    ]
+}'
    */
 
   const createPack = (req, res, next) => {
+    /*El motivo de que el create pack sea tan enrevesado es que no puedo hacer new Pack y ya está
+    debido a que en el dominio la creación de packs sigue una lógica:
+    el stock depende del stock de los items, el precio depende del precio de los items, etc.
+    Por lo tanto lo primero que hago es buscar los items por id para acceder a su información completa
+    Después CREO una instancia del objeto pack del dominio usando la función factoría del dominio,
+    LUego clono las variables y creo una instancia de Packs (esquema BD) para poder guardarlo en la base de datos
+    */
     //create pack
-  /*  let items = req.body.items;
+    let items = req.body.items;
     let nombre = req.body.nombre;
-    let arrayOfIds = []
-    items.forEach((item)=> {arrayOfIds.push(mongoose.Types.ObjectId(item))})
-    console.log(`itemsResults: ${itemsResults}`);
-
-    var creaItems = [];
-
-    Items.find({'_id':{ $in: [arrayOfIds] }}) .populate("items")
-    .then((itemsResults) => {
-      console.log(`itemsResults: ${itemsResults}`);
-
-      itemsResults.forEach((itemsResult) => {
-
-        creaItems.push({
-          nombre: itemsResult.nombre,
-          precio: itemsResult.precio,
-          calidad: itemsResult.calidad,
-          material: itemsResult.material,
-          stock: itemsResult.stock,
-          demanda: itemsResult.demanda,
-        });
-        console.log(creaItems)
-      });
-    });
-    console.log(`creaItems: ${creaItems}`);
-
-    let pack = importaPack.makePack.createPack(nombre, creaItems);
-    console.log(pack);
-
-    //create pack with model for db
-    guardaPack = new Packs();
-    guardaPack.nombre = pack.nombre;
-    guardaPack.items = pack.items;
-    guardaPack.stock = pack.stock;
-    guardaPack.precio = pack.precio;
-    guardaPack.calidad = pack.calidad;
-    console.log(guardaPack);
-
-    guardaPack.save(function (err) {
+    let creaItems = [];
+    if (nombre === undefined || items === undefined) {
+      return res.sendStatus(400);
+    }
+    //console.log(items);
+    Items.find({ _id: { $in: items } }).exec(function (err, result) {
       if (err) {
-        return next(err);
+        return res.sendStatus(500);
       }
-    });*/
+
+      if (result.length < items.length) {
+        //si intentas crear un pack con items que no ecisten: bad request
+        return res.sendStatus(400);
+      }
+      // console.log(result);
+
+      var pack = importaPack.makePack.createPack(nombre, result);
+
+      //clono las variables de pack para hacer una instancia  del modelo para BD
+      guardaPack = new Packs();
+      for (const [key, value] of Object.entries(pack)) {
+        guardaPack[key] = value;
+      }  
+      guardaPack.save(function (err) {
+        if (err) {
+          return next(err);
+        }
+      });
+
+      // Successful, so render.
+
+      res.status(201).type("json").json(pack); // enviamos la boleta de vuelta
+    });
   };
   // Successful, so render.
 
@@ -168,7 +140,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 
       // Successful, so render.
 
-      res.status(200).type("json").json(pack); // enviamos la boleta de vuelta
+      res.status(200).type("json").json(pack);
     });
   };
 
