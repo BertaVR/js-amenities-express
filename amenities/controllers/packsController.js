@@ -105,7 +105,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
       guardaPack = new Packs();
       for (const [key, value] of Object.entries(pack)) {
         guardaPack[key] = value;
-      }  
+      }
       guardaPack.save(function (err) {
         if (err) {
           return next(err);

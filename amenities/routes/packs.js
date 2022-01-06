@@ -24,10 +24,11 @@ router.use(function (req, res, next) {
 
 router.get("/:nombre", packsController.storeAPI.getPack);
 router.get("/:nombre/delete", packsController.storeAPI.deletePack);
-router.post("/add",  packsController.storeAPI.createPack);
-router.get("/:nombre/cambiarNombre/:nuevoNombre", packsController.storeAPI.updateNombre);
-
-
+router.post("/add", packsController.storeAPI.createPack);
+router.get(
+  "/:nombre/cambiarNombre/:nuevoNombre",
+  packsController.storeAPI.updateNombre
+);
 
 router.get("/", packsController.storeAPI.getAllPacks);
 
