@@ -31,5 +31,6 @@ curl --location --request GET 'http://localhost:3000/packs/'
 ```
 - Buscar un pack por nombre:
 ```
-curl --location --request GET 'http://localhost:3000/packs/<nombre>'```
+curl --location --request GET 'http://localhost:3000/packs/<nombre>'
+```
 
