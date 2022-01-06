@@ -84,7 +84,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     //create pack
     let items = req.body.items;
     let nombre = req.body.nombre;
-    if (nombre === undefined || items === undefined) {
+    if (!nombre || !items) {
       return res.sendStatus(400);
     }
     //console.log(items);
@@ -95,7 +95,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 
       if (result.length < items.length) {
         //si intentas crear un pack con items que no ecisten: bad request
-        return res.sendStatus(400);
+        return res.sendStatus(404);
       }
       // console.log(result);
 

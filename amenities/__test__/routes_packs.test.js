@@ -127,7 +127,7 @@ describe("Packs Routes", () => {
       .post("/packs/add")
       .send(testData.unItemNoExiste)
       .then((res) => {
-        expect(res.statusCode).toEqual(400);
+        expect(res.statusCode).toEqual(404);
       }); 
   });
 
