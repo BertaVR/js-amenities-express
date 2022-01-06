@@ -41,6 +41,6 @@ curl --location --request GET 'http://localhost:3000/packs/<nombre>/cambiarNombr
 
 - Borrar un pack:
 ```
-curl --location --request GET 'http://localhost:3000/packs/pack sds/delete'
+curl --location --request GET 'http://localhost:3000/packs/<nombre>/delete'
 ```
 
