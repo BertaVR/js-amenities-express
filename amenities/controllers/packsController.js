@@ -84,7 +84,6 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     //create pack
     let items = req.body.items;
     let nombre = req.body.nombre;
-    let creaItems = [];
     if (nombre === undefined || items === undefined) {
       return res.sendStatus(400);
     }
