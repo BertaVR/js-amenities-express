@@ -50,7 +50,8 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 --data-raw '{
     "nombre": <nombre>,
     "items": [
-        <items>
+        <ids de los items>
     ]
-}'```
+}'
+```
 
