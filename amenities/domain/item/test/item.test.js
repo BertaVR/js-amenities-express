@@ -27,16 +27,31 @@ describe("Propiedades de los items ", () => {
 
   test("El id no se puede cambiar", () => {
     // optional parameters
+    expect(Object.getOwnPropertyDescriptor(testItem, "_id").writable).toBe(
+      false
+    );
     testItem._id = 567;
     expect(testItem._id).toBe(123);
   });
 
   test("La propiedad id es configurable, puedo cambiar _id a writable true", () => {
     // optional parameters
+    expect(Object.getOwnPropertyDescriptor(testItem, "_id").configurable).toBe(
+      true
+    );
+    expect(Object.getOwnPropertyDescriptor(testItem, "_id").writable).toBe(
+      false
+    );
+
     Object.defineProperty(testItem, "_id", {
       // value: _id,
       writable: true, // not writable!
     });
+
+    expect(Object.getOwnPropertyDescriptor(testItem, "_id").writable).toBe(
+      true
+    );
+
     testItem._id = 567;
     expect(testItem._id).toBe(567);
   });
