@@ -15,7 +15,6 @@ beforeEach(() => {
 });
 describe("Propiedades de los items ", () => {
   test("Los items creados con factory tienen las propiadades", () => {
-    // optional parameters
 
     expect(testItem._id).toBe(123);
     expect(testItem.nombre).toBe("Nombre test");
@@ -26,7 +25,6 @@ describe("Propiedades de los items ", () => {
   });
 
   test("El id no se puede cambiar", () => {
-    // optional parameters
     expect(Object.getOwnPropertyDescriptor(testItem, "_id").writable).toBe(
       false
     );
@@ -35,7 +33,6 @@ describe("Propiedades de los items ", () => {
   });
 
   test("La propiedad id es configurable, puedo cambiar _id a writable true", () => {
-    // optional parameters
     expect(Object.getOwnPropertyDescriptor(testItem, "_id").configurable).toBe(
       true
     );
@@ -59,7 +56,6 @@ describe("Propiedades de los items ", () => {
 
 describe("Increase precio funciona bien", () => {
   test("Increase precio incremento positivo", () => {
-    // optional parameters
 
     let incrementarCuatro = functions.increasePrecio(4);
     expect(incrementarCuatro(testItem)).toBe(24.5);
@@ -67,21 +63,18 @@ describe("Increase precio funciona bien", () => {
   });
 
   test("Increase precio incremento negativo", () => {
-    // optional parameters
     let reducirCuatro = functions.increasePrecio(-4);
     expect(reducirCuatro(testItem)).toBe(16.5);
     expect(testItem.precio).toBe(16.5);
   });
 
   test("El precio no se puede reducir a 0", () => {
-    // optional parameters
     let reducirACero = functions.increasePrecio(-20.5);
     expect(reducirACero(testItem)).toBe("El precio tiene que ser mayor que 0");
     expect(testItem.precio).toBe(20.5);
   });
 
   test("El precio   NO se puede reducir a un número negativo", () => {
-    // optional parameters
     let reducirANegativo = functions.increasePrecio(-21.5);
     expect(reducirANegativo(testItem)).toBe(
       "El precio tiene que ser mayor que 0"
@@ -92,7 +85,6 @@ describe("Increase precio funciona bien", () => {
 
 describe("Increase stock funciona bien", () => {
   test("Increase stock incremento positivo", () => {
-    // optional parameters
 
     let incrementarVeinte = functions.increaseStock(20);
     expect(incrementarVeinte(testItem)).toBe(320);
@@ -100,21 +92,18 @@ describe("Increase stock funciona bien", () => {
   });
 
   test("Increase stock incremento negativo", () => {
-    // optional parameters
     let reducirVeinte = functions.increaseStock(-20);
     expect(reducirVeinte(testItem)).toBe(280);
     expect(testItem.stock).toBe(280);
   });
 
   test("El stock SÍ que se puede reducir a 0", () => {
-    // optional parameters
     let reducirACero = functions.increaseStock(-300);
     expect(reducirACero(testItem)).toBe(0);
     expect(testItem.stock).toBe(0);
   });
 
   test("El stock no se puede reducir a un número negativo", () => {
-    // optional parameters
     let reducirANegativo = functions.increaseStock(-301);
     expect(reducirANegativo(testItem)).toBe(
       "El stock tiene que ser mayor o igual que 0"
@@ -125,7 +114,6 @@ describe("Increase stock funciona bien", () => {
 
 describe("Increase calidad funciona bien", () => {
   test("Increase calidad incremento positivo", () => {
-    // optional parameters
 
     let incrementarCuatro = functions.increaseCalidad(4);
     expect(incrementarCuatro(testItem)).toBe(34);
@@ -133,21 +121,18 @@ describe("Increase calidad funciona bien", () => {
   });
 
   test("Increase calidad incremento negativo", () => {
-    // optional parameters
     let reducirCuatro = functions.increaseCalidad(-4);
     expect(reducirCuatro(testItem)).toBe(26);
     expect(testItem.calidad).toBe(26);
   });
 
   test("La calidad sí que se puede reducir a 0", () => {
-    // optional parameters
     let reducirACero = functions.increaseCalidad(-testItem.calidad);
     expect(reducirACero(testItem)).toBe(0);
     expect(testItem.calidad).toBe(0);
   });
 
   test("La calidad  no se puede reducir a un número negativo", () => {
-    // optional parameters
     let reducirANegativo = functions.increaseCalidad(-(testItem.calidad + 1));
     expect(reducirANegativo(testItem)).toBe(
       "La calidad tiene que ser al menos 0"
@@ -156,7 +141,6 @@ describe("Increase calidad funciona bien", () => {
   });
 
   test("La calidad   puede ser  la máxima", () => {
-    // optional parameters
     let incrementoNecesarioParaMax =
       maximoPropiedades.calidad - testItem.calidad;
     let igualarMaximo = functions.increaseCalidad(incrementoNecesarioParaMax);
@@ -165,7 +149,6 @@ describe("Increase calidad funciona bien", () => {
   });
 
   test("La calidad  no puede ser mayor que la máxima", () => {
-    // optional parameters
     let incrementoNecesarioParaMax =
       maximoPropiedades.calidad - testItem.calidad;
     let excederMaximo = functions.increaseCalidad(
@@ -180,7 +163,6 @@ describe("Increase calidad funciona bien", () => {
 
 describe("Increase demanda funciona bien", () => {
   test("Increase demanda incremento positivo", () => {
-    // optional parameters
 
     let incrementarCuatro = functions.increaseDemanda(4);
     expect(incrementarCuatro(testItem)).toBe(24);
@@ -188,21 +170,18 @@ describe("Increase demanda funciona bien", () => {
   });
 
   test("Increase demanda incremento negativo", () => {
-    // optional parameters
     let reducirCuatro = functions.increaseDemanda(-4);
     expect(reducirCuatro(testItem)).toBe(16);
     expect(testItem.demanda).toBe(16);
   });
 
   test("La demanda sí que se puede reducir a 0", () => {
-    // optional parameters
     let reducirACero = functions.increaseDemanda(-testItem.demanda);
     expect(reducirACero(testItem)).toBe(0);
     expect(testItem.demanda).toBe(0);
   });
 
   test("La demanda no se puede reducir a un número negativo", () => {
-    // optional parameters
     let reducirANegativo = functions.increaseDemanda(-(testItem.demanda + 1));
     expect(reducirANegativo(testItem)).toBe(
       "La demanda tiene que ser al menos 0"
@@ -211,7 +190,6 @@ describe("Increase demanda funciona bien", () => {
   });
 
   test("La demanda puede ser  la máxima", () => {
-    // optional parameters
     let incrementoNecesarioParaMax =
       maximoPropiedades.demanda - testItem.demanda;
     let igualarMaximo = functions.increaseDemanda(incrementoNecesarioParaMax);
@@ -220,7 +198,6 @@ describe("Increase demanda funciona bien", () => {
   });
 
   test("La demanda no puede ser mayor que la máxima", () => {
-    // optional parameters
     let incrementoNecesarioParaMax =
       maximoPropiedades.demanda - testItem.demanda;
     let excederMaximo = functions.increaseDemanda(
