@@ -34,3 +34,8 @@ curl --location --request GET 'http://localhost:3000/packs/'
 curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 ```
 
+- Cambiar nombre de un pack:
+```
+curl --location --request GET 'http://localhost:3000/packs/<nombre>/cambiarNombre/<nombre nuevo>'
+```
+
