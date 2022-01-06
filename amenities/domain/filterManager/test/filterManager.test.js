@@ -16,7 +16,8 @@ describe("Testing prototype", () => {
   });
 
   test("Factory returns always the same store", () => {
-    let testFilterManagerStore = filterMan.FilterManager.getManager().getStore();
+    let testFilterManagerStore =
+      filterMan.FilterManager.getManager().getStore();
     expect(testFilterManagerStore).toEqual(myStore);
   });
 });
@@ -59,9 +60,9 @@ describe("Testing filters", () => {
   });
 
   test("Filter by contains item negative test", () => {
-    expect(myFilterManager.filterByContainsItem("Rana", testPacks)).toHaveLength(
-      0
-    );
+    expect(
+      myFilterManager.filterByContainsItem("Rana", testPacks)
+    ).toHaveLength(0);
   });
 
   test("Filter by contains item positive tests", () => {
@@ -71,9 +72,9 @@ describe("Testing filters", () => {
     expect(myFilterManager.filterByContainsItem("dos", testPacks)).toHaveLength(
       2
     );
-    expect(myFilterManager.filterByContainsItem("tres", testPacks)).toHaveLength(
-      3
-    );
+    expect(
+      myFilterManager.filterByContainsItem("tres", testPacks)
+    ).toHaveLength(3);
 
     // I want to make sure that filter returns packs in its array, not items:
   });

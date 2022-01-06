@@ -1,6 +1,6 @@
 const item = require("../item");
 const functions = item.functions;
-const maximoPropiedades = item.functions.numeroMaximoPropiedades;
+const maximoPropiedades = functions.numeroMaximoPropiedades;
 
 beforeEach(() => {
   testItem = item.factory.createItem(

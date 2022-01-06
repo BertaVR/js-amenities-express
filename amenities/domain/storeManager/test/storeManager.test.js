@@ -126,24 +126,24 @@ describe("Testing using addPacks: packs with name repeated", () => {
   });
 
   test("Negative test for isAddableToStore: Unrepeated pack without stock", () => {
-    let noStock = packMaker.makePack.createPack(      "New name",
+    let noStock = packMaker.makePack.createPack(
+      "New name",
       new Set([
         { nombre: "item1", stock: 0, precio: 80 },
         { nombre: "item2", stock: 89, precio: 34 },
         { nombre: "item3", stock: 7, precio: 47 },
-      ]),
-
+      ])
     );
     expect(myStoreManager.isAddableToStore(noStock)).toBeFalsy();
   });
   test("Negative test for isAddableToStore: Repeated pack without stock", () => {
-    let noStock = packMaker.makePack.createPack(    "Pack1",
+    let noStock = packMaker.makePack.createPack(
+      "Pack1",
       new Set([
         { nombre: "item1", stock: 5, precio: 80 },
         { nombre: "item2", stock: 0, precio: 34 },
         { nombre: "item3", stock: 7, precio: 47 },
-      ]),
-  
+      ])
     );
 
     expect(myStoreManager.isAddableToStore(noStock)).toBeFalsy();

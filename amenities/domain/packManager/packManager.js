@@ -1,4 +1,3 @@
-
 function PackManager() {
   this.name = "My pack manager";
 }
@@ -31,7 +30,7 @@ PackManager.prototype.createCalidad = function (items) {
   }
   let calidad = "no definida";
   // este array from es necesario para no ytener que escribir cosas raras en la petición
-let objetos = Array.from(items)
+  let objetos = Array.from(items);
   switch (true) {
     case objetos.length == 0:
       //  calidad = "no definida";
