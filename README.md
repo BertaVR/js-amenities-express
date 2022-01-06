@@ -27,7 +27,7 @@ npm run start
 ### PACKS
 - Ver todos los packs:
 ```
-curl --location --request GET 'http://localhost:3000/packs/' \
+curl --location --request GET 'http://localhost:3000/packs/' 
 ```
 
 
