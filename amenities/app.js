@@ -31,12 +31,16 @@ app.use(express.static(path.join(__dirname, "public")));
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const packsRouter = require("./routes/packs");
+const itemsRouter = require("./routes/items");
+
 
 //routes
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/packs", packsRouter);
+app.use("/items", itemsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
