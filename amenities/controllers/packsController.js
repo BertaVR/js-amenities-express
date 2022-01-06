@@ -2,7 +2,7 @@ const importaPack = require("../domain/pack/pack");
 const Packs = require("../models/packs");
 const Items = require("../models/items");
 
-var storeAPI = (function singleController() {
+var packAPI = (function singleController() {
 
   
   //curl 'http://localhost:3000/packs/Pack1
@@ -149,4 +149,4 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
   };
 })();
 
-exports.storeAPI = storeAPI;
+exports.packAPI = packAPI;
