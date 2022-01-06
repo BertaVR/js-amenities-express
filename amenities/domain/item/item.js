@@ -26,10 +26,26 @@ var factory = (() => {
       stock,
       demanda
     ) {
-      return new Item(_id, nombre, precio, calidad, material, stock, demanda);
+      var item = new Item(
+        _id,
+        nombre,
+        precio,
+        calidad,
+        material,
+        stock,
+        demanda
+      );
+      // PROPIEDADES DE LOS OBJETOS: pongo el id de solo lectura
+
+      Object.defineProperty(item, "_id", {
+       // value: _id,
+        writable: false, // not writable!
+      });
+      return item;
     },
   };
 })();
+
 // Es una lógica un poco tonta pero quería ponerte CLOSURES!!
 // CLOSURE
 
