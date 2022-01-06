@@ -36,5 +36,6 @@ module.exports = {
         // que una operacion async esta terminada
         // disconnect es usado en beforeAll en Jest
         mongoose.disconnect(done);
-    }
+    },
+    databaseUri,
 };
