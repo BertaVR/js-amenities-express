@@ -95,3 +95,19 @@ test("Switch de calidad funciona bien", () => {
 
 
 });
+
+test("Aplicar descuento funciona bien", () => {
+  expect(functions.aplicarDescuento(100, 15)).toBe(85);
+  expect(functions.aplicarDescuento(100, 0)).toBe(100);
+  expect(functions.aplicarDescuento(0, 100)).toBe(0);
+  expect(functions.aplicarDescuento(200, 20)).toBe(160);
+  expect(functions.aplicarDescuento(200, 15.8)).toBe(168.4);
+  expect(functions.aplicarDescuento(29.89, 10)).toBe(26.901);
+});
+
+test("La suma del precio de los items se aplica bien", () => {
+  expect(functions.sumItemsPrecio([{precio: 23}, {precio: 77}, {precio:20}])).toBe(120);
+  expect(functions.sumItemsPrecio([{precio: 23}, {precio: 77}, {precio:0}])).toBe(100);
+  expect(functions.sumItemsPrecio([{precio: 0}, {precio: 0}, {precio:0}])).toBe(0);
+
+});
