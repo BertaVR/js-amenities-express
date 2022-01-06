@@ -22,3 +22,13 @@ npm run test domain/*/test
 ```shell script
 npm run start
 ``````
+
+## Rutas
+### PACKS
+- Ver todos los packs:
+	```
+curl --location --request GET 'http://localhost:3000/packs/' \
+--header 'Content-Type: application/json' \
+```
+
+
