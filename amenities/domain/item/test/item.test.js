@@ -13,8 +13,8 @@ beforeEach(() => {
     20
   );
 });
-describe("Crear items", () => {
-  test("Los items creados con factorytienen las propiadades", () => {
+describe("Propiedades de los items ", () => {
+  test("Los items creados con factory tienen las propiadades", () => {
     // optional parameters
 
     expect(testItem._id).toBe(123);
@@ -23,6 +23,22 @@ describe("Crear items", () => {
     expect(testItem.calidad).toBe(30);
     expect(testItem.material).toBe("indestructible");
     expect(testItem.demanda).toBe(20);
+  });
+
+  test("El id no se puede cambiar", () => {
+    // optional parameters
+    testItem._id = 567;
+    expect(testItem._id).toBe(123);
+  });
+
+  test("La propiedad id es configurable, puedo cambiar _id a writable true", () => {
+    // optional parameters
+    Object.defineProperty(testItem, "_id", {
+      // value: _id,
+      writable: true, // not writable!
+    });
+    testItem._id = 567;
+    expect(testItem._id).toBe(567);
   });
 });
 
@@ -52,11 +68,12 @@ describe("Increase precio funciona bien", () => {
   test("El precio   NO se puede reducir a un número negativo", () => {
     // optional parameters
     let reducirANegativo = functions.increasePrecio(-21.5);
-    expect(reducirANegativo(testItem)).toBe("El precio tiene que ser mayor que 0");
+    expect(reducirANegativo(testItem)).toBe(
+      "El precio tiene que ser mayor que 0"
+    );
     expect(testItem.precio).toBe(20.5);
   });
 });
-
 
 describe("Increase stock funciona bien", () => {
   test("Increase stock incremento positivo", () => {
@@ -84,13 +101,12 @@ describe("Increase stock funciona bien", () => {
   test("El stock no se puede reducir a un número negativo", () => {
     // optional parameters
     let reducirANegativo = functions.increaseStock(-301);
-    expect(reducirANegativo(testItem)).toBe("El stock tiene que ser mayor o igual que 0");
+    expect(reducirANegativo(testItem)).toBe(
+      "El stock tiene que ser mayor o igual que 0"
+    );
     expect(testItem.stock).toBe(300);
   });
 });
-
-
-
 
 describe("Increase calidad funciona bien", () => {
   test("Increase calidad incremento positivo", () => {
@@ -146,7 +162,6 @@ describe("Increase calidad funciona bien", () => {
     expect(testItem.calidad).toBe(30);
   });
 });
-
 
 describe("Increase demanda funciona bien", () => {
   test("Increase demanda incremento positivo", () => {
