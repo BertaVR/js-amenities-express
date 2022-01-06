@@ -31,7 +31,7 @@ describe("Packs Routes", () => {
         expect(res.body.items).toBeTruthy();
         expect(res.body._id).toBe("61afbb1396fa4c8802fe4201");
       });
-  });
+  }, 20000);
 
   test("Negative test getPack /packs/:nombre /", () => {
     let nombre = "Este pack no existe";
@@ -91,6 +91,16 @@ describe("Packs Routes", () => {
       .send(testData.positivePost)
       .then((res) => {
         expect(res.statusCode).toEqual(201);
+        expect(res.body).toHaveProperty("items", "nombre", "stock", "precio", "calidad");
+        expect(res.body.items).toBeTruthy();
+        expect(res.body.items[0].nombre).toBe("camello");
+        expect(res.body.items[0]).toHaveProperty("_id", "nombre", "stock", "precio", "calidad", "demanda");
+        expect(res.body.items[1].nombre).toBe("Poción del arcoiris");
+        expect(res.body.items[2].nombre).toBe("Armadura resistente a todo");
+        expect(res.body.items.length).toBe(3);
+        expect(res.body.nombre).toBe("Hello");
+
+
       }); 
   });
 
