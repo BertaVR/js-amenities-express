@@ -81,7 +81,12 @@ test("Is available returns true when theres is stock and false when there is not
   expect(functions.isAvailable({ stock: 0 })).toEqual(false);
   expect(functions.isAvailable({ stock: 1 })).toEqual(true);
 });
-
+test("Create pack variables creation works as expected", () => {
+  expect(testPack.precio).toEqual(46.75);
+  expect(testPack.stock).toEqual(1);
+  expect(testPack.items[0].nombre).toBe("LLave mágica");
+  expect(testPack.calidad).toEqual("premium");
+})
 test("Update name works as expected", () => {
   expect(testPack.nombre).toEqual("Hello");
   testPack.updatePack([{ nombre: "Nuevo Nombre" }]);
@@ -89,10 +94,6 @@ test("Update name works as expected", () => {
 });
 
 test("Update pack update items works as expected", () => {
-  expect(testPack.precio).toEqual(46.75);
-  expect(testPack.stock).toEqual(1);
-  expect(testPack.items[0].nombre).toBe("LLave mágica");
-  expect(testPack.calidad).toEqual("premium");
 
   testPack.updatePack([{ items: testData.updatedItems }]);
 
@@ -103,12 +104,7 @@ test("Update pack update items works as expected", () => {
   expect(testPack.calidad).toEqual("standard");
 });
 
-test("Update pack update items andd nombre at the same timeworks as expected", () => {
-  expect(testPack.nombre).toEqual("Hello");
-  expect(testPack.precio).toEqual(46.75);
-  expect(testPack.stock).toEqual(1);
-  expect(testPack.items[0].nombre).toBe("LLave mágica");
-  expect(testPack.calidad).toEqual("premium");
+test("Update pack update items andd nombre at the same time works as expected", () => {
 
   testPack.updatePack([{ items: testData.updatedItems }, {nombre: "Este nombre es nuevo"}]);
 
