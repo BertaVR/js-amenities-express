@@ -9,6 +9,7 @@ function Pack(nombre, items) {
   this.calidad = myManager.createCalidad(items);
 }
 
+
 var factory = (() => {
   return {
     createPack: function (nombre, items) {
