@@ -44,7 +44,7 @@ const increasePrecio = (incremento) => {
 const increaseStock = (incremento) => {
   return function realizarIncremento(item) {
     return item.stock + incremento < 0
-      ? "El stock tiene que ser mayor que 0"
+      ? "El stock tiene que ser mayor o igual que 0"
       : (item.stock += incremento);
   };
 };

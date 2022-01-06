@@ -84,7 +84,7 @@ describe("Increase stock funciona bien", () => {
   test("El stock no se puede reducir a un número negativo", () => {
     // optional parameters
     let reducirANegativo = functions.increaseStock(-301);
-    expect(reducirANegativo(testItem)).toBe("El stock tiene que ser mayor que 0");
+    expect(reducirANegativo(testItem)).toBe("El stock tiene que ser mayor o igual que 0");
     expect(testItem.stock).toBe(300);
   });
 });
