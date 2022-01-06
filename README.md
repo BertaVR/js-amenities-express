@@ -43,4 +43,14 @@ curl --location --request GET 'http://localhost:3000/packs/<nombre>/cambiarNombr
 ```
 curl --location --request GET 'http://localhost:3000/packs/<nombre>/delete'
 ```
+- Añadir un pack:
+```
+curl --location --request POST 'http://localhost:3000/packs/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "nombre": <nombre>,
+    "items": [
+        <items>
+    ]
+}'```
 
