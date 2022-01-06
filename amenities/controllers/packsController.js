@@ -117,7 +117,6 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
       res.status(201).type("json").json(pack); // enviamos la boleta de vuelta
     });
   };
-  // Successful, so render.
 
   /*
   ** curl --location --request GET 'http://localhost:3000/packs/pack Animales/cambiarNombre/pack Animalitous' \
