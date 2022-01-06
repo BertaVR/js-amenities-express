@@ -1,13 +1,10 @@
-const importaStore = require("../domain/store/store");
 const importaPack = require("../domain/pack/pack");
-const mongoose = require("mongoose");
 const Packs = require("../models/packs");
 const Items = require("../models/items");
 
 var storeAPI = (function singleController() {
-  let store = importaStore.singletonStore.getStore();
-  let { inventory } = store;
 
+  
   //curl 'http://localhost:3000/packs/Pack1
 
   const getPack = (req, res, next) => {
