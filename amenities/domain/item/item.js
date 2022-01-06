@@ -7,6 +7,7 @@ function Item(_id, nombre, precio, calidad, material, stock, demanda) {
   this.stock = stock;
   this.demanda = demanda;
 }
+// IFEE
 const numeroMaximoPropiedades = (() => {
   return {
     calidad: 50,
