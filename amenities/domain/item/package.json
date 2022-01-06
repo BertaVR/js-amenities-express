@@ -2,16 +2,18 @@
   "name": "item",
   "version": "1.0.0",
   "description": "items, injection dependency, prototype, factory",
-  "main": "index.js",
+  "main": "item.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "cov": "coverage ."
   },
   "author": "Berta",
   "license": "ISC",
   "dependencies": {
+    "coverage": "^0.4.1",
     "jest": "^27.4.3"
   }
 }
