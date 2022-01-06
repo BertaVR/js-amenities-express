@@ -39,3 +39,8 @@ curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 curl --location --request GET 'http://localhost:3000/packs/<nombre>/cambiarNombre/<nombre nuevo>'
 ```
 
+- Borrar un pack:
+```
+curl --location --request GET 'http://localhost:3000/packs/pack sds/delete'
+```
+
