@@ -31,6 +31,9 @@ var packAPI = (function singleController() {
         if (error) {
           return next(error);
         }
+        if (!packs) {
+          return res.sendStatus(404);
+        }
         // Successful, so render.
 
         res.status(200).type("json").json(packs);
