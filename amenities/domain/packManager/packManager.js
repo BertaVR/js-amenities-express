@@ -26,7 +26,7 @@ PackManager.prototype.createPrecio = function (items) {
 };
 
 PackManager.prototype.createCalidad = function (items) {
-  if (items == undefined || items == null) {
+  if (!items) {
     return "no hay items";
   }
   let calidad = "no definida";
