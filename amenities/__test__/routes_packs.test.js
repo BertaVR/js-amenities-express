@@ -64,7 +64,7 @@ describe("Packs Routes", () => {
   test("Positive test deletePack /packs/:nombre/delete /", () => {
     let nombre = "Pack animales";
     return request(app)
-      .get(`/packs/${nombre}/delete`)
+      .delete(`/packs/${nombre}/`)
       .then((res) => {
         console.log(res.body);
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
@@ -77,7 +77,7 @@ describe("Packs Routes", () => {
   test("Negative test deletePack /packs/:nombre/delete /", () => {
     let nombre = "Pack que no existe";
     return request(app)
-      .get(`/packs/${nombre}/delete`)
+      .delete(`/packs/${nombre}/delete`)
       .then((res) => {
         expect(res.statusCode).toEqual(404);
       });
@@ -96,14 +96,14 @@ describe("Packs Routes", () => {
         expect(res.body).toHaveProperty("precio");
 
         expect(res.body.items).toBeTruthy();
-        expect(res.body.items[0].nombre).toBe("camello");
+        expect(res.body.items[0].nombre).toBe("Poción del arcoiris");
         expect(res.body.items[0]).toHaveProperty("nombre");
         expect(res.body.items[0]).toHaveProperty("stock");
         expect(res.body.items[0]).toHaveProperty("calidad");
         expect(res.body.items[0]).toHaveProperty("precio");
         expect(res.body.items[0]).toHaveProperty("demanda");
-        expect(res.body.items[1].nombre).toBe("Poción del arcoiris");
-        expect(res.body.items[2].nombre).toBe("Armadura resistente a todo");
+        expect(res.body.items[1].nombre).toBe("Bandera nacional");
+        expect(res.body.items[2].nombre).toBe("Bañador de invisibilidad");
         expect(res.body.items.length).toBe(3);
         expect(res.body.nombre).toBe("Hello");
       });
@@ -149,7 +149,7 @@ describe("Packs Routes", () => {
     let nombre = "Pack que no existe";
     let nuevoNombre = "Nuevo nombre";
     return request(app)
-      .get(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
+      .put(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
       .then((res) => {
         expect(res.statusCode).toEqual(404);
       });
@@ -159,7 +159,7 @@ describe("Packs Routes", () => {
     let nombre = "Pack para Gangsters";
     let nuevoNombre = "Pack tortuga";
     return request(app)
-      .get(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
+      .put(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
       .then((res) => {
         console.log(res)
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
@@ -174,9 +174,9 @@ var testData = {
   positivePost: {
     nombre: "Hello",
     items: [
-      "61d58aecd75d3770be584aed",
+      "61d594e784f9c213962d3111",
       "61d58b99d75d3770be596747",
-      "61d5905cd75d3770be621b46",
+      "61d594e784f9c213962d3112",
     ],
   },
   unItemNoExiste: {
