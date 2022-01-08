@@ -193,6 +193,7 @@ curl --location --request PUT 'http://localhost:3000/packs/<nombre del pack>/upd
 }
  ```
  </details>
+ 
 **6. Añadir un pack:**
 ```
 curl --location --request POST 'http://localhost:3000/packs/add' \
