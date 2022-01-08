@@ -156,14 +156,15 @@ describe("Packs Routes", () => {
   });
 
   test("Positive test updateNombre  -  /packs/:nombre/cambiarNombre/:nuevoNombre /", () => {
-    let nombre = "Pack para maquilladores";
-    let nuevoNombre = "Pack guay";
+    let nombre = "Pack para Gangsters";
+    let nuevoNombre = "Pack tortuga";
     return request(app)
       .get(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
       .then((res) => {
+        console.log(res)
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
-        expect(res.body).toHaveProperty("_id", "61d2e7c4d75d3770be767f44");
+        expect(res.body).toHaveProperty("_id", "61d2de57d75d3770be66b706");
         expect(res.body).toHaveProperty("nombre", nuevoNombre);
       });
   });

@@ -5,9 +5,9 @@ var Items = require("./items");
 
 var Schema = mongoose.Schema;
 
-const CALIDADES = ["Basic", "Standard", "Premium"];
+const CALIDADES = ["basic", "standard", "premium", "Basic", "Standard", "Premium"];
 var packSchema = new Schema({
-  nombre: { type: String,   lowercase: true },
+  nombre: { type: String, },
   stock: Number,
   items: [{ type: Schema.Types.ObjectId, ref: Items }],
   precio: { type: Number, required: true },
