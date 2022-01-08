@@ -4,13 +4,13 @@ const factory = require("../store");
 
 test("Store name should be 'Tienda de Berta'", () => {
   let bertaStore = factory.singletonStore.getStore();
-  expect(bertaStore.getName()).toEqual("Tienda de Berta");
+  expect(bertaStore.getNombre()).toEqual("Tienda de Berta");
 });
 
 test("Inventory should be empty when creating a store", () => {
   let emptyStore = factory.singletonStore.getStore();
   //sets
-  expect(emptyStore.getInventory().size).toEqual(0);
+  expect(emptyStore.getInventario().size).toEqual(0);
 });
 
 test("Factory returns always the same store: singleton", () => {
