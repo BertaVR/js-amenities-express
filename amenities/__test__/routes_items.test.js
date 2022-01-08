@@ -32,10 +32,21 @@ describe("Items Routes", () => {
         expect(res.statusCode).toEqual(404);
       });
   });
-  test("Positive test POST createItem: /items/add /", () => {
+
+  test("Positive test POST createItem createItem sin especificar el id: /items/add /", () => {
     return request(app)
       .post("/items/add")
       .send(testData.positivePost)
+      .then((res) => {
+        console.log(res)
+        expect(res.statusCode).toEqual(201);
+      });
+  });
+
+  test("Positive test POST a createItem le puedes especificar el id y se crea igual: /items/add /", () => {
+    return request(app)
+      .post("/items/add")
+      .send(testData.positivePostConId)
       .then((res) => {
         console.log(res)
         expect(res.statusCode).toEqual(201);
@@ -64,12 +75,21 @@ describe("Items Routes", () => {
 
 var testData = {
   positivePost: {
-  //  _id:"507f1f77bcf86cd799439012",
-    "nombre": "mffkfkkf" ,
-    "precio": 10,
-    "calidad": 50,
-    "material": "normal",
-    "demanda": 30,
-    "stock": 5
+    nombre: "Pack creado sin elegir id" ,
+    precio: 10,
+    calidad: 50,
+    material: "normal",
+    demanda: 30,
+    stock: 5
   },
+
+  positivePostConId: {
+      _id:"507f1f77bcf86cd799439012",
+      nombre: "Pack creado eligiendo id" ,
+      precio: 10,
+      calidad: 50,
+      material: "normal",
+      demanda: 30,
+      stock: 5
+    },
 };
