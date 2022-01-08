@@ -141,20 +141,6 @@ curl --location --request PUT 'http://localhost:3000/packs/<nombre del pack>/upd
 --data-raw '{"items":[<ids de los items>]}'
 ```
 - Requisitos: El nombre tiene que ser de un pack que exista, los ids tienen que ser de items que existan.
-- 
-**6. Añadir un pack:**
-```
-curl --location --request POST 'http://localhost:3000/packs/add' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "nombre": <nombre>,
-    "items": [
-        <ids de los items>
-    ]
-}'
-```
-- Requisitos: Tiene que tener nombre, tiene que tener items, los items tienen que ser ids que existan en la colección de items. No hace falta poner precio, stock ni calidad ya que de eso se encargará la lógica del dominio.
-
 - Ejemplo de respuesta exitosa:
  <details open>
  <summary>Ver respuesta</summary>
@@ -207,6 +193,19 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 }
  ```
  </details>
+**6. Añadir un pack:**
+```
+curl --location --request POST 'http://localhost:3000/packs/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "nombre": <nombre>,
+    "items": [
+        <ids de los items>
+    ]
+}'
+```
+- Requisitos: Tiene que tener nombre, tiene que tener items, los items tienen que ser ids que existan en la colección de items. No hace falta poner precio, stock ni calidad ya que de eso se encargará la lógica del dominio.
+
 
 
 - Ejemplo de respuesta exitosa:
