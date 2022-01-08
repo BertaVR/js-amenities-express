@@ -32,6 +32,8 @@ curl --location --request GET 'http://localhost:3000/packs/'
 
 ```
 - Requisitos: la base de datos tiene que estar poblada.
+
+
 **2. Buscar un pack por nombre:**
 - Curl: 
 ```
@@ -96,6 +98,7 @@ curl --location --request PUT 'http://localhost:3000/packs/<nombre>/cambiarNombr
 ```
 - Requisitos: El primer parámetro de nombre tiene que ser un nombre de un pack que exista en la BD, es case-sensitive. El nombre que se le añada también se añadirá respetando las mayúsculas y minúsculas
 
+
 **4.  Borrar un pack:**
 - Curl: 
 
@@ -104,6 +107,8 @@ curl --location --request DELETE 'http://localhost:3000/packs/<nombre>/delete'
 ```
 
 - Requisitos: El pack tiene que existir
+
+
 **5. Añadir un pack:**
 ```
 curl --location --request POST 'http://localhost:3000/packs/add' \
