@@ -40,6 +40,8 @@ curl --location --request GET 'http://localhost:3000/packs/'
 curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 ```
 - Requisitos: tiene que ser un nombre de un pack que exista en la BD, es case-sensitive.
+<details open>
+
 - Ejemplo de respuesta exitosa: 
  ```
 {
@@ -88,6 +90,7 @@ curl --location --request GET 'http://localhost:3000/packs/<nombre>'
     "calidad": "premium"
 }
 ```
+</details>
 
 
 **3. Cambiar nombre de un pack:**
