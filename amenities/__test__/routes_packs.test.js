@@ -27,7 +27,6 @@ describe("Packs Routes", () => {
         expect(res.body.nombre).toEqual(expect.stringMatching(nombre));
         expect(res.body._id).toBeTruthy();
         expect(res.body.nombre).toBe(nombre);
-        console.log(res.body);
         expect(res.body.items[0]).toHaveProperty("_id");
         expect(res.body._id).toBe("61d2dd8ad75d3770be652e7d");
       });
@@ -46,7 +45,6 @@ describe("Packs Routes", () => {
     return request(app)
       .get(`/packs/`)
       .then((res) => {
-        console.log(res.body);
         // Received: "application/json; charset=utf-8"
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
@@ -66,7 +64,6 @@ describe("Packs Routes", () => {
     return request(app)
       .delete(`/packs/${nombre}/`)
       .then((res) => {
-        console.log(res.body);
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty("_id", "61afc35457387547a0c0f6d1");
@@ -161,7 +158,6 @@ describe("Packs Routes", () => {
     return request(app)
       .put(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
       .then((res) => {
-        console.log(res)
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty("_id", "61d2de57d75d3770be66b706");
