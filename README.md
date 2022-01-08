@@ -1,6 +1,6 @@
 # Proyecto API REST con node y express
 ## Utilización
-- El proyecto está en el directorio /amenities, para acceder al paquete del proyecto escriba en su terminal:
+-El proyecto está en el directorio /amenities, para acceder al paquete del proyecto escriba en su terminal:
 ```shell script
 cd amenities
 ```
@@ -25,25 +25,38 @@ npm run start
 
 ## Rutas
 ### PACKS
-- Ver todos los packs:
+* Ver todos los packs:
+- Curl: 
 ```
 curl --location --request GET 'http://localhost:3000/packs/' 
+
 ```
-- Buscar un pack por nombre:
+- Requisitos: la base de datos tiene que estar poblada
+* Buscar un pack por nombre:
+- Curl: 
 ```
 curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 ```
+- Requisitos: tiene que ser un nombre de un pack que exista en la BD, es case-sensitive.
 
-- Cambiar nombre de un pack:
+
+* Cambiar nombre de un pack:
+- Curl: 
+
 ```
 curl --location --request GET 'http://localhost:3000/packs/<nombre>/cambiarNombre/<nombre nuevo>'
 ```
+- Requisitos: El primer parámetro de nombre tiene que ser un nombre de un pack que exista en la BD, es case-sensitive. El nombre que se le añada también se añadirá respetando las mayúsculas y minúsculas
 
-- Borrar un pack:
+* Borrar un pack:
+- Curl: 
+
 ```
 curl --location --request GET 'http://localhost:3000/packs/<nombre>/delete'
 ```
-- Añadir un pack:
+
+- Requisitos: El pack tiene que existir
+* Añadir un pack:
 ```
 curl --location --request POST 'http://localhost:3000/packs/add' \
 --header 'Content-Type: application/json' \
