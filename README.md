@@ -40,9 +40,11 @@ curl --location --request GET 'http://localhost:3000/packs/'
 curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 ```
 - Requisitos: tiene que ser un nombre de un pack que exista en la BD, es case-sensitive.
-<details open>
 
 - Ejemplo de respuesta exitosa: 
+ <details open>
+ <summary>Ver respuesta</summary>
+
  ```
 {
     "_id": "61afc35457387547a0c0f6d1",
@@ -147,6 +149,8 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 - Requisitos: Tiene que tener nombre, tiene que tener items, los items tienen que ser ids que existan en la colección de items. No hace falta poner precio, stock ni calidad ya que de eso se encargará la lógica del dominio.
 
 - Ejemplo de respuesta exitosa:
+ <details open>
+ <summary>Ver respuesta</summary>
 ```
 {
     "nombre": "Pack para animalistas",
@@ -193,4 +197,4 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     "calidad": "premium"
 }
 ```
-
+</details>
