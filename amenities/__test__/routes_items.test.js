@@ -32,22 +32,44 @@ describe("Items Routes", () => {
         expect(res.statusCode).toEqual(404);
       });
   });
+  test("Positive test POST createItem: /items/add /", () => {
+    return request(app)
+      .post("/items/add")
+      .send(testData.positivePost)
+      .then((res) => {
+        console.log(res)
+        expect(res.statusCode).toEqual(201);
+      });
+  });
 
   test("Positive test getAllItems /items /", () => {
     return request(app)
       .get(`/items`)
       .then((res) => {
-        console.log(res.body);
         // Received: "application/json; charset=utf-8"
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
-        expect(res.body).toHaveLength(71);
         expect(res.body[0]._id).toBeTruthy();
         expect(res.body[0].nombre).toBeTruthy();
         expect(res.body[0].precio).toBeTruthy();
         expect(res.body[0]).toHaveProperty("stock");
         expect(res.body[0]).toHaveProperty("calidad");
         expect(res.body[0]).toHaveProperty("demanda");
+        expect(res.body[0]).toHaveProperty("material");
       });
   });
 }, 20000);
+
+
+
+var testData = {
+  positivePost: {
+  //  _id:"507f1f77bcf86cd799439012",
+    "nombre": "mffkfkkf" ,
+    "precio": 10,
+    "calidad": 50,
+    "material": "normal",
+    "demanda": 30,
+    "stock": 5
+  },
+};
