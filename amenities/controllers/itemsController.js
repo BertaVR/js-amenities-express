@@ -2,6 +2,9 @@ const importaItem = require("../domain/item/item");
 const Items = require("../models/items");
 const mongoose = require("mongoose");
 
+/*
+curl --location --request GET 'http://localhost:3000/Rifle de pulso/
+*/
 var itemAPI = (function singleController() {
   const getItemsByName = (req, res, next) => {
     Items.findOne({ nombre: `${req.params.nombre}` }).exec(function (
@@ -18,7 +21,9 @@ var itemAPI = (function singleController() {
       res.status(200).type("json").json(item);
     });
   };
-
+/*
+curl --location --request GET 'http://localhost:3000/items/
+*/
   const getAllItems = (req, res, next) => {
     Items.find({}).exec(function (error, items) {
       if (error) {
@@ -32,6 +37,19 @@ var itemAPI = (function singleController() {
       res.status(200).type("json").json(items);
     });
   };
+  /*
+  curl --location --request POST 'http://localhost:3000/items/add' \
+--header 'Content-Type: application/json' \
+--data-raw '   { "_id": "507f1f77bcf86cd799439013",
+    "nombre": "Alprazolam",
+    "precio": 10,
+    "calidad": 50,
+    "material": "consumible",
+    "demanda": 30,
+    "stock"
+    : 5
+    }'
+  */
 
   const createItem = (req, res, next) => {
     let item = {

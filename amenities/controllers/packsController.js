@@ -3,7 +3,7 @@ const Packs = require("../models/packs");
 const Items = require("../models/items");
 
 var packAPI = (function singleController() {
-  //curl 'http://localhost:3000/packs/Pack1
+  //curl  'http://localhost:3000/packs/Pack1
 
   const getPack = (req, res, next) => {
     Packs.findOne({ nombre: `${req.params.nombre}` })
@@ -38,7 +38,7 @@ var packAPI = (function singleController() {
       });
   };
 
-  //curl 'http://localhost:3000/packs/Pack%20diversión/delete'
+  //curl --request DELETE 'http://localhost:3000/packs/Pack%20diversión/'
 
   const deletePack = (req, res, next) => {
     Packs.findOneAndDelete({ nombre: `${req.params.nombre}` }).exec(function (
@@ -115,7 +115,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
   };
 
   /*
-  ** curl --location --request GET 'http://localhost:3000/packs/pack Animales/cambiarNombre/pack Animalitous' \
+  ** curl --location --request PUT 'http://localhost:3000/packs/pack Animales/cambiarNombre/pack Animalitous' \
 --data-raw '' */
 
   const updateNombre = (req, res, next) => {
@@ -136,6 +136,12 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
       // Successful, so render.
     });
   };
+
+  /*
+  curl --location --request PUT 'http://localhost:3000/packs/Pack Donald Trump/updateItems' \
+--header 'Content-Type: application/json' \
+--data-raw '{"items":["61d594e784f9c213962d3147","61d594e784f9c213962d3148","61d594e784f9c213962d3149","61d594e784f9c213962d314a"]}'
+  */
   const updateItems = (req, res, next) => {
     /* Las propiedades de las variables siguen una lógica, por eso no he encontrado una mejor forma de hacerlo que así :/
     Primero busco por id los items para recoger TODAS sus propiedades 
@@ -158,7 +164,6 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
       }
 
       var pack = importaPack.makePack.createPack(nombrePack, itemsFullInfo);
-      
 
       Packs.findOneAndUpdate(
         { nombre: nombrePack },
@@ -189,9 +194,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
           res.status(200).type("json").json(pack);
         });
     });
-
   };
-
 
   // public API
   return {
