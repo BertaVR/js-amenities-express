@@ -134,12 +134,14 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
         if (err) {
           return next(err);
         }
+        res.status(200).type("json").json(pack);
+
       });
 
       // Successful, so render.
 
-      res.status(200).type("json").json(pack);
     });
+
   };
 
   // public API

@@ -5,13 +5,13 @@ var Items = require("./items");
 
 var Schema = mongoose.Schema;
 
-const CALIDADES = ["basic", "standard", "premium"];
+const CALIDADES = ["Basic", "Standard", "Premium"];
 var packSchema = new Schema({
-  nombre: String,
+  nombre: { type: String,   lowercase: true },
   stock: Number,
   items: [{ type: Schema.Types.ObjectId, ref: Items }],
   precio: { type: Number, required: true },
-  calidad: { type: String, enum: CALIDADES },
+  calidad: { type: String, enum: CALIDADES,  lowercase: true },
 });
 
 packSchema.pre(["find", "findOne"], function () {
