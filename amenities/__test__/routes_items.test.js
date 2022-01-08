@@ -65,7 +65,6 @@ describe("Items Routes", () => {
       .post("/items/add")
       .send(testData.negativePostFaltaUnCampo)
       .then((res) => {
-        console.log(res);
         expect(res.statusCode).toEqual(400);
       });
   });
