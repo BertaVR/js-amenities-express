@@ -22,3 +22,36 @@ npm run test domain/*/test
 ```shell script
 npm run start
 ``````
+
+## Rutas
+### PACKS
+- Ver todos los packs:
+```
+curl --location --request GET 'http://localhost:3000/packs/' 
+```
+- Buscar un pack por nombre:
+```
+curl --location --request GET 'http://localhost:3000/packs/<nombre>'
+```
+
+- Cambiar nombre de un pack:
+```
+curl --location --request GET 'http://localhost:3000/packs/<nombre>/cambiarNombre/<nombre nuevo>'
+```
+
+- Borrar un pack:
+```
+curl --location --request GET 'http://localhost:3000/packs/<nombre>/delete'
+```
+- Añadir un pack:
+```
+curl --location --request POST 'http://localhost:3000/packs/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "nombre": <nombre>,
+    "items": [
+        <ids de los items>
+    ]
+}'
+```
+
