@@ -291,6 +291,7 @@ curl --location --request GET 'http://localhost:3000/items/<nombre>'
 }
 ```
 
+
 **2. Crear un item :**
 
 - Curl:
