@@ -47,6 +47,20 @@ var itemAPI = (function singleController() {
     if (!req.body._id) {
       item._id = mongoose.Types.ObjectId();
     }
+    let mandatoryFields = [
+      item.nombre,
+      item.stock,
+      item.precio,
+      item.material,
+      item.demanda,
+      item.calidad,
+    ];
+    mandatoryFields.forEach((mandatoryField) => {
+      if (!mandatoryField) {
+        return res.sendStatus(400);
+      }
+    });
+
     /* propiedades.forEach(propiedad => {
       propiedad = req.body[propiedad]*/
     guardaItem = new Items();
