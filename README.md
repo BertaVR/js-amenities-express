@@ -134,8 +134,15 @@ curl --location --request DELETE 'http://localhost:3000/packs/<nombre>/'
 }
 ```
 
-
-**5. Añadir un pack:**
+**5. Actualizar los items de un pack:**
+```
+curl --location --request PUT 'http://localhost:3000/packs/<nombre del pack>/updateItems' \
+--header 'Content-Type: application/json' \
+--data-raw '{"items":[<ids de los items>]}'
+```
+- Requisitos: El nombre tiene que ser de un pack que exista, los ids tienen que ser de items que existan.
+- 
+**6. Añadir un pack:**
 ```
 curl --location --request POST 'http://localhost:3000/packs/add' \
 --header 'Content-Type: application/json' \
@@ -147,6 +154,58 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 }'
 ```
 - Requisitos: Tiene que tener nombre, tiene que tener items, los items tienen que ser ids que existan en la colección de items. No hace falta poner precio, stock ni calidad ya que de eso se encargará la lógica del dominio.
+
+- Ejemplo de respuesta exitosa:
+ <details open>
+ <summary>Ver respuesta</summary>
+ 
+ ```
+ {
+    "_id": "61d2df33d75d3770be68029c",
+    "nombre": "Pack Donald Trump",
+    "stock": 34,
+    "items": [
+        {
+            "_id": "61d594e784f9c213962d3147",
+            "nombre": "Diccionario perro-humano",
+            "precio": 5,
+            "calidad": 4,
+            "material": "normal",
+            "stock": 51,
+            "demanda": 89
+        },
+        {
+            "_id": "61d594e784f9c213962d3148",
+            "nombre": "Peluche de Capybara",
+            "precio": 15,
+            "calidad": 13,
+            "material": "indestructible",
+            "stock": 101,
+            "demanda": 34
+        },
+        {
+            "_id": "61d594e784f9c213962d3149",
+            "nombre": "Ballena",
+            "precio": 20,
+            "calidad": 3,
+            "material": "normal",
+            "stock": 341,
+            "demanda": 1
+        },
+        {
+            "_id": "61d594e784f9c213962d314a",
+            "nombre": "Pancarta Salvar a las Ballenas",
+            "precio": 11,
+            "calidad": 2,
+            "material": "normal",
+            "stock": 34,
+            "demanda": 21
+        }
+    ],
+    "precio": 43.35,
+    "calidad": "premium"
+}
+ ```
 
 - Ejemplo de respuesta exitosa:
  <details open>
