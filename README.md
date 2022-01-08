@@ -25,14 +25,14 @@ npm run start
 
 ## Rutas
 ### PACKS
-1. Ver todos los packs:
+**1. Ver todos los packs:**
 - Curl: 
 ```
 curl --location --request GET 'http://localhost:3000/packs/' 
 
 ```
 - Requisitos: la base de datos tiene que estar poblada
-2. Buscar un pack por nombre:
+**2. Buscar un pack por nombre:**
 - Curl: 
 ```
 curl --location --request GET 'http://localhost:3000/packs/<nombre>'
@@ -40,7 +40,7 @@ curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 - Requisitos: tiene que ser un nombre de un pack que exista en la BD, es case-sensitive.
 
 
-3. Cambiar nombre de un pack:
+**3. Cambiar nombre de un pack:**
 - Curl: 
 
 ```
@@ -48,15 +48,15 @@ curl --location --request GET 'http://localhost:3000/packs/<nombre>/cambiarNombr
 ```
 - Requisitos: El primer parámetro de nombre tiene que ser un nombre de un pack que exista en la BD, es case-sensitive. El nombre que se le añada también se añadirá respetando las mayúsculas y minúsculas
 
-4.  Borrar un pack:
+**4.  Borrar un pack:**
 - Curl: 
 
 ```
 curl --location --request GET 'http://localhost:3000/packs/<nombre>/delete'
 ```
 
-5. Requisitos: El pack tiene que existir
-* Añadir un pack:
+- Requisitos: El pack tiene que existir
+**5. Añadir un pack:**
 ```
 curl --location --request POST 'http://localhost:3000/packs/add' \
 --header 'Content-Type: application/json' \
