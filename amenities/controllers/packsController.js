@@ -90,8 +90,8 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
       }
 
       if (result.length < items.length) {
-        //si intentas crear un pack con items que no existen: not found
-        return res.sendStatus(404);
+        //si intentas crear un pack con items que no existen: bad request
+        return res.sendStatus(400);
       }
       // console.log(result);
 
@@ -154,7 +154,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 
       if (itemsFullInfo.length < nuevosItems.length) {
         //si intentas crear un pack con items que no ecisten: bad request
-        return res.sendStatus(404);
+        return res.sendStatus(400);
       }
 
       var pack = importaPack.makePack.createPack(nombrePack, itemsFullInfo);

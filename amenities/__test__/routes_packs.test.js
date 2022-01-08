@@ -124,12 +124,92 @@ describe("Packs Routes", () => {
       });
   });
 
+  test("Positive test updateItems  -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Pack brujas";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .send(testData.positiveUpdateItems1)
+      .then((res) => {
+        console.log(res);
+
+        expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty("_id", "61d2e1ded75d3770be6c7209");
+        expect(res.body).toHaveProperty("nombre", nombre);
+        expect(res.body.items).toHaveLength(3);
+        expect(res.body.items[0]).toHaveProperty("stock");
+        expect(res.body.items[0]).toHaveProperty("demanda");
+        expect(res.body.items[0]).toHaveProperty("calidad");
+        expect(res.body.items[0]).toHaveProperty("nombre");
+        expect(res.body.items[0]).toHaveProperty("precio");
+        expect(res.body.precio).toBe(12.75);
+        expect(res.body.stock).toBe(63);
+
+        expect(res.body.calidad).toBe("standard");
+      });
+  }, 10000);
+
+  test("Positive test updateItems 2   -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Pack brujas";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .send(testData.positiveUpdateItems2)
+      .then((res) => {
+        console.log(res);
+
+        expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty("_id", "61d2e1ded75d3770be6c7209");
+        expect(res.body).toHaveProperty("nombre", nombre);
+        expect(res.body.items).toHaveLength(2);
+        expect(res.body.items[0]).toHaveProperty("stock");
+        expect(res.body.items[0]).toHaveProperty("demanda");
+        expect(res.body.items[0]).toHaveProperty("calidad");
+        expect(res.body.items[0]).toHaveProperty("nombre");
+        expect(res.body.items[0]).toHaveProperty("precio");
+        expect(res.body.stock).toBe(2);
+        expect(res.body.precio).toBe(5.95);
+        expect(res.body.calidad).toBe("basic");
+      });
+  }, 10000);
+
+  test("Negative test updateItems: pack que no existe  -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Este pack no existe";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .send(testData.positiveUpdateItems1)
+      .then((res) => {
+        console.log(res);
+        expect(res.statusCode).toEqual(404);
+      });
+  });
+  test("Negative test updateItems: item que no existe  -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Pack brujas";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .send(testData.updateItemNotFound)
+      .then((res) => {
+        console.log(res);
+        expect(res.statusCode).toEqual(400);
+      });
+  }, 10000);
+  test("Negative test updateItems  -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Este pack no existe";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .send(testData.positiveUpdateItems1)
+      .then((res) => {
+        console.log(res);
+        expect(res.statusCode).toEqual(404);
+      });
+  });
+
   test("Negative test POST 2 addPack: one of the items does not exist in db -  /packs /", () => {
     return request(app)
       .post("/packs/add")
-      .send(testData.unItemNoExiste)
+      .send(`items: ${testData.unItemNoExiste.items}`)
       .then((res) => {
-        expect(res.statusCode).toEqual(404);
+        expect(res.statusCode).toEqual(400);
       });
   });
 
@@ -186,4 +266,21 @@ var testData = {
   noItemsPost: { nombre: "Hello" },
   noNombrePost: { items: ["a", "b"] },
   itemsNoSonId: { nombre: "Hello", items: ["a", "b"] },
+  positiveUpdateItems1: {
+    items: [
+      "61d594e784f9c213962d3111",
+      "61d58b99d75d3770be596747",
+      "61d594e784f9c213962d3112",
+    ],
+  },
+  positiveUpdateItems2: {
+    items: ["61d594e784f9c213962d3116", "61d594e784f9c213962d311d"],
+  },
+  updateItemNotFound: {
+    items: [
+      "61d58aecd75d3770be584aed",
+      "61d58b99d75d3770be596746",
+      "61d5905cd75d3770be621b46",
+    ],
+  },
 };
