@@ -130,7 +130,6 @@ describe("Packs Routes", () => {
       .put(`/packs/${nombre}/updateItems/`)
       .send(testData.positiveUpdateItems1)
       .then((res) => {
-        console.log(res);
 
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
@@ -155,7 +154,6 @@ describe("Packs Routes", () => {
       .put(`/packs/${nombre}/updateItems/`)
       .send(testData.positiveUpdateItems2)
       .then((res) => {
-        console.log(res);
 
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
@@ -179,7 +177,6 @@ describe("Packs Routes", () => {
       .put(`/packs/${nombre}/updateItems/`)
       .send(testData.positiveUpdateItems1)
       .then((res) => {
-        console.log(res);
         expect(res.statusCode).toEqual(404);
       });
   });
@@ -189,17 +186,15 @@ describe("Packs Routes", () => {
       .put(`/packs/${nombre}/updateItems/`)
       .send(testData.updateItemNotFound)
       .then((res) => {
-        console.log(res);
         expect(res.statusCode).toEqual(400);
       });
-  }, 10000);
+  });
   test("Negative test updateItems  -  /packs/:nombre/updateItems /", () => {
     let nombre = "Este pack no existe";
     return request(app)
       .put(`/packs/${nombre}/updateItems/`)
       .send(testData.positiveUpdateItems1)
       .then((res) => {
-        console.log(res);
         expect(res.statusCode).toEqual(404);
       });
   });
