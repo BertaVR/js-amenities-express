@@ -38,7 +38,6 @@ describe("Items Routes", () => {
       .post("/items/add")
       .send(testData.positivePost)
       .then((res) => {
-        console.log(res)
         expect(res.statusCode).toEqual(201);
       });
   });
