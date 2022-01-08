@@ -31,7 +31,7 @@ npm run start
 curl --location --request GET 'http://localhost:3000/packs/' 
 
 ```
-- Requisitos: la base de datos tiene que estar poblada
+- Requisitos: la base de datos tiene que estar poblada.
 **2. Buscar un pack por nombre:**
 - Curl: 
 ```
