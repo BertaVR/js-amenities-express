@@ -206,6 +206,8 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     "calidad": "premium"
 }
  ```
+ </details>
+
 
 - Ejemplo de respuesta exitosa:
  <details open>
