@@ -151,6 +151,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 - Ejemplo de respuesta exitosa:
  <details open>
  <summary>Ver respuesta</summary>
+ 
 ```
 {
     "nombre": "Pack para animalistas",
