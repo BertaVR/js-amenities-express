@@ -40,7 +40,7 @@ curl --location --request GET 'http://localhost:3000/packs/'
 curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 ```
 - Requisitos: tiene que ser un nombre de un pack que exista en la BD, es case-sensitive.
-- Ejemplo de respuesta: 
+- Ejemplo de respuesta exitosa: 
  ```
 {
     "_id": "61afc35457387547a0c0f6d1",
@@ -97,16 +97,37 @@ curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 curl --location --request PUT 'http://localhost:3000/packs/<nombre>/cambiarNombre/<nombre nuevo>'
 ```
 - Requisitos: El primer parámetro de nombre tiene que ser un nombre de un pack que exista en la BD, es case-sensitive. El nombre que se le añada también se añadirá respetando las mayúsculas y minúsculas
+- Ejemplo de respuesta exitosa:
+```
+{
+    "_id": "61d2dd8ad75d3770be652e7d",
+    "nombre": "Nuevo nombre",
+    "stock": 5,
+    "items": [
+        "61d58aa1d75d3770be579cb8",
+        "61d58b99d75d3770be596747"
+    ],
+    "precio": 5.95,
+    "calidad": "Basic"
+}
+```
 
 
 **4.  Borrar un pack:**
 - Curl: 
 
 ```
-curl --location --request DELETE 'http://localhost:3000/packs/<nombre>/delete'
+curl --location --request DELETE 'http://localhost:3000/packs/<nombre>/'
 ```
 
 - Requisitos: El pack tiene que existir
+- Ejemplo de respuesta exitosa:
+```
+{
+    "_id": "61d31175d75d3770bebe1eea",
+    "nombre": "Pack para animalistas"
+}
+```
 
 
 **5. Añadir un pack:**
@@ -119,5 +140,54 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
         <ids de los items>
     ]
 }'
+```
+- Requisitos: Tiene que tener nombre, tiene que tener items, los items tienen que ser ids que existan en la colección de items. No hace falta poner precio, stock ni calidad ya que de eso se encargará la lógica del dominio.
+
+- Ejemplo de respuesta exitosa:
+```
+{
+    "nombre": "Pack para animalistas",
+    "stock": 34,
+    "items": [
+        {
+            "_id": "61d594e784f9c213962d3147",
+            "nombre": "Diccionario perro-humano",
+            "precio": 5,
+            "calidad": 4,
+            "material": "normal",
+            "stock": 51,
+            "demanda": 89
+        },
+        {
+            "_id": "61d594e784f9c213962d3148",
+            "nombre": "Peluche de Capybara",
+            "precio": 15,
+            "calidad": 13,
+            "material": "indestructible",
+            "stock": 101,
+            "demanda": 34
+        },
+        {
+            "_id": "61d594e784f9c213962d3149",
+            "nombre": "Ballena",
+            "precio": 20,
+            "calidad": 3,
+            "material": "normal",
+            "stock": 341,
+            "demanda": 1
+        },
+        {
+            "_id": "61d594e784f9c213962d314a",
+            "nombre": "Pancarta Salvar a las Ballenas",
+            "precio": 11,
+            "calidad": 2,
+            "material": "normal",
+            "stock": 34,
+            "demanda": 21
+        }
+    ],
+    "precio": 43.35,
+    "calidad": "premium"
+}
 ```
 
