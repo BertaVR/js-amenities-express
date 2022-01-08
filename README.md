@@ -295,6 +295,8 @@ curl --location --request GET 'http://localhost:3000/items/<nombre>'
 **2. Crear un item :**
 
 - Curl:
+
+```
 curl --location --request POST 'http://localhost:3000/items/add' \
 --header 'Content-Type: application/json' \
 --data-raw '   { "_id": <ObjectId>,
@@ -306,6 +308,7 @@ curl --location --request POST 'http://localhost:3000/items/add' \
     "stock"
     : <stock>
     }'
+  ```
  
  - Requisitos: Es posible especificar un id, si no se especifica se autogenerará. En el caso de poner un id tiene que cumplir el formato ObjectId de mongo (alfanumérico hexadecimal). Todos los otros campos son obligatorios. El precio es un número positivo. La demanda es un número entero del 0 al 100. La calidad es un entero de 0 a 50. El stock es un entero postivo. El material es  uno de estos tres valores:  "consumible","indestructible","normal" (se admite primera letra mayúscula).
  
