@@ -93,24 +93,7 @@ module.exports = [
     stock: 12,
     demanda: 10,
   },
-  {
-   _id: ObjectId("61d5905cd75d3770be621b46"),
-    nombre: "Armadura resistente a todo",
-    precio: 7,
-    calidad: 4,
-    material: "normal",
-    stock: 3,
-    demanda: 34,
-  },
-  {
-   _id: ObjectId("61d5906ad75d3770be623530"),
-    nombre: "Cañon de protones",
-    precio: 10,
-    calidad: 13,
-    material: "indestructible",
-    stock: 1,
-    demanda: 1,
-  },
+
   {
    _id: ObjectId("61d594e784f9c213962d3110"),
     nombre: "AK-47",

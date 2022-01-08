@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 const MATERIALES = ["consumible", "indestructible", "normal", "Consumible", "Indestructible", "Normal"];
 
 var itemSchema = new Schema({
-  id: { type: Schema.Types.ObjectId, unique: true, required: true },
+  _id: { type: Schema.Types.ObjectId},
   nombre: { type: String, unique: true, required: true },
   precio: { type: Number, required: true },
   calidad: { type: Number, min: 0, max: 50 },

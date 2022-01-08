@@ -20,7 +20,7 @@ module.exports = [
     stock: 5,
     items: [
       ObjectId("61d58aa1d75d3770be579cb8"),
-      ObjectId("61d58b99d75d3770be596747"),
+      ObjectId("61d58b6fd75d3770be591ce0"),
     ],
     precio: 5.95,
     calidad: "Basic",
