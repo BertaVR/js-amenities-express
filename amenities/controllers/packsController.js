@@ -3,8 +3,6 @@ const Packs = require("../models/packs");
 const Items = require("../models/items");
 
 var packAPI = (function singleController() {
-
-  
   //curl 'http://localhost:3000/packs/Pack1
 
   const getPack = (req, res, next) => {
@@ -81,21 +79,19 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     Después CREO una instancia del objeto pack del dominio usando la función factoría del dominio,
     LUego clono las variables y creo una instancia de Packs (esquema BD) para poder guardarlo en la base de datos
     */
-    //create pack
     let items = req.body.items;
     let nombre = req.body.nombre;
     if (!nombre || !items) {
       return res.sendStatus(400);
     }
-    //console.log(items);
     Items.find({ _id: { $in: items } }).exec(function (err, result) {
       if (err) {
         return res.sendStatus(500);
       }
 
       if (result.length < items.length) {
-        //si intentas crear un pack con items que no ecisten: bad request
-        return res.sendStatus(404);
+        //si intentas crear un pack con items que no existen: bad request
+        return res.sendStatus(400);
       }
       // console.log(result);
 
@@ -134,13 +130,68 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
         if (err) {
           return next(err);
         }
+        res.status(200).type("json").json(pack);
       });
 
       // Successful, so render.
-
-      res.status(200).type("json").json(pack);
     });
   };
+  const updateItems = (req, res, next) => {
+    /* Las propiedades de las variables siguen una lógica, por eso no he encontrado una mejor forma de hacerlo que así :/
+    Primero busco por id los items para recoger TODAS sus propiedades 
+    Luego accedo al dominio así: var pack = importaPack.makePack.createPack(nombrePack, itemsFullInfo);
+    */
+    let nuevosItems = req.body.items;
+    let nombrePack = req.params.nombre;
+
+    Items.find({ _id: { $in: nuevosItems } }).exec(function (
+      err,
+      itemsFullInfo
+    ) {
+      if (err) {
+        return res.sendStatus(500);
+      }
+
+      if (itemsFullInfo.length < nuevosItems.length) {
+        //si intentas crear un pack con items que no ecisten: bad request
+        return res.sendStatus(400);
+      }
+
+      var pack = importaPack.makePack.createPack(nombrePack, itemsFullInfo);
+      
+
+      Packs.findOneAndUpdate(
+        { nombre: nombrePack },
+        {
+          /* Me gustaría refactorizar esto cambiándolo por una variable 
+          sacada de iterar sobre una estructura de datos que contenga
+          las propiedades que cambian al cambiar los items, 
+          ya que esto no es OCP, pero no ha habido manera.
+          */
+          items: pack.items,
+          stock: pack.stock,
+          precio: pack.precio,
+          demada: pack.demanda,
+          calidad: pack.calidad,
+        },
+        {
+          returnOriginal: false,
+        }
+      )
+        .populate("items")
+        .then((pack) => {
+          if (err) {
+            return next(err);
+          }
+          if (!pack) {
+            return res.sendStatus(404);
+          }
+          res.status(200).type("json").json(pack);
+        });
+    });
+
+  };
+
 
   // public API
   return {
@@ -149,6 +200,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     deletePack,
     createPack,
     updateNombre,
+    updateItems,
   };
 })();
 

@@ -23,11 +23,16 @@ router.use(function (req, res, next) {
 });*/
 
 router.get("/:nombre", packsController.packAPI.getPack);
-router.get("/:nombre/delete", packsController.packAPI.deletePack);
+router.delete("/:nombre/", packsController.packAPI.deletePack);
 router.post("/add", packsController.packAPI.createPack);
-router.get(
+router.put(
   "/:nombre/cambiarNombre/:nuevoNombre",
   packsController.packAPI.updateNombre
+);
+
+router.put(
+  "/:nombre/updateItems",
+  packsController.packAPI.updateItems
 );
 
 router.get("/", packsController.packAPI.getAllPacks);

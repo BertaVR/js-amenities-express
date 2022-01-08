@@ -28,7 +28,6 @@ describe("Packs Routes", () => {
         expect(res.body.nombre).toEqual(expect.stringMatching(nombre));
         expect(res.body._id).toBeTruthy();
         expect(res.body.nombre).toBe(nombre);
-        console.log(res.body);
         expect(res.body.items[0]).toHaveProperty("_id");
         expect(res.body._id).toBe("61d2dd8ad75d3770be652e7d");
       });
@@ -47,7 +46,6 @@ describe("Packs Routes", () => {
     return request(app)
       .get(`/packs/`)
       .then((res) => {
-        console.log(res.body);
         // Received: "application/json; charset=utf-8"
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
@@ -65,9 +63,8 @@ describe("Packs Routes", () => {
   test("Positive test deletePack /packs/:nombre/delete /", () => {
     let nombre = "Pack animales";
     return request(app)
-      .get(`/packs/${nombre}/delete`)
+      .delete(`/packs/${nombre}/`)
       .then((res) => {
-        console.log(res.body);
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty("_id", "61afc35457387547a0c0f6d1");
@@ -78,7 +75,7 @@ describe("Packs Routes", () => {
   test("Negative test deletePack /packs/:nombre/delete /", () => {
     let nombre = "Pack que no existe";
     return request(app)
-      .get(`/packs/${nombre}/delete`)
+      .delete(`/packs/${nombre}/delete`)
       .then((res) => {
         expect(res.statusCode).toEqual(404);
       });
@@ -97,14 +94,14 @@ describe("Packs Routes", () => {
         expect(res.body).toHaveProperty("precio");
 
         expect(res.body.items).toBeTruthy();
-        expect(res.body.items[0].nombre).toBe("camello");
+        expect(res.body.items[0].nombre).toBe("Poción del arcoiris");
         expect(res.body.items[0]).toHaveProperty("nombre");
         expect(res.body.items[0]).toHaveProperty("stock");
         expect(res.body.items[0]).toHaveProperty("calidad");
         expect(res.body.items[0]).toHaveProperty("precio");
         expect(res.body.items[0]).toHaveProperty("demanda");
-        expect(res.body.items[1].nombre).toBe("Poción del arcoiris");
-        expect(res.body.items[2].nombre).toBe("Armadura resistente a todo");
+        expect(res.body.items[1].nombre).toBe("Bandera nacional");
+        expect(res.body.items[2].nombre).toBe("Bañador de invisibilidad");
         expect(res.body.items.length).toBe(3);
         expect(res.body.nombre).toBe("Hello");
       });
@@ -128,12 +125,87 @@ describe("Packs Routes", () => {
       });
   });
 
+  test("Positive test updateItems  -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Pack brujas";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .send(testData.positiveUpdateItems1)
+      .then((res) => {
+
+        expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty("_id", "61d2e1ded75d3770be6c7209");
+        expect(res.body).toHaveProperty("nombre", nombre);
+        expect(res.body.items).toHaveLength(3);
+        expect(res.body.items[0]).toHaveProperty("stock");
+        expect(res.body.items[0]).toHaveProperty("demanda");
+        expect(res.body.items[0]).toHaveProperty("calidad");
+        expect(res.body.items[0]).toHaveProperty("nombre");
+        expect(res.body.items[0]).toHaveProperty("precio");
+        expect(res.body.precio).toBe(12.75);
+        expect(res.body.stock).toBe(63);
+
+        expect(res.body.calidad).toBe("standard");
+      });
+  }, 10000);
+
+  test("Positive test updateItems 2   -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Pack brujas";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .send(testData.positiveUpdateItems2)
+      .then((res) => {
+
+        expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty("_id", "61d2e1ded75d3770be6c7209");
+        expect(res.body).toHaveProperty("nombre", nombre);
+        expect(res.body.items).toHaveLength(2);
+        expect(res.body.items[0]).toHaveProperty("stock");
+        expect(res.body.items[0]).toHaveProperty("demanda");
+        expect(res.body.items[0]).toHaveProperty("calidad");
+        expect(res.body.items[0]).toHaveProperty("nombre");
+        expect(res.body.items[0]).toHaveProperty("precio");
+        expect(res.body.stock).toBe(2);
+        expect(res.body.precio).toBe(5.95);
+        expect(res.body.calidad).toBe("basic");
+      });
+  }, 10000);
+
+  test("Negative test updateItems: pack que no existe  -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Este pack no existe";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .send(testData.positiveUpdateItems1)
+      .then((res) => {
+        expect(res.statusCode).toEqual(404);
+      });
+  });
+  test("Negative test updateItems: item que no existe  -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Pack brujas";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .send(testData.updateItemNotFound)
+      .then((res) => {
+        expect(res.statusCode).toEqual(400);
+      });
+  });
+  test("Negative test updateItems  -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Este pack no existe";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .send(testData.positiveUpdateItems1)
+      .then((res) => {
+        expect(res.statusCode).toEqual(404);
+      });
+  });
+
   test("Negative test POST 2 addPack: one of the items does not exist in db -  /packs /", () => {
     return request(app)
       .post("/packs/add")
-      .send(testData.unItemNoExiste)
+      .send(`items: ${testData.unItemNoExiste.items}`)
       .then((res) => {
-        expect(res.statusCode).toEqual(404);
+        expect(res.statusCode).toEqual(400);
       });
   });
 
@@ -150,21 +222,21 @@ describe("Packs Routes", () => {
     let nombre = "Pack que no existe";
     let nuevoNombre = "Nuevo nombre";
     return request(app)
-      .get(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
+      .put(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
       .then((res) => {
         expect(res.statusCode).toEqual(404);
       });
   });
 
   test("Positive test updateNombre  -  /packs/:nombre/cambiarNombre/:nuevoNombre /", () => {
-    let nombre = "Pack para maquilladores";
-    let nuevoNombre = "Pack guay";
+    let nombre = "Pack para Gangsters";
+    let nuevoNombre = "Pack tortuga";
     return request(app)
-      .get(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
+      .put(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
       .then((res) => {
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
-        expect(res.body).toHaveProperty("_id", "61d2e7c4d75d3770be767f44");
+        expect(res.body).toHaveProperty("_id", "61d2de57d75d3770be66b706");
         expect(res.body).toHaveProperty("nombre", nuevoNombre);
       });
   });
@@ -174,9 +246,9 @@ var testData = {
   positivePost: {
     nombre: "Hello",
     items: [
-      "61d58aecd75d3770be584aed",
+      "61d594e784f9c213962d3111",
       "61d58b99d75d3770be596747",
-      "61d5905cd75d3770be621b46",
+      "61d594e784f9c213962d3112",
     ],
   },
   unItemNoExiste: {
@@ -190,4 +262,21 @@ var testData = {
   noItemsPost: { nombre: "Hello" },
   noNombrePost: { items: ["a", "b"] },
   itemsNoSonId: { nombre: "Hello", items: ["a", "b"] },
+  positiveUpdateItems1: {
+    items: [
+      "61d594e784f9c213962d3111",
+      "61d58b99d75d3770be596747",
+      "61d594e784f9c213962d3112",
+    ],
+  },
+  positiveUpdateItems2: {
+    items: ["61d594e784f9c213962d3116", "61d594e784f9c213962d311d"],
+  },
+  updateItemNotFound: {
+    items: [
+      "61d58aecd75d3770be584aed",
+      "61d58b99d75d3770be596746",
+      "61d5905cd75d3770be621b46",
+    ],
+  },
 };

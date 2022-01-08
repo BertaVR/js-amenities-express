@@ -26,6 +26,9 @@ async function run() {
             await packs.drop().then((successMessage) => {
                 console.log("Droped packs " + successMessage);
             })
+            await packs.createIndex( { nombre: 1 }, {unique:true} ).then((successMessage) => {
+                console.log("Created unique index " + successMessage);
+            })
         }
 
         let numItems = await items.estimatedDocumentCount();
@@ -33,10 +36,13 @@ async function run() {
             await items.drop().then((successMessage) => {
                 console.log("Droped items " + successMessage);
             })
+            await items.createIndex( { nombre: 1 }, {unique:true} ).then((successMessage) => {
+                console.log("Created unique index " + successMessage);
+            })
         }
 
         let result = await items.insertMany(itemsCollection);
-        console.log(`${result.insertedCount} == 71 items inserted into store`);
+        console.log(`${result.insertedCount} == 69 items inserted into store`);
 
          result = await packs.insertMany(packsCollection);
         console.log(`${result.insertedCount} == 22 packs inserted into store`);
