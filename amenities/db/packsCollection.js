@@ -7,8 +7,8 @@ module.exports = [
     stock: 800,
     items: [
       ObjectId("61d58b6fd75d3770be591ce0"),
+      ObjectId("61d58b02d75d3770be586c13"),
       ObjectId("61d58aecd75d3770be584aed"),
-      ObjectId("61d58b6fd75d3770be591ce0"),
       ObjectId("61d58b14d75d3770be588aba"),
     ],
     precio: 50,
