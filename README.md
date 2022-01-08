@@ -38,6 +38,54 @@ curl --location --request GET 'http://localhost:3000/packs/'
 curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 ```
 - Requisitos: tiene que ser un nombre de un pack que exista en la BD, es case-sensitive.
+- Ejemplo de respuesta: 
+ ```
+{
+    "_id": "61afc35457387547a0c0f6d1",
+    "nombre": "pack animalitous",
+    "stock": 800,
+    "items": [
+        {
+            "_id": "61d58b6fd75d3770be591ce0",
+            "nombre": "cosa1",
+            "precio": 170,
+            "calidad": 40,
+            "material": "normal",
+            "stock": 40,
+            "demanda": 70
+        },
+        {
+            "_id": "61d58aecd75d3770be584aed",
+            "nombre": "camello",
+            "precio": 40,
+            "calidad": 44,
+            "material": "normal",
+            "stock": 800,
+            "demanda": 70
+        },
+        {
+            "_id": "61d58b6fd75d3770be591ce0",
+            "nombre": "cosa1",
+            "precio": 170,
+            "calidad": 40,
+            "material": "normal",
+            "stock": 40,
+            "demanda": 70
+        },
+        {
+            "_id": "61d58b14d75d3770be588aba",
+            "nombre": "obeja",
+            "precio": 50,
+            "calidad": 50,
+            "material": "normal",
+            "stock": 10000,
+            "demanda": 70
+        }
+    ],
+    "precio": 50,
+    "calidad": "premium"
+}
+```
 
 
 **3. Cambiar nombre de un pack:**
