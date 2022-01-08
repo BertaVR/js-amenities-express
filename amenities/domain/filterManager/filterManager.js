@@ -57,7 +57,7 @@ FilterManager.prototype.filterByMinPrice = function (
 
 FilterManager.prototype.findPackByNombre = function (
   packNombre,
-  inventory = this.getStore().getInventory()
+  inventory = this.getStore().getInventario()
 ) {
   let tmpArray = Array.from(inventory).filter((p) => p.nombre === packNombre);
   if (tmpArray.length === 1) {
@@ -75,7 +75,7 @@ FilterManager.prototype.findPackByNombre = function (
 
 FilterManager.prototype.filterByContainsItem = function (
   itemName,
-  inventory = this.getStore().getInventory()
+  inventory = this.getStore().getInventario()
 ) {
   // Podría ser más elegante con programación funcional, pero
   // así uso un FOR LOOP y un FOREACH loop para cumplir los rquisitos
@@ -108,7 +108,7 @@ FilterManager.prototype.filterByContainsItem = function (
 
 FilterManager.prototype.filterByNumberOfItems = function (
   n,
-  inventory = this.getStore().getInventory()
+  inventory = this.getStore().getInventario()
 ) {
   let results = Array.from(inventory).filter((p) => p.items.size == n);
 

@@ -23,7 +23,7 @@ StoreManager.prototype.addPack = function (pack) {
     console.log(
       `Pack ${nombre} añadido con éxito. Stock: ${stock}. Calidad: ${calidad}. Items: ${stringItems}`
     );
-    this.getStore().getInventory().add(pack);
+    this.getStore().getInventario().add(pack);
   }
 };
 
@@ -57,14 +57,14 @@ si length es 0 será false, si no, true true*/
 };
 
 StoreManager.prototype.findByName = function (searchWord) {
-  return Array.from(this.getStore().getInventory()).filter(
+  return Array.from(this.getStore().getInventario()).filter(
     // SPRINT 5: ESTRUCTURAS DE DATOS
     (p) => p.getNombre() === searchWord
   );
 };
 
-StoreManager.prototype.clearInventory = function () {
-  this.getStore().clearInventory();
+StoreManager.prototype.clearInventario = function () {
+  this.getStore().clearInventario();
 };
 
 var factory = (function singleStoreManager() {

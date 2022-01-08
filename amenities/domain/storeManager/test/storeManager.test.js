@@ -28,10 +28,10 @@ describe("Testing just adding one pack", () => {
       { nombre: "item3", stock: 7, precio: 600 },
     ])
   );
-  const inventory = myStore.getInventory();
+  const inventory = myStore.getInventario();
 
   beforeEach(() => {
-    myStoreManager.clearInventory();
+    myStoreManager.clearInventario();
     myStoreManager.addPack(testPack);
   });
 
@@ -40,14 +40,14 @@ describe("Testing just adding one pack", () => {
   });
 
   test("Clear inventory", () => {
-    myStoreManager.clearInventory();
+    myStoreManager.clearInventario();
     expect(inventory.size).toEqual(0);
   });
 });
 
 describe("Testing using addPacks: packs with name repeated", () => {
   beforeEach(() => {
-    myStoreManager.clearInventory();
+    myStoreManager.clearInventario();
     myStoreManager.addPacks(testPacksNameRepeated);
   });
   test("Negative test for findByName", () => {
@@ -173,7 +173,7 @@ describe("Testing using addPacks: packs with name repeated", () => {
 
   test("Add Packs should add all packs that are addable", () => {
     //     myStoreManager.addPacks(testPacksNameRepeated) -> in beforeEach
-    expect(myStore.getInventory().size).toEqual(4);
+    expect(myStore.getInventario().size).toEqual(4);
   });
 
   //  Los tests están acoplados. TODO: Refactor

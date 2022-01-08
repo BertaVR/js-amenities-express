@@ -1,6 +1,6 @@
 function Store() {
-  this.name = "Tienda de Berta";
-  this.inventory = new Set();
+  this.nombre = "Tienda de Berta";
+  this.inventario = new Set();
 }
 
 // Using singleton pattern and closure:
@@ -15,17 +15,17 @@ var factory = (function singleStore() {
   };
 })();
 
-Store.prototype.getName = function () {
-  return this.name;
+Store.prototype.getNombre = function () {
+  return this.nombre;
 };
 
-Store.prototype.getInventory = function () {
-  return this.inventory;
+Store.prototype.getInventario = function () {
+  return this.inventario;
 };
 
-Store.prototype.clearInventory = function () {
+Store.prototype.clearInventario = function () {
   console.log("Borrado inventario.");
-  this.getInventory().clear();
+  this.getInventario().clear();
 };
 
 //código acoplado: funciones que quiero implementar pero no sé dónde
