@@ -47,8 +47,26 @@ describe("Items Routes", () => {
       .post("/items/add")
       .send(testData.positivePostConId)
       .then((res) => {
-        console.log(res)
         expect(res.statusCode).toEqual(201);
+      });
+  });
+  test("Negative test POST createItem: no se pueden crear items con nombres repetidos: /items/add /", () => {
+    return request(app)
+      .post("/items/add")
+      .send(testData.negativePostNombreRepe)
+      .then((res) => {
+        expect(res.statusCode).toEqual(500);
+      });
+  });
+
+
+  test("Negative test POST createItem: si falta un campo obligatorio se devuelve un 400: /items/add /", () => {
+    return request(app)
+      .post("/items/add")
+      .send(testData.negativePostFaltaUnCampo)
+      .then((res) => {
+        console.log(res);
+        expect(res.statusCode).toEqual(400);
       });
   });
 
@@ -70,25 +88,39 @@ describe("Items Routes", () => {
   });
 }, 20000);
 
-
-
 var testData = {
   positivePost: {
-    nombre: "Pack creado sin elegir id" ,
+    nombre: "Item creado sin elegir id",
     precio: 10,
     calidad: 50,
     material: "normal",
     demanda: 30,
-    stock: 5
+    stock: 5,
   },
 
   positivePostConId: {
-      _id:"507f1f77bcf86cd799439012",
-      nombre: "Pack creado eligiendo id" ,
-      precio: 10,
-      calidad: 50,
-      material: "normal",
-      demanda: 30,
-      stock: 5
-    },
+    _id: "507f1f77bcf86cd799439012",
+    nombre: "Item creado eligiendo id",
+    precio: 10,
+    calidad: 50,
+    material: "normal",
+    demanda: 30,
+    stock: 5,
+  },
+  negativePostNombreRepe: {
+    nombre: "Poción del arcoiris",
+    precio: 10,
+    calidad: 50,
+    material: "normal",
+    demanda: 30,
+    stock: 5,
+  },
+  negativePostFaltaUnCampo: {
+    nombre: "Nombre super original no repetido",
+   // NO hay precio
+    calidad: 50,
+    material: "normal",
+    demanda: 30,
+    stock: 5,
+  },
 };
