@@ -44,7 +44,7 @@ curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 - Curl: 
 
 ```
-curl --location --request GET 'http://localhost:3000/packs/<nombre>/cambiarNombre/<nombre nuevo>'
+curl --location --request PUT 'http://localhost:3000/packs/<nombre>/cambiarNombre/<nombre nuevo>'
 ```
 - Requisitos: El primer parámetro de nombre tiene que ser un nombre de un pack que exista en la BD, es case-sensitive. El nombre que se le añada también se añadirá respetando las mayúsculas y minúsculas
 
@@ -52,7 +52,7 @@ curl --location --request GET 'http://localhost:3000/packs/<nombre>/cambiarNombr
 - Curl: 
 
 ```
-curl --location --request GET 'http://localhost:3000/packs/<nombre>/delete'
+curl --location --request DELETE 'http://localhost:3000/packs/<nombre>/delete'
 ```
 
 - Requisitos: El pack tiene que existir
