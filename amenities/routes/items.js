@@ -12,4 +12,7 @@ router.get("/", itemsController.itemAPI.getAllItems);
 
 router.get("/:nombre", itemsController.itemAPI.getItemsByName);
 
+router.post("/add", itemsController.itemAPI.createItem);
+
+
 module.exports = router;
