@@ -25,9 +25,9 @@ var packAPI = (function singleController() {
   const getAllPacks = (req, res, next) => {
     Packs.find({})
       .populate("items")
-      .exec(function (error, packs) {
-        if (error) {
-          return next(error);
+      .exec(function (err, packs) {
+        if (err) {
+          return next(err);
         }
         if (!packs) {
           return res.sendStatus(404);
