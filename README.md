@@ -135,7 +135,7 @@ curl --location --request PUT 'http://localhost:3000/packs/<nombre>/cambiarNombr
 curl --location --request DELETE 'http://localhost:3000/packs/<nombre>/'
 ```
 
-- Requisitos: El pack tiene que existir
+- Requisitos: El pack tiene que existir. Es case sensitive
 - Ejemplo de respuesta exitosa:
 ```
 {
@@ -215,7 +215,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     ]
 }'
 ```
-- Requisitos: Tiene que tener nombre, tiene que tener items, los items tienen que ser ids que existan en la colección de items. No hace falta poner precio, stock ni calidad ya que de eso se encargará la lógica del dominio.
+- Requisitos: Tiene que tener nombre, tiene que tener items, los items tienen que ser ids que existan en la colección de items. No hace falta poner precio, stock ni calidad ya que de eso se encargará la lógica del dominio. No puedes añadir un pack con un nombre ya existente.
 
 
 
@@ -320,7 +320,7 @@ curl --location --request POST 'http://localhost:3000/items/add' \
     }'
   ```
  
- - Requisitos: Es posible especificar un id, si no se especifica se autogenerará. En el caso de poner un id tiene que cumplir el formato ObjectId de mongo (alfanumérico hexadecimal). Todos los otros campos son obligatorios. El precio es un número positivo. La demanda es un número entero del 0 al 100. La calidad es un entero de 0 a 50. El stock es un entero postivo. El material es  uno de estos tres valores:  "consumible","indestructible","normal" (se admite primera letra mayúscula).
+ - Requisitos: Es posible especificar un id, si no se especifica se autogenerará. En el caso de poner un id tiene que cumplir el formato ObjectId de mongo (alfanumérico hexadecimal). Todos los otros campos son obligatorios. El precio es un número positivo. La demanda es un número entero del 0 al 100. La calidad es un entero de 0 a 50. El stock es un entero postivo. El material es  uno de estos tres valores:  "consumible","indestructible","normal" (se admite primera letra mayúscula). No puedes añadir un item con un nombre o id ya existente
  
  - Ejemplo de respuesta exitosa: 
 
