@@ -46,7 +46,7 @@ curl --location --request GET 'http://localhost:3000/packs/<nombre>'
 - Requisitos: tiene que ser un nombre de un pack que exista en la BD, es case-sensitive.
 
 - Ejemplo de respuesta exitosa: 
- <details open>
+ <details>
  <summary>Ver respuesta</summary>
 
  ```
@@ -146,7 +146,7 @@ curl --location --request PUT 'http://localhost:3000/packs/<nombre del pack>/upd
 ```
 - Requisitos: El nombre tiene que ser de un pack que exista, los ids tienen que ser de items que existan.
 - Ejemplo de respuesta exitosa:
- <details open>
+ <details>
  <summary>Ver respuesta</summary>
  
  ```
@@ -214,7 +214,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 
 
 - Ejemplo de respuesta exitosa:
- <details open>
+ <details>
  <summary>Ver respuesta</summary>
  
 ```
