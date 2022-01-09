@@ -59,14 +59,7 @@ describe("Items Routes", () => {
       });
   });
 
-  test("Negative test POST createItem: no se pueden crear items con nombres repetidos: /items/add /", () => {
-    return request(app)
-      .post("/items/add")
-      .send(testData.negativePostNombreRepe)
-      .then((res) => {
-        expect(res.statusCode).toEqual(409);
-      });
-  });
+
 
   test("Negative test POST createItem: no se pueden crear items con id repetidos: /items/add /", () => {
     return request(app)
