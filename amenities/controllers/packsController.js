@@ -84,6 +84,8 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     if (!nombre || !items) {
       return res.sendStatus(400);
     }
+    Packs.findOne({ nombre: nombre }).then((packRepetido)=>{if (packRepetido){res.sendStatus(409)}
+
     Items.find({ _id: { $in: items } }).exec(function (err, result) {
       if (err) {
         return next(err);
@@ -93,11 +95,13 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
         //si intentas crear un pack con items que no existen: bad request
         return res.sendStatus(400);
       }
-      // console.log(result);
 
+      
       var pack = importaPack.makePack.createPack(nombre, result);
 
       //clono las variables de pack para hacer una instancia  del modelo para BD
+
+
       guardaPack = new Packs();
       for (const [key, value] of Object.entries(pack)) {
         guardaPack[key] = value;
@@ -106,12 +110,11 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
         if (err) {
           return next(err);
         }
-      });
+        res.status(201).type("json").json(pack);
+      });})
 
-      // Successful, so render.
-
-      res.status(201).type("json").json(pack); // enviamos la boleta de vuelta
-    });
+  }
+    );
   };
 
   /*
@@ -133,7 +136,6 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
         res.status(200).type("json").json(pack);
       });
 
-      // Successful, so render.
     });
   };
 

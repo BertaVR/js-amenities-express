@@ -7,7 +7,6 @@
     "test": "__test__"
   },
   "scripts": {
-    "cov": "coverage .",
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "serverstart": "cross-env NODE_ENV=development npm run devstart",
@@ -18,21 +17,19 @@
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
-    "coverage": "^0.4.1",
-    "cross-env": "^7.0.3",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "^0.29.0",
-    "mongoose": "^6.1.0",
+    "mongoose": "^6.0.14",
     "morgan": "~1.9.1",
-    "router": "^1.3.6",
-    "supertest": "^6.1.6"
+    "pug": "^3.0.2"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0",
+    "cross-env": "^7.0.3",
     "jest": "^27.4.3",
     "nodemon": "^2.0.15",
-    "randomstring": "^1.2.1"
+    "randomstring": "^1.2.1",
+    "supertest": "^6.1.6"
   }
 }
