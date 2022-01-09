@@ -84,7 +84,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     if (!nombre || !items) {
       return res.sendStatus(400);
     }
-    Packs.findOne({ nombre: nombre }).then((packRepetido)=>{if (packRepetido){res.sendStatus(409)}})
+    Packs.findOne({ nombre: nombre }).then((packRepetido)=>{if (packRepetido){res.sendStatus(409)}
 
     Items.find({ _id: { $in: items } }).exec(function (err, result) {
       if (err) {
@@ -111,7 +111,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
           return next(err);
         }
         res.status(201).type("json").json(pack);
-      });
+      });})
 
   }
     );

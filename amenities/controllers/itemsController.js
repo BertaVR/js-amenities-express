@@ -67,8 +67,7 @@ curl --location --request GET 'http://localhost:3000/items/
         if (packRepetido) {
           res.sendStatus(409);
         }
-      }
-    );
+      
 
     //Lo puedes crear eligiendo el id o no, si no lo especificas se genera automáticamente
     if (!req.body._id) {
@@ -103,6 +102,8 @@ curl --location --request GET 'http://localhost:3000/items/
 
       // Successful, so render.
     });
+  }
+  );
   };
 
   return {
