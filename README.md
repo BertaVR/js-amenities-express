@@ -313,7 +313,7 @@ curl --location --request POST 'http://localhost:3000/items/add' \
     "nombre": <nombre>,
     "precio": <precio>,
     "calidad": <calidad>,
-    "material": <consumible>,
+    "material": <material>,
     "demanda": <demanda>,
     "stock"
     : <stock>
