@@ -133,16 +133,9 @@ module.exports = [
     stock: 23,
     items: [
       ObjectId("61d594e784f9c213962d3122"),
-      {
-        nombre: {
-          $oid: "61d594e784f9c213962d3123",
-        },
-        precio: 3,
-        calidad: 10,
-        material: "normal",
-        stock: 42,
-        demanda: 77,
-      },
+
+      ObjectId("61d594e784f9c213962d3123"),
+
       ObjectId("61d594e784f9c213962d3124"),
     ],
     precio: 16.15,
@@ -159,7 +152,7 @@ module.exports = [
     ],
     precio: 21.25,
   },
-  
+
   {
     _id: ObjectId("61d2ef29d75d3770be82c9c8"),
     nombre: "Pack Terricola",
@@ -210,7 +203,7 @@ module.exports = [
     ],
     precio: 26.35,
   },
-  
+
   {
     _id: ObjectId("61d31060d75d3770bebc5874"),
     nombre: "Pack para niños",
@@ -270,5 +263,5 @@ module.exports = [
       ObjectId("61d594e784f9c213962d314f"),
       ObjectId("61d594e784f9c213962d314d"),
     ],
-  }
+  },
 ];
