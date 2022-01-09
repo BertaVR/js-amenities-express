@@ -86,7 +86,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     }
     Items.find({ _id: { $in: items } }).exec(function (err, result) {
       if (err) {
-        return res.sendStatus(500);
+        return next(err);
       }
 
       if (result.length < items.length) {
@@ -155,7 +155,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
       itemsFullInfo
     ) {
       if (err) {
-        return res.sendStatus(500);
+        return next(err);
       }
 
       if (itemsFullInfo.length < nuevosItems.length) {

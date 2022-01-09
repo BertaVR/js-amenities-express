@@ -1,0 +1,27 @@
+{
+  "name": "berta-store",
+  "version": "1.0.0",
+  "description": "\"Dominio de la API\"",
+  "main": "main.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node ./main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BertaVR/js-amenities-express.git"
+  },
+  "keywords": [
+    "closures",
+    "colecciones",
+    "destructuring",
+    "propiedades",
+    "objetos"
+  ],
+  "author": "Berta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BertaVR/js-amenities-express/issues"
+  },
+  "homepage": "https://github.com/BertaVR/js-amenities-express#readme"
+}

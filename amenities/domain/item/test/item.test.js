@@ -1,10 +1,11 @@
 const item = require("../item");
 const functions = item.functions;
 const maximoPropiedades = functions.numeroMaximoPropiedades;
+var randomstring = require("randomstring");
 
 beforeEach(() => {
   testItem = item.factory.createItem(
-    123,
+    randomstring.generate(7),
     "Nombre test",
     20.5,
     30,
@@ -15,21 +16,35 @@ beforeEach(() => {
 });
 describe("Propiedades de los items ", () => {
   test("Los items creados con factory tienen las propiadades", () => {
-
-    expect(testItem._id).toBe(123);
+    expect(testItem._id).toHaveLength(7);
     expect(testItem.nombre).toBe("Nombre test");
     expect(testItem.precio).toBe(20.5);
     expect(testItem.calidad).toBe(30);
     expect(testItem.material).toBe("indestructible");
     expect(testItem.demanda).toBe(20);
   });
+  test("No se puede crear un item con un id ya existente", () => {
+    let currentId = testItem._id;
+    expect(
+      item.factory.createItem(
+        currentId,
+        "hola",
+        20.5,
+        30,
+        "indestructible",
+        300,
+        20
+      )
+    ).toBe("Por favor no repita un id ya asignado a otro item");
+  });
 
   test("El id no se puede cambiar", () => {
     expect(Object.getOwnPropertyDescriptor(testItem, "_id").writable).toBe(
       false
     );
+    let currentId = testItem._id;
     testItem._id = 567;
-    expect(testItem._id).toBe(123);
+    expect(testItem._id).toBe(currentId);
   });
 
   test("La propiedad id es configurable, puedo cambiar _id a writable true", () => {
@@ -56,7 +71,6 @@ describe("Propiedades de los items ", () => {
 
 describe("Increase precio funciona bien", () => {
   test("Increase precio incremento positivo", () => {
-
     let incrementarCuatro = functions.increasePrecio(4);
     expect(incrementarCuatro(testItem)).toBe(24.5);
     expect(testItem.precio).toBe(24.5);
@@ -85,7 +99,6 @@ describe("Increase precio funciona bien", () => {
 
 describe("Increase stock funciona bien", () => {
   test("Increase stock incremento positivo", () => {
-
     let incrementarVeinte = functions.increaseStock(20);
     expect(incrementarVeinte(testItem)).toBe(320);
     expect(testItem.stock).toBe(320);
@@ -114,7 +127,6 @@ describe("Increase stock funciona bien", () => {
 
 describe("Increase calidad funciona bien", () => {
   test("Increase calidad incremento positivo", () => {
-
     let incrementarCuatro = functions.increaseCalidad(4);
     expect(incrementarCuatro(testItem)).toBe(34);
     expect(testItem.calidad).toBe(34);
@@ -163,7 +175,6 @@ describe("Increase calidad funciona bien", () => {
 
 describe("Increase demanda funciona bien", () => {
   test("Increase demanda incremento positivo", () => {
-
     let incrementarCuatro = functions.increaseDemanda(4);
     expect(incrementarCuatro(testItem)).toBe(24);
     expect(testItem.demanda).toBe(24);

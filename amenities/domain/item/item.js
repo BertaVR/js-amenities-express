@@ -15,6 +15,8 @@ const numeroMaximoPropiedades = (() => {
   };
 })();
 
+const usedIds = new Set();
+
 var factory = (() => {
   return {
     createItem: function (
@@ -26,6 +28,10 @@ var factory = (() => {
       stock,
       demanda
     ) {
+      if (usedIds.has(_id)) {
+        return "Por favor no repita un id ya asignado a otro item";
+      }
+      usedIds.add(_id);
       var item = new Item(
         _id,
         nombre,
@@ -38,7 +44,7 @@ var factory = (() => {
       // PROPIEDADES DE LOS OBJETOS: pongo el id de solo lectura
 
       Object.defineProperty(item, "_id", {
-       // value: _id,
+        // value: _id,
         writable: false, // not writable!
       });
       return item;
