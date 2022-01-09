@@ -5,6 +5,10 @@
 cd amenities
 ```
 A partir de ese directorio: 
+- Para instalar el proyecto:
+```shell script
+npm i
+```
 - Para pasar TODOS los casos test:
 ```shell script
 npm run test
