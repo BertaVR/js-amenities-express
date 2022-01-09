@@ -1,4 +1,10 @@
 # Proyecto API REST con node y express
+## Tabla de contenidos
+1. [Utilización](#utilización)
+2. [Rutas](#rutas)
+   * [Packs](#packs)
+   * [Items](#items)
+
 ## Utilización
 - El proyecto está en el directorio /amenities, para acceder al paquete del proyecto escriba en su terminal:
 ```shell script
