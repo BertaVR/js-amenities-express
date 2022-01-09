@@ -20,6 +20,7 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "jade": "^0.29.0",
     "mongoose": "^6.0.14",
     "morgan": "~1.9.1",
     "pug": "^3.0.2"
@@ -28,6 +29,7 @@
     "cross-env": "^7.0.3",
     "jest": "^27.4.3",
     "nodemon": "^2.0.15",
-    "supertest": "^6.1.6",
-    "randomstring": "^1.2.1"
-  } }
+    "randomstring": "^1.2.1",
+    "supertest": "^6.1.6"
+  }
+}
