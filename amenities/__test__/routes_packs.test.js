@@ -189,15 +189,8 @@ describe("Packs Routes", () => {
         expect(res.statusCode).toEqual(400);
       });
   });
-  test("Negative test updateItems  -  /packs/:nombre/updateItems /", () => {
-    let nombre = "Este pack no existe";
-    return request(app)
-      .put(`/packs/${nombre}/updateItems/`)
-      .send(testData.positiveUpdateItems1)
-      .then((res) => {
-        expect(res.statusCode).toEqual(404);
-      });
-  });
+
+
 
   test("Negative test POST 2 addPack: one of the items does not exist in db -  /packs /", () => {
     return request(app)
@@ -208,12 +201,20 @@ describe("Packs Routes", () => {
       });
   });
 
-  test("Destructive test POST addPack: request without name -  /packs /", () => {
+  test("Destructive test POST addPack: request without name -  /packs/add /", () => {
     return request(app)
       .post("/packs/add")
-      .send(testData.itemsNoSonId)
+      .send(testData.positivePost.items)
       .then((res) => {
-        expect(res.statusCode).toEqual(500);
+        expect(res.statusCode).toEqual(400);
+      });
+  });
+  test("Negative test POST addPack: nombre repetido -  /packs/add /", () => {
+    return request(app)
+      .post("/packs/add")
+      .send(testData.nombreRepe)
+      .then((res) => {
+        expect(res.statusCode).toEqual(409);
       });
   });
 
@@ -260,7 +261,10 @@ var testData = {
   },
   noItemsPost: { nombre: "Hello" },
   noNombrePost: { items: ["a", "b"] },
-  itemsNoSonId: { nombre: "Hello", items: ["a", "b"] },
+  nombreRepe: { nombre: "Pack brujas", items: [
+    "61d58aecd75d3770be584aed",
+
+  ] },
   positiveUpdateItems1: {
     items: [
       "61d594e784f9c213962d3111",

@@ -55,7 +55,25 @@ describe("Items Routes", () => {
       .post("/items/add")
       .send(testData.negativePostNombreRepe)
       .then((res) => {
-        expect(res.statusCode).toEqual(500);
+        expect(res.statusCode).toEqual(409);
+      });
+  });
+
+  test("Negative test POST createItem: no se pueden crear items con nombres repetidos: /items/add /", () => {
+    return request(app)
+      .post("/items/add")
+      .send(testData.negativePostNombreRepe)
+      .then((res) => {
+        expect(res.statusCode).toEqual(409);
+      });
+  });
+
+  test("Negative test POST createItem: no se pueden crear items con id repetidos: /items/add /", () => {
+    return request(app)
+      .post("/items/add")
+      .send(testData.negativePostIdRepetido)
+      .then((res) => {
+        expect(res.statusCode).toEqual(409);
       });
   });
 
@@ -65,10 +83,11 @@ describe("Items Routes", () => {
       .post("/items/add")
       .send(testData.negativePostFaltaUnCampo)
       .then((res) => {
-        console.log(res);
         expect(res.statusCode).toEqual(400);
       });
   });
+
+  
 
   test("Positive test getAllItems /items /", () => {
     return request(app)
@@ -123,4 +142,12 @@ var testData = {
     demanda: 30,
     stock: 5,
   },
+  negativePostIdRepetido :{_id:   "61d58b99d75d3770be596747",
+  nombre: "Super nombre",
+  precio: 10,
+  calidad: 50,
+  material: "normal",
+  demanda: 30,
+  stock: 5,
+  }
 };
