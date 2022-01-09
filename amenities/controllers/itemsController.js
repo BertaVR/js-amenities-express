@@ -21,7 +21,7 @@ var itemAPI = (function singleController() {
       res.status(200).type("json").json(item);
     });
   };
-/*
+  /*
 curl --location --request GET 'http://localhost:3000/items/
 */
   const getAllItems = (req, res, next) => {
@@ -61,6 +61,15 @@ curl --location --request GET 'http://localhost:3000/items/
       demanda: req.body.demanda,
       calidad: req.body.calidad,
     };
+
+    Items.findOne({ $or: [{ nombre: item.nombre }, { _id: item._id }] }).then(
+      (packRepetido) => {
+        if (packRepetido) {
+          res.sendStatus(409);
+        }
+      }
+    );
+
     //Lo puedes crear eligiendo el id o no, si no lo especificas se genera automáticamente
     if (!req.body._id) {
       item._id = mongoose.Types.ObjectId();
@@ -73,6 +82,7 @@ curl --location --request GET 'http://localhost:3000/items/
       item.demanda,
       item.calidad,
     ];
+
     mandatoryFields.forEach((mandatoryField) => {
       if (!mandatoryField) {
         return res.sendStatus(400);
