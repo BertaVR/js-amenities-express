@@ -22,7 +22,7 @@ npm run test __test__/*
 ```shell script
 npm run test domain/*/test
 ``````
-- Para iniciar el proyecto:
+- Para iniciar la API del proyecto:
 ```shell script
 npm run start
 ``````
