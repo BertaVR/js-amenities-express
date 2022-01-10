@@ -64,7 +64,7 @@ curl --location --request GET 'http://localhost:3000/items/
     Items.findOne({ $or: [{ nombre: item.nombre }, { _id: item._id }] }).then(
       (packRepetido) => {
         if (packRepetido) {
-          res.sendStatus(409);
+          return res.sendStatus(409);
         }
       
 
