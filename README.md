@@ -34,7 +34,7 @@ npm run test domain/*/test
 ```shell script
 npm run serverstart
 ``````
-- Para ejecutar el main del dominio:
+- Para ejecutar el main del dominio (desde el directorio /amenities):
 ```shell script
 cd domain
 ``````
@@ -403,6 +403,19 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 --header 'Content-Type: application/json' \
 --data-raw '{"nombre": "Nuevo nombre",
 "items": ["61d58b6fd75d3770be591ce0"]}'
+```
+- Test negativo crear packs -sin items (400).
+```
+curl --location --request POST 'http://localhost:3000/packs/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{    "nombre": "Nuevo nombre"   }'
+```
+
+- Test negativo crear packs -sin nombre (400).
+```
+curl --location --request POST 'http://localhost:3000/packs/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{    "items": ["61d58b6fd75d3770be591ce0"]   }'
 ```
 
 - Test get Items.
