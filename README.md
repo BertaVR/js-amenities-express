@@ -1,10 +1,10 @@
 # Proyecto API REST con node y express
 ## Tabla de contenidos
 1. [Utilización](#utilización)
-2. [Ejemplos casos](#ejemplos)
-4. [Rutas](#rutas)
+2. [Rutas](#rutas)
    * [Packs](#packs)
    * [Items](#items)
+3. [Ejemplos casos para correción](#ejemplos)
 
 
 ## Utilización
