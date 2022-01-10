@@ -383,6 +383,13 @@ curl --location --request PUT 'http://localhost:3000/packs/Nuevo nombre/updateIt
 --data-raw '{
 "items": ["61afc35457387547a0c0f6d9"]}'
 ```
+- Test negativo actualizar los items de un pack: no hay items en el body (400)
+```
+curl --location --request PUT 'http://localhost:3000/packs/Nuevo nombre/updateItems' \
+--header 'Content-Type: application/json' \
+--data-raw '{}'
+```
+
 - Test positivo actualizar items de un pack.
 ```
 curl --location --request PUT 'http://localhost:3000/packs/Nuevo nombre/updateItems' \
