@@ -68,7 +68,7 @@ console.assert(
 
 console.log(`\n
 El precio se calcula aplicando un 15% de descuento a la suma de los precios de todos los items: 
-${camello.nombre} (${camello.precio}), y ${caballo.nombre}(${camello.precio}).
+${camello.nombre} (${camello.precio}), y ${caballo.nombre}(${caballo.precio}).
 Se redondea a 2 decimales solo cuando sea necesario (p.e. si el precio es un número entero no aparecen decimales) \n`);
 
 console.log(` El stock del pack es igual al menor stock de los items.\n`);
