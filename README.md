@@ -10,12 +10,12 @@
 ## Utilización
 - El proyecto está en el directorio /amenities, para acceder al paquete del proyecto escriba en su terminal:
 ```shell script
-cd amenities
+ cd amenities
 ```
 A partir de ese directorio: 
 - Para instalar el proyecto:
 ```shell script
-npm i
+ npm i
 ```
 - Para pasar TODOS los casos test:
 ```shell script
@@ -34,7 +34,13 @@ npm run test domain/*/test
 ```shell script
 npm run serverstart
 ``````
-
+- Para ejecutar el main del dominio:
+```shell script
+cd domain
+``````
+```shell script
+npm run start
+``````
 ## Rutas
 ### PACKS
 **1. Ver todos los packs:**
