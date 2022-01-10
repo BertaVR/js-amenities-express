@@ -4,6 +4,8 @@
 2. [Rutas](#rutas)
    * [Packs](#packs)
    * [Items](#items)
+3. [Ejemplos casos para correción](#ejemplos)
+
 
 ## Utilización
 - El proyecto está en el directorio /amenities, para acceder al paquete del proyecto escriba en su terminal:
@@ -30,7 +32,7 @@ npm run test domain/*/test
 ``````
 - Para iniciar la API del proyecto:
 ```shell script
-npm run start
+npm run serverstart
 ``````
 
 ## Rutas
@@ -335,3 +337,123 @@ curl --location --request POST 'http://localhost:3000/items/add' \
     "calidad": 50
 }
  ```
+ ## Ejemplos
+ 
+ - Test positivo get Packs:
+ ```
+curl --location --request GET 'http://localhost:3000/packs/' 
+
+```
+- Test positivo get Pack:
+```
+ curl --location --request GET 'http://localhost:3000/packs/Pack piscina'
+ ```
+ 
+ - Test negativo get Pack (status 404):
+```
+ curl --location --request GET 'http://localhost:3000/packs/Pack delincuente'
+ ```
+ 
+  - Test negativo update Nombre - nuevo nombre es nombre de un pack que ya existe en BD (statusCode 409):
+```
+http://localhost:3000/packs/pack brujas/cambiarNombre/Nuevo Nombre
+```
+  - Test negativo update Nombre - nombre no existe del pack(statusCode 404:
+```
+http://localhost:3000/packs/pack que no existe/cambiarNombre/Nombre bonito
+
+```
+
+  - Test negativo delete pack(statusCode 404):
+
+```
+curl --location --request DELETE 'http://localhost:3000/packs/pack que no existe'
+```
+
+- Test negativo actualizar los items de un pack: itmes que no existen (400)
+```
+curl --location --request PUT 'http://localhost:3000/packs/Nuevo nombre/updateItems' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"items": ["61afc35457387547a0c0f6d9"]}'
+```
+- Test positivo actualizar items de un pack.
+```
+curl --location --request PUT 'http://localhost:3000/packs/Nuevo nombre/updateItems' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"items": ["61d58b6fd75d3770be591ce0"]}'
+```
+- Test negativo crear packs -item que no existe (400).
+```
+curl --location --request POST 'http://localhost:3000/packs/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{"nombre": "Nuevo pack para crear",
+"items": ["61d58b6fd75d3770be581ce0"]}'
+```
+- Test negativo crear packs -nombre que ya existe (409).
+```
+curl --location --request POST 'http://localhost:3000/packs/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{"nombre": "Nuevo nombre",
+"items": ["61d58b6fd75d3770be591ce0"]}'
+```
+
+- Test get Items.
+```
+curl --location --request GET 'http://localhost:3000/items/' 
+
+```
+- Test positivo get item:
+```
+curl --location --request GET 'http://localhost:3000/items/' 
+
+```
+- Test negativo get item - item que no existe (404);
+```
+curl --location --request GET 'http://localhost:3000/items/AK-48'
+```
+- Test negativo create item -  id repetido (409);
+```
+curl --location --request POST 'http://localhost:3000/items/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{ "_id":"61d58b6fd75d3770be591ce0",
+    "nombre": "Item super mega nuevísimo",
+    "precio": 20,
+    "calidad": 29,
+    "material": "indestructible",
+    "demanda": 8,
+    "stock" : 20
+    }'
+```
+
+- Test negativo create item -  nombre repetido (409);
+```
+curl --location --request POST 'http://localhost:3000/items/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{ 
+    "nombre": "Item super mega nuevo",
+    "precio": 20,
+    "calidad": 29,
+    "material": "indestructible",
+    "demanda": 8,
+    "stock" : 20
+    }'
+
+```
+
+- Test negativo create item - falta un campo obligatorio (400)
+```
+curl --location --request POST 'http://localhost:3000/items/add' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "precio": 20,
+    "calidad": 29,
+    "material": "indestructible",
+    "demanda": 8,
+    "stock" : 20
+    }'
+
+```
+
+- Nota: No he incluído tests positivos de endpoints que modifican el estado de la BD ya que solo funcionarían una vez
