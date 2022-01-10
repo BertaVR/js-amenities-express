@@ -228,6 +228,17 @@ describe("Packs Routes", () => {
       });
   });
 
+  test("Negatobe test updateNombre: no se puede usar un nombre ya guardado  -  /packs/:nombre/cambiarNombre/:nuevoNombre /", () => {
+    let nombre = "Pack Squanchy Style";
+    let nuevoNombre = "Pack brujas";
+    return request(app)
+      .put(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
+      .then((res) => {
+        expect(res.statusCode).toEqual(409);
+
+      });
+  });
+
   test("Positive test updateNombre  -  /packs/:nombre/cambiarNombre/:nuevoNombre /", () => {
     let nombre = "Pack para Gangsters";
     let nuevoNombre = "Pack tortuga";
@@ -241,6 +252,8 @@ describe("Packs Routes", () => {
       });
   });
 });
+
+
 
 var testData = {
   positivePost: {
