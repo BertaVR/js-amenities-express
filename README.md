@@ -4,7 +4,7 @@
 2. [Rutas](#rutas)
    * [Packs](#packs)
    * [Items](#items)
-3. [Ejemplos casos - para correción del proyecto](#ejemplos casos - para correción del proyecto)
+3. [Ejemplos casos](#ejemplos casos)
 
 ## Utilización
 - El proyecto está en el directorio /amenities, para acceder al paquete del proyecto escriba en su terminal:
@@ -336,7 +336,8 @@ curl --location --request POST 'http://localhost:3000/items/add' \
     "calidad": 50
 }
  ```
- ## Ejemplos casos - para correción del proyecto
+ ## Ejemplos casos
+ 
  - Test positivo get Packs:
  ```
 curl --location --request GET 'http://localhost:3000/packs/' 
