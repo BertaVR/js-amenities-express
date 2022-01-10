@@ -1,8 +1,8 @@
 # Proyecto API REST con node y express
 ## Tabla de contenidos
 1. [Utilización](#utilización)
-2. [Ejemplos casos](#ejemplos casos)
-3. [Rutas](#rutas)
+2. [Ejemplos casos](#ejemplos)
+4. [Rutas](#rutas)
    * [Packs](#packs)
    * [Items](#items)
 
@@ -337,7 +337,7 @@ curl --location --request POST 'http://localhost:3000/items/add' \
     "calidad": 50
 }
  ```
- ## Ejemplos casos
+ ## Ejemplos
  
  - Test positivo get Packs:
  ```
