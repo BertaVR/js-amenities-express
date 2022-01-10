@@ -122,12 +122,15 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 --data-raw '' */
 
   const updateNombre = (req, res, next) => {
+
     Packs.findOne({
       nombre: req.params.nombre,
     }).then((pack) => {
       if (!pack) {
         return res.sendStatus(404);
       }
+      Packs.findOne({ nombre: req.params.nuevoNombre }).then((packRepetido)=>{if (packRepetido){res.sendStatus(409)};
+
       pack.nombre = req.params.nuevoNombre;
       pack.save(function (err) {
         if (err) {
@@ -135,9 +138,9 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
         }
         res.status(200).type("json").json(pack);
       });
-
+    })
     });
-  };
+    };
 
   /*
   curl --location --request PUT 'http://localhost:3000/packs/Pack Donald Trump/updateItems' \
