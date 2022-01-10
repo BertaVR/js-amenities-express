@@ -100,7 +100,7 @@ bajarCalidad10(capybara);
 incrementarPrecio1000(capybara);
 incrementarStock50(capybara);
 incrementarPrecio1000(capybara);
-
+incrementarDemanda10(capybara)
 console.log(capybara);
 console.log(
   " \n Se pueden añadir items y entonces las propiedades del pack cambian:"
