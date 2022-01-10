@@ -34,7 +34,7 @@ npm run test domain/*/test
 ```shell script
 npm run serverstart
 ``````
-- Para ejecutar el main del dominio:
+- Para ejecutar el main del dominio (desde el directorio /amenities):
 ```shell script
 cd domain
 ``````
