@@ -4,7 +4,7 @@
 2. [Rutas](#rutas)
    * [Packs](#packs)
    * [Items](#items)
-3. [Ejemplos casos - para correción del proyecto](#Ejemplos casos - para correción del proyecto)
+3. [Ejemplos casos - para correción del proyecto](#ejemplos casos - para correción del proyecto)
 
 ## Utilización
 - El proyecto está en el directorio /amenities, para acceder al paquete del proyecto escriba en su terminal:
