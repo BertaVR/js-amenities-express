@@ -30,7 +30,7 @@ npm run test domain/*/test
 ``````
 - Para iniciar la API del proyecto:
 ```shell script
-npm run start
+npm run serverstart
 ``````
 
 ## Rutas
