@@ -336,7 +336,7 @@ curl --location --request POST 'http://localhost:3000/items/add' \
     "calidad": 50
 }
  ```
- ## Ejemplos casos
+## Ejemplos casos
  
  - Test positivo get Packs:
  ```
