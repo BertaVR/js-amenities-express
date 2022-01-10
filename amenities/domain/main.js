@@ -142,7 +142,13 @@ console.log(
 console.log(filterManager.findPackByNombre("Pack que no existe"));
 
 console.log("\n También hay una función de ordenar:");
+
+console.log("\n Por precio ascendente:");
 console.log(filterManager.sortByPrice());
+
+console.log("\n Por precio descendiente:");
+console.log(filterManager.sortByPrice(inventario, 'DESC'));
+
 
 console.log(
   "\n Si no se especifica en el parámetro los filtros y el sort se aplican al inventario de la tienda, sin embargo; se pueden filtrar otros packs"
@@ -171,3 +177,9 @@ let packsFueraDeInventario =  new Set([
   }]);
 
 console.log(filterManager.findPackByNombre("Pack2",packsFueraDeInventario));
+
+console.log('Finalmente se puede elimininar el inventario')
+
+storeManager.clearInventario();
+
+console.log(storeManager.getInventario)
