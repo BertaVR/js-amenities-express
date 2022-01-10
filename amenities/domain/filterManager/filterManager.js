@@ -87,7 +87,7 @@ FilterManager.prototype.filterByContainsItem = function (
     for (item of pack.items) {
       // FOR OF
       // Uso for OF porque itero en un array
-      if (item.name == itemName) {
+      if (item.nombre == itemName) {
         //CONDICIONAL
         arrayFilteredResults.push(pack); //MANAGING ARRAYS
         break;
