@@ -84,37 +84,37 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     if (!nombre || !items) {
       return res.sendStatus(400);
     }
-    Packs.findOne({ nombre: nombre }).then((packRepetido)=>{if (packRepetido){res.sendStatus(409)}
-
-    Items.find({ _id: { $in: items } }).exec(function (err, result) {
-      if (err) {
-        return next(err);
+    Packs.findOne({ nombre: nombre }).then((packRepetido) => {
+      if (packRepetido) {
+        return res.sendStatus(409);
       }
 
-      if (result.length < items.length) {
-        //si intentas crear un pack con items que no existen: bad request
-        return res.sendStatus(400);
-      }
-
-      
-      var pack = importaPack.makePack.createPack(nombre, result);
-
-      //clono las variables de pack para hacer una instancia  del modelo para BD
-
-
-      guardaPack = new Packs();
-      for (const [key, value] of Object.entries(pack)) {
-        guardaPack[key] = value;
-      }
-      guardaPack.save(function (err) {
+      Items.find({ _id: { $in: items } }).exec(function (err, result) {
         if (err) {
           return next(err);
         }
-        res.status(201).type("json").json(pack);
-      });})
 
-  }
-    );
+        if (result.length < items.length) {
+          //si intentas crear un pack con items que no existen: bad request
+          return res.sendStatus(400);
+        }
+
+        var pack = importaPack.makePack.createPack(nombre, result);
+
+        //clono las variables de pack para hacer una instancia  del modelo para BD
+
+        guardaPack = new Packs();
+        for (const [key, value] of Object.entries(pack)) {
+          guardaPack[key] = value;
+        }
+        guardaPack.save(function (err) {
+          if (err) {
+            return next(err);
+          }
+          res.status(201).type("json").json(pack);
+        });
+      });
+    });
   };
 
   /*
@@ -128,14 +128,19 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
       if (!pack) {
         return res.sendStatus(404);
       }
-      pack.nombre = req.params.nuevoNombre;
-      pack.save(function (err) {
-        if (err) {
-          return next(err);
+      Packs.findOne({ nombre: req.params.nuevoNombre }).then((packRepetido) => {
+        if (packRepetido) {
+          return res.sendStatus(409);
         }
-        res.status(200).type("json").json(pack);
-      });
 
+        pack.nombre = req.params.nuevoNombre;
+        pack.save(function (err) {
+          if (err) {
+            return next(err);
+          }
+          res.status(200).type("json").json(pack);
+        });
+      });
     });
   };
 
@@ -151,7 +156,9 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     */
     let nuevosItems = req.body.items;
     let nombrePack = req.params.nombre;
-
+    if (!nuevosItems) {
+      return res.sendStatus(400);
+    }
     Items.find({ _id: { $in: nuevosItems } }).exec(function (
       err,
       itemsFullInfo

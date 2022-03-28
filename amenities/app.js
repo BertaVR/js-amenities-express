@@ -4,7 +4,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
+var cors = require("cors");
 //CONNECTION
 
 var mongoConfig = require("./db/mongoConfig");
@@ -15,6 +15,7 @@ var db = mongoConfig.mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
