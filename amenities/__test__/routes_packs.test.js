@@ -124,13 +124,21 @@ describe("Packs Routes", () => {
       });
   });
 
+  test("Negative test body sin campo items  -  /packs/:nombre/updateItems /", () => {
+    let nombre = "Pack brujas";
+    return request(app)
+      .put(`/packs/${nombre}/updateItems/`)
+      .then((res) => {
+        expect(res.statusCode).toEqual(400);
+      });
+  });
+
   test("Positive test updateItems  -  /packs/:nombre/updateItems /", () => {
     let nombre = "Pack brujas";
     return request(app)
       .put(`/packs/${nombre}/updateItems/`)
       .send(testData.positiveUpdateItems1)
       .then((res) => {
-
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty("_id", "61d2e1ded75d3770be6c7209");
@@ -154,7 +162,6 @@ describe("Packs Routes", () => {
       .put(`/packs/${nombre}/updateItems/`)
       .send(testData.positiveUpdateItems2)
       .then((res) => {
-
         expect(res.get("Content-Type")).toEqual(expect.stringMatching("/json"));
         expect(res.statusCode).toEqual(200);
         expect(res.body).toHaveProperty("_id", "61d2e1ded75d3770be6c7209");
@@ -189,8 +196,6 @@ describe("Packs Routes", () => {
         expect(res.statusCode).toEqual(400);
       });
   });
-
-
 
   test("Negative test POST 2 addPack: one of the items does not exist in db -  /packs /", () => {
     return request(app)
@@ -228,6 +233,16 @@ describe("Packs Routes", () => {
       });
   });
 
+  test("Negatobe test updateNombre: no se puede usar un nombre ya guardado  -  /packs/:nombre/cambiarNombre/:nuevoNombre /", () => {
+    let nombre = "Pack Squanchy Style";
+    let nuevoNombre = "Pack brujas";
+    return request(app)
+      .put(`/packs/${nombre}/cambiarNombre/${nuevoNombre}`)
+      .then((res) => {
+        expect(res.statusCode).toEqual(409);
+      });
+  });
+
   test("Positive test updateNombre  -  /packs/:nombre/cambiarNombre/:nuevoNombre /", () => {
     let nombre = "Pack para Gangsters";
     let nuevoNombre = "Pack tortuga";
@@ -261,10 +276,7 @@ var testData = {
   },
   noItemsPost: { nombre: "Hello" },
   noNombrePost: { items: ["a", "b"] },
-  nombreRepe: { nombre: "Pack brujas", items: [
-    "61d58aecd75d3770be584aed",
-
-  ] },
+  nombreRepe: { nombre: "Pack brujas", items: ["61d58aecd75d3770be584aed"] },
   positiveUpdateItems1: {
     items: [
       "61d594e784f9c213962d3111",

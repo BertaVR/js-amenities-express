@@ -28,7 +28,7 @@ function getNames(arrayOfPacks) {
 // al añadir la clase pack manager me he dado cuenta de que todo era dependiente de la estructura de los packs
 FilterManager.prototype.filterByMaxPrice = function (
   maxPrice,
-  inventory = this.getStore().getInventory()
+  inventory = this.getStore().getInventario()
 ) {
   let results = Array.from(inventory).filter((p) => p.precio <= maxPrice);
 
@@ -42,7 +42,7 @@ FilterManager.prototype.filterByMaxPrice = function (
 
 FilterManager.prototype.filterByMinPrice = function (
   minPrice,
-  inventory = this.getStore().getInventory()
+  inventory = this.getStore().getInventario()
 ) {
   let results = Array.from(inventory).filter((p) => p.precio >= minPrice);
 
@@ -87,7 +87,7 @@ FilterManager.prototype.filterByContainsItem = function (
     for (item of pack.items) {
       // FOR OF
       // Uso for OF porque itero en un array
-      if (item.name == itemName) {
+      if (item.nombre == itemName) {
         //CONDICIONAL
         arrayFilteredResults.push(pack); //MANAGING ARRAYS
         break;
@@ -122,7 +122,7 @@ FilterManager.prototype.filterByNumberOfItems = function (
 
 //a nivel de SRP molaría más hacer 2 funciones distintas (ascendiente y descendiente), pero quería poner lógica
 FilterManager.prototype.sortByPrice = function (
-  inventory = this.getStore().getInventory(),
+  inventory = this.getStore().getInventario(),
   order = "ASC"
 ) {
   return Array.from(inventory).sort((a, b) =>
