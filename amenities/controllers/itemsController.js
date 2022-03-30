@@ -61,11 +61,7 @@ curl --location --request GET 'http://localhost:3000/items/
       calidad: req.body.calidad,
     };
 
-    Items.findOne({ $or: [{ nombre: item.nombre }, { _id: item._id }] }).then(
-      (packRepetido) => {
-        if (packRepetido) {
-          return res.sendStatus(409);
-        }
+
       
 
     //Lo puedes crear eligiendo el id o no, si no lo especificas se genera automáticamente
@@ -86,6 +82,12 @@ curl --location --request GET 'http://localhost:3000/items/
         return res.sendStatus(400);
       }
     });
+
+    Items.findOne({ $or: [{ nombre: item.nombre }, { _id: item._id }] }).then(
+      (packRepetido) => {
+        if (packRepetido) {
+          return res.sendStatus(409);
+        }
 
     /* propiedades.forEach(propiedad => {
       propiedad = req.body[propiedad]*/
