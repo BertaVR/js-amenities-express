@@ -219,7 +219,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
 --data-raw '{
     "nombre": <nombre>,
     "items": [
-        <ids de los items>
+        <nombres de los items>
     ]
 }'
 ```
