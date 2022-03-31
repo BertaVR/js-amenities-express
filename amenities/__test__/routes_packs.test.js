@@ -94,14 +94,14 @@ describe("Packs Routes", () => {
         expect(res.body).toHaveProperty("precio");
 
         expect(res.body.items).toBeTruthy();
-        expect(res.body.items[0].nombre).toBe("Poción del arcoiris");
+        expect(res.body.items[0].nombre).toBe("Bandera nacional");
         expect(res.body.items[0]).toHaveProperty("nombre");
         expect(res.body.items[0]).toHaveProperty("stock");
         expect(res.body.items[0]).toHaveProperty("calidad");
         expect(res.body.items[0]).toHaveProperty("precio");
         expect(res.body.items[0]).toHaveProperty("demanda");
-        expect(res.body.items[1].nombre).toBe("Bandera nacional");
-        expect(res.body.items[2].nombre).toBe("Bañador de invisibilidad");
+        expect(res.body.items[2].nombre).toBe("Poción del arcoiris");
+        expect(res.body.items[1].nombre).toBe("Bañador de invisibilidad");
         expect(res.body.items.length).toBe(3);
         expect(res.body.nombre).toBe("Hello");
       });
@@ -262,9 +262,9 @@ var testData = {
   positivePost: {
     nombre: "Hello",
     items: [
-      "61d594e784f9c213962d3111",
-      "61d58b99d75d3770be596747",
-      "61d594e784f9c213962d3112",
+      "Poción del arcoiris",
+      "Bandera nacional",
+      "Bañador de invisibilidad",
     ],
   },
   unItemNoExiste: {

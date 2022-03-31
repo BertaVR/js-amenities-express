@@ -89,7 +89,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
         return res.sendStatus(409);
       }
 
-      Items.find({ _id: { $in: items } }).exec(function (err, result) {
+      Items.find({ nombre: { $in: items } }).exec(function (err, result) {
         if (err) {
           return next(err);
         }
