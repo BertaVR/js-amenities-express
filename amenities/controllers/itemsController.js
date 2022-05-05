@@ -79,9 +79,18 @@ curl --location --request GET 'http://localhost:3000/items/
 
     mandatoryFields.forEach((mandatoryField) => {
       if (!mandatoryField) {
-        return res.sendStatus(400);
+        res.status(400).send(JSON.stringify({ statusCode: 400, error: `Falta el campo obligatorio ${mandatoryField}`} ))
+
       }
     });
+    // PENDING TO TEST MESSSAGE ERROR
+
+    Items.findOne({ $or: [{ nombre: item.nombre }, { _id: item._id }] }).then(
+      (packRepetido) => {
+        if (packRepetido) {
+           res.status(409).send(JSON.stringify({ statusCode: 409, error: 'Ya existe un item en el inventario con ese nombre'} ))
+          
+        }
 
     Items.findOne({ $or: [{ nombre: item.nombre }, { _id: item._id }] }).then(
       (packRepetido) => {
@@ -99,7 +108,7 @@ curl --location --request GET 'http://localhost:3000/items/
       if (err) {
         return next(err);
       }
-      res.status(201).type("json").json(item); // enviamos la boleta de vuelta
+      res.status(201).type("json").json(item); 
 
       // Successful, so render.
     });
