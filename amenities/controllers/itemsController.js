@@ -61,9 +61,6 @@ curl --location --request GET 'http://localhost:3000/items/
       calidad: req.body.calidad,
     };
 
-
-      
-
     //Lo puedes crear eligiendo el id o no, si no lo especificas se genera automáticamente
     if (!req.body._id) {
       item._id = mongoose.Types.ObjectId();
@@ -79,8 +76,14 @@ curl --location --request GET 'http://localhost:3000/items/
 
     mandatoryFields.forEach((mandatoryField) => {
       if (!mandatoryField) {
-        res.status(400).send(JSON.stringify({ statusCode: 400, error: `Falta el campo obligatorio ${mandatoryField}`} ))
-
+        res
+          .status(400)
+          .send(
+            JSON.stringify({
+              statusCode: 400,
+              error: `Falta el campo obligatorio ${mandatoryField}`,
+            })
+          );
       }
     });
     // PENDING TO TEST MESSSAGE ERROR
@@ -88,32 +91,32 @@ curl --location --request GET 'http://localhost:3000/items/
     Items.findOne({ $or: [{ nombre: item.nombre }, { _id: item._id }] }).then(
       (packRepetido) => {
         if (packRepetido) {
-           res.status(409).send(JSON.stringify({ statusCode: 409, error: 'Ya existe un item en el inventario con ese nombre'} ))
-          
+          res
+            .status(409)
+            .send(
+              JSON.stringify({
+                statusCode: 409,
+                error: "Ya existe un item en el inventario con ese nombre",
+              })
+            );
         }
 
-    Items.findOne({ $or: [{ nombre: item.nombre }, { _id: item._id }] }).then(
-      (packRepetido) => {
-        if (packRepetido) {
-          return res.sendStatus(409);
-        }
-
-    /* propiedades.forEach(propiedad => {
+        /* propiedades.forEach(propiedad => {
       propiedad = req.body[propiedad]*/
-    guardaItem = new Items();
-    for (const [key, value] of Object.entries(item)) {
-      guardaItem[key] = value;
-    }
-    guardaItem.save(function (err, item) {
-      if (err) {
-        return next(err);
-      }
-      res.status(201).type("json").json(item); 
+        guardaItem = new Items();
+        for (const [key, value] of Object.entries(item)) {
+          guardaItem[key] = value;
+        }
+        guardaItem.save(function (err, item) {
+          if (err) {
+            return next(err);
+          }
+          res.status(201).type("json").json(item);
 
-      // Successful, so render.
-    });
-  }
-  );
+          // Successful, so render.
+        });
+      }
+    );
   };
 
   return {
