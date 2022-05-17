@@ -172,8 +172,8 @@ describe("Packs Routes", () => {
         expect(res.body.items[0]).toHaveProperty("calidad");
         expect(res.body.items[0]).toHaveProperty("nombre");
         expect(res.body.items[0]).toHaveProperty("precio");
-        expect(res.body.stock).toBe(2);
-        expect(res.body.precio).toBe(5.95);
+        expect(res.body.stock).toBe(63);
+        expect(res.body.precio).toBe(8.5);
         expect(res.body.calidad).toBe("basic");
       });
   }, 10000);
@@ -269,9 +269,8 @@ var testData = {
   unItemNoExiste: {
     nombre: "Hello",
     items: [
-      "61d58aecd75d3770be584aed",
-      "61d58b99d75d3770be596746",
-      "61d5905cd75d3770be621b46",
+      "dsa",
+      "Poción del arcoiris",
     ],
   },
   noItemsPost: { nombre: "Hello" },
@@ -279,19 +278,20 @@ var testData = {
   nombreRepe: { nombre: "Pack brujas", items: ["61d58aecd75d3770be584aed"] },
   positiveUpdateItems1: {
     items: [
-      "61d594e784f9c213962d3111",
-      "61d58b99d75d3770be596747",
-      "61d594e784f9c213962d3112",
+      "Poción del arcoiris",
+      "Bandera nacional",
+      "Bañador de invisibilidad",
     ],
   },
   positiveUpdateItems2: {
-    items: ["61d594e784f9c213962d3116", "61d594e784f9c213962d311d"],
+    items: [      "Poción del arcoiris",
+    "Bañador de invisibilidad"],
   },
   updateItemNotFound: {
     items: [
-      "61d58aecd75d3770be584aed",
-      "61d58b99d75d3770be596746",
-      "61d5905cd75d3770be621b46",
+      "aa",
+      "bb",
+      "vv",
     ],
   },
 };
