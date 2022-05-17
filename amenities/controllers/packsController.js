@@ -159,7 +159,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     if (!nuevosItems) {
       return res.sendStatus(400);
     }
-    Items.find({ _id: { $in: nuevosItems } }).exec(function (
+    Items.find({ nombre: { $in: nuevosItems } }).exec(function (
       err,
       itemsFullInfo
     ) {

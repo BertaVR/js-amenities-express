@@ -156,9 +156,9 @@ curl --location --request DELETE 'http://localhost:3000/packs/<nombre>/'
 ```
 curl --location --request PUT 'http://localhost:3000/packs/<nombre del pack>/updateItems' \
 --header 'Content-Type: application/json' \
---data-raw '{"items":[<ids de los items>]}'
+--data-raw '{"items":[<nombres de los items>]}'
 ```
-- Requisitos: El nombre tiene que ser de un pack que exista, los ids tienen que ser de items que existan.
+- Requisitos: El nombre tiene que ser de un pack que exista, los nombres de items tienen que ser de items que existan.
 - Ejemplo de respuesta exitosa:
  <details>
  <summary>Ver respuesta</summary>
@@ -223,7 +223,7 @@ curl --location --request POST 'http://localhost:3000/packs/add' \
     ]
 }'
 ```
-- Requisitos: Tiene que tener nombre, tiene que tener items, los items tienen que ser ids que existan en la colección de items. No hace falta poner precio, stock ni calidad ya que de eso se encargará la lógica del dominio. No puedes añadir un pack con un nombre ya existente.
+- Requisitos: Tiene que tener nombre, tiene que tener items, los items tienen que ser nombres que existan en la colección de items. No hace falta poner precio, stock ni calidad ya que de eso se encargará la lógica del dominio. No puedes añadir un pack con un nombre ya existente.
 
 
 
