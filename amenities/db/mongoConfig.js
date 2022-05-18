@@ -1,24 +1,21 @@
 
 var mongoose = require('mongoose');
-
+require('dotenv').config()
 /**
  * NODE_ENV=development
  * NODE_ENV=production
  * NODE_ENV=test
  */
 var databaseUri = {
-    production: `mongodb+srv://m001-student:m001-mongodb-basics@sandbox.rpuy3.mongodb.net/Store?retryWrites=true&w=majority`,
 
-    //production: `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@sandbox.rpuy3.mongodb.net/Store?retryWrites=true&w=majority`,
+    production: `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@sandbox.rpuy3.mongodb.net/Store?retryWrites=true&w=majority`,
 
 
-    development: `mongodb+srv://m001-student:m001-mongodb-basics@sandbox.rpuy3.mongodb.net/Store?retryWrites=true&w=majority`,
 
-    //development: `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@sandbox.rpuy3.mongodb.net/Store?retryWrites=true&w=majority`,
+    development: `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@sandbox.rpuy3.mongodb.net/Store?retryWrites=true&w=majority`,
     
-    test: `mongodb+srv://m001-student:m001-mongodb-basics@sandbox.rpuy3.mongodb.net/Store_test?retryWrites=true&w=majority`
 
-    //test: `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@sandbox.rpuy3.mongodb.net/Store_test?retryWrites=true&w=majority`
+    test: `mongodb+srv://${process.env.ATLAS_USER}:${process.env.ATLAS_PASSWORD}@sandbox.rpuy3.mongodb.net/Store_test?retryWrites=true&w=majority`
 }
 
 module.exports = {
